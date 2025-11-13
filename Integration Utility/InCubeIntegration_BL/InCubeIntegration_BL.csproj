@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A28F0FFC-11B6-4DAF-8A6C-6F699A2DA5C6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InCubeIntegration_BL</RootNamespace>
+    <AssemblyName>InCubeIntegration_BL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\RoadNet\Business.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAccess">
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\RoadNet\DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\Excel\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamics.GP.eConnect, Version=11.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\E-Connect\18.0\Microsoft.Dynamics.GP.eConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamics.GP.eConnect.Serialization, Version=11.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\E-Connect\18.0\Microsoft.Dynamics.GP.eConnect.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.18.3, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="sapnco, Version=3.0.0.42, Culture=neutral, PublicKeyToken=50436dca5c7f7d23, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\SAP Connector\3.0.14\sapnco.dll</HintPath>
+    </Reference>
+    <Reference Include="sapnco_utils, Version=3.0.0.42, Culture=neutral, PublicKeyToken=50436dca5c7f7d23, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\AssemblyCache\AssemblyCache\SAP Connector\3.0.14\sapnco_utils.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business Managers\ApplicationManager.cs" />
+    <Compile Include="Business Managers\ConfigurationsManger.cs" />
+    <Compile Include="Business Managers\DataTransferManager.cs" />
+    <Compile Include="Business Managers\DBColumn.cs" />
+    <Compile Include="Business Managers\EmployeeManager.cs" />
+    <Compile Include="Business Managers\ExcelManager.cs" />
+    <Compile Include="Business Managers\ExecutionManager.cs" />
+    <Compile Include="Business Managers\FilesManager.cs" />
+    <Compile Include="Business Managers\MailManager.cs" />
+    <Compile Include="Business Managers\OrganizationManager.cs" />
+    <Compile Include="Business Managers\Parameter.cs" />
+    <Compile Include="Business Managers\Procedure.cs" />
+    <Compile Include="Business Managers\RoadNetManager.cs" />
+    <Compile Include="Business Managers\TargetsManager.cs" />
+    <Compile Include="Business Managers\Tools.cs" />
+    <Compile Include="Integration Classes\IntegrationAINFoodTruck.cs" />
+    <Compile Include="Integration Classes\IntegrationAttar.cs" />
+    <Compile Include="Integration Classes\IntegrationCezar.cs" />
+    <Compile Include="Integration Classes\IntegrationHammodeh.cs" />
+    <Compile Include="Integration Classes\IntegrationKhraim.cs" />
+    <Compile Include="Integration Classes\IntegrationESF_Old.cs" />
+    <Compile Include="Integration Classes\IntegrationMasafi.cs" />
+    <Compile Include="Integration Classes\IntegrationNEDM.cs" />
+    <Compile Include="Integration Classes\IntegrationPepsiPal.cs" />
+    <Compile Include="Integration Classes\IntegrationAwal.cs" />
+    <Compile Include="Integration Classes\IntegrationAnabtawi.cs" />
+    <Compile Include="Integration Classes\IntegrationDelMonteJordan.cs" />
+    <Compile Include="Integration Classes\IntegrationFilters.cs" />
+    <Compile Include="Integration Classes\IntegrationDelMonte.cs" />
+    <Compile Include="Integration Classes\IntegrationHassani.cs" />
+    <Compile Include="Integration Classes\IntegrationJeema.cs" />
+    <Compile Include="Integration Classes\IntegrationQNIE.cs" />
+    <Compile Include="Integration Classes\IntegrationQNIEPresales.cs" />
+    <Compile Include="Integration Classes\IntegrationSeniora.cs" />
+    <Compile Include="Integration Classes\IntegrationShawar.cs" />
+    <Compile Include="Integration Classes\IntegrationTeleLink.cs" />
+    <Compile Include="Integration Classes\IntegrationUnitedFoods.cs" />
+    <Compile Include="Integration Classes\IntegrationUnitra.cs" />
+    <Compile Include="Integration Classes\IntegrationVodafone.cs" />
+    <Compile Include="Business Managers\WindowsServiceManager.cs" />
+    <Compile Include="Integration Classes\DaySequence.cs" />
+    <Compile Include="Integration Classes\GP_JMGPInvdLINE.cs" />
+    <Compile Include="Integration Classes\IntegrationAbuIssa.cs" />
+    <Compile Include="Integration Classes\IntegrationAIN.cs" />
+    <Compile Include="Integration Classes\IntegrationAreen.cs" />
+    <Compile Include="Integration Classes\IntegrationBase.cs" />
+    <Compile Include="Integration Classes\IntegrationBRF.cs" />
+    <Compile Include="Integration Classes\IntegrationESF.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Business Managers\WarehouseManager.cs" />
+    <Compile Include="Service References\Hammodeh_WS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UFC_Collections_WS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UFC_LoadRequest_WS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UFC_SalesOrder_WS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UFC_SalesReturns_WS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\BRF_SAP_WS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InCubeIntegration_DAL\InCubeIntegration_DAL.csproj">
+      <Project>{51318a85-8fec-4de4-8266-397f87522016}</Project>
+      <Name>InCubeIntegration_DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InCubeLibrary\InCubeLibrary.csproj">
+      <Project>{bf0ddb08-4cd6-42df-9b1e-e7e712384fd4}</Project>
+      <Name>InCubeLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BRF_SAP_WS\ITF_O_S_EnvRecArqPalm.wsdl" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_BusinessPartnerResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_CreditNoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_DeliveryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_InvoiceHDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_InvoiceNoPaymentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_PaymentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_Payment_InvoiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_ReserveInvoiceHDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_SalesOrderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Add_StockTransferRequestResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_AccountStatementResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_AddressesInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_BanksResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_CustomerStatementResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_DueInvoiceListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_ExchangeRateInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_InvoiceListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_ItemGroupsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_ItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_ItemSaleUoMResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_ItemSubGroupsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_ItemUoMResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_POS_InfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_PriceList_DResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_PriceList_HResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_SalesPersonItemGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_StoresResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_Stores_BalanceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\InCubeIntegration_BL.Hammodeh_WS.HH_Get_UserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Hammodeh_WS\Service.wsdl" />
+    <None Include="Service References\Hammodeh_WS\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Hammodeh_WS\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Hammodeh_WS\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Hammodeh_WS\Service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Hammodeh_WS\Service4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Hammodeh_WS\Service5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Hammodeh_WS\Service6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UFC_Collections_WS\FI PRD 500 COLLECTION.wsdl" />
+    <None Include="Service References\UFC_Collections_WS\InCubeIntegration_BL.UFC_Collections_WS.ZINVAN_COLLECTION_POST_C1Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_Collections_WS\InCubeIntegration_BL.UFC_Collections_WS.ZINVAN_COLLECTION_POST_C1Response1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_LoadRequest_WS\InCubeIntegration_BL.UFC_LoadRequest_WS.ZMM_INV_LOAD_POST_WSResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_LoadRequest_WS\InCubeIntegration_BL.UFC_LoadRequest_WS.ZMM_INV_LOAD_POST_WSResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_LoadRequest_WS\InCubeIntegration_BL.UFC_LoadRequest_WS.ZMM_INV_LOAD_REQ_WSResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_LoadRequest_WS\InCubeIntegration_BL.UFC_LoadRequest_WS.ZMM_INV_LOAD_REQ_WSResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_LoadRequest_WS\InCubeIntegration_BL.UFC_LoadRequest_WS.ZMM_INV_LOAD_RET_WSResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_LoadRequest_WS\InCubeIntegration_BL.UFC_LoadRequest_WS.ZMM_INV_LOAD_RET_WSResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_LoadRequest_WS\MM-PRD 500 LOAD REQ.wsdl" />
+    <None Include="Service References\UFC_SalesOrder_WS\InCubeIntegration_BL.UFC_SalesOrder_WS.ZsdInvanSalesOrderCrWservResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_SalesOrder_WS\InCubeIntegration_BL.UFC_SalesOrder_WS.ZsdInvanSalesOrderCrWservResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_SalesOrder_WS\SD PRD 500 SO PROCESSING.wsdl" />
+    <None Include="Service References\UFC_SalesReturns_WS\InCubeIntegration_BL.UFC_SalesReturns_WS.ZsdInvanSoToInvoicePostResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_SalesReturns_WS\InCubeIntegration_BL.UFC_SalesReturns_WS.ZsdInvanSoToInvoicePostResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UFC_SalesReturns_WS\SD-PRD500-INVOICE POSTING.wsdl" />
+    <None Include="System.Data.DataTable.datasource" />
+    <None Include="UFC_SAP_WS\Production\UFC_Collection.wsdl" />
+    <None Include="UFC_SAP_WS\Production\UFC_SalesOrder.wsdl" />
+    <None Include="UFC_SAP_WS\Production\UFC_SalesTransaction.wsdl" />
+    <None Include="UFC_SAP_WS\Quality\UFC_LoadRequest.wsdl" />
+    <None Include="UFC_SAP_WS\Quality\UFC_SalesOrder.wsdl" />
+    <None Include="UFC_SAP_WS\Quality\UFC_SalesTransaction.wsdl" />
+    <None Include="Web References\BRF_SAP_WS\DTP_EnvRecArqPalm_Resp.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\BRF_SAP_WS\ITF_O_S_EnvRecArqPalm.wsdl" />
+    <None Include="Web References\BRF_SAP_WS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="D:\TFS Workspaces\InCube UAE\InVan\Development Utilities\Integration Utility\InCubeIntegration_BL\BRF_SAP_WS\ITF_O_S_EnvRecArqPalm.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\BRF_SAP_WS\</RelPath>
+      <UpdateFromURL>D:\TFS Workspaces\InCube UAE\InVan\Development Utilities\Integration Utility\InCubeIntegration_BL\BRF_SAP_WS\ITF_O_S_EnvRecArqPalm.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>InCubeIntegration_BL_BRF_SAP_WS_ITF_O_S_EnvRecArqPalmService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="integration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Service References\Hammodeh_WS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Hammodeh_WS\configuration.svcinfo" />
+    <None Include="Service References\Hammodeh_WS\configuration91.svcinfo" />
+    <None Include="Service References\Hammodeh_WS\Service.disco" />
+    <None Include="Service References\UFC_SalesReturns_WS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\UFC_SalesReturns_WS\configuration.svcinfo" />
+    <None Include="Service References\UFC_SalesReturns_WS\configuration91.svcinfo" />
+    <None Include="Service References\UFC_SalesOrder_WS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\UFC_SalesOrder_WS\configuration.svcinfo" />
+    <None Include="Service References\UFC_SalesOrder_WS\configuration91.svcinfo" />
+    <None Include="Service References\UFC_LoadRequest_WS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\UFC_LoadRequest_WS\configuration.svcinfo" />
+    <None Include="Service References\UFC_LoadRequest_WS\configuration91.svcinfo" />
+    <None Include="Service References\UFC_Collections_WS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\UFC_Collections_WS\configuration.svcinfo" />
+    <None Include="Service References\UFC_Collections_WS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Hammodeh_WS\" />
+    <WCFMetadataStorage Include="Service References\UFC_Collections_WS\" />
+    <WCFMetadataStorage Include="Service References\UFC_LoadRequest_WS\" />
+    <WCFMetadataStorage Include="Service References\UFC_SalesOrder_WS\" />
+    <WCFMetadataStorage Include="Service References\UFC_SalesReturns_WS\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Data Source=192.168.0.5;Password=Yj4MmwOp;User ID=sa;Initial Catalog=InVanDataESF;Persist Security Info=True</Data>
+
+  </Connection>
+
+  <Connection>
+    <Name>ESF</Name>
+    <Data>Data Source=192.168.0.10\SQL2014;integrated Security=sspi;Initial Catalog=ESF</Data>
+  </Connection>
+
+  <Connection>
+    <Name>TGT</Name>
+    <Data>Data Source=192.168.0.10\SQL2014;integrated Security=sspi;Initial Catalog=TGT</Data>
+  </Connection>
+</Connections>
+

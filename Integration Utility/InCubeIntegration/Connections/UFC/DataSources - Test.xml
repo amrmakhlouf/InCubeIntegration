@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=invan@123;Persist Security Info=True;User ID=sa;Initial Catalog=InVanData_QA;Data Source=10.65.1.12</Data>
+  </Connection>
+  <Connection>
+    <Name>MasterDirectory</Name>
+    <Data>\\Ecc-qua-dev\invan\CUSTOMERS</Data>
+  </Connection>
+</Connections>

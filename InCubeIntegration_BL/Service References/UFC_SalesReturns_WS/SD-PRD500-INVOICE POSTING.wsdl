@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:n1="urn:sap-com:document:sap:rfc:functions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+  </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="char1">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char16">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="16" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char200">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="200" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char220">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="220" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="decimal19.9">
+        <xsd:restriction base="xsd:decimal">
+          <xsd:totalDigits value="19" />
+          <xsd:fractionDigits value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+    <xsd:schema xmlns:n0="urn:sap-com:document:sap:rfc:functions" attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style">
+      <xsd:import namespace="urn:sap-com:document:sap:rfc:functions" />
+      <xsd:complexType name="ZinvanInvoiceHeader">
+        <xsd:sequence>
+          <xsd:element name="Trnum" type="n0:char10" />
+          <xsd:element name="Bcode" type="n0:char200" />
+          <xsd:element name="Scode" type="n0:char200" />
+          <xsd:element name="Blart" type="xsd:unsignedByte" />
+          <xsd:element name="Tdate" type="n0:char16" />
+          <xsd:element name="Smcode" type="n0:char200" />
+          <xsd:element name="Lcode" type="n0:char200" />
+          <xsd:element name="Lpono" type="n0:char200" />
+          <xsd:element name="Inamt" type="n0:decimal19.9" />
+          <xsd:element name="Hdisc" type="n0:decimal19.9" />
+          <xsd:element name="Reamt" type="n0:decimal19.9" />
+          <xsd:element name="Rtrnu" type="n0:char200" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZinvanInvoiceItems">
+        <xsd:sequence>
+          <xsd:element name="Trnum" type="n0:char10" />
+          <xsd:element name="Bcode" type="n0:char200" />
+          <xsd:element name="Scode" type="n0:char200" />
+          <xsd:element name="Lnumb" type="xsd:unsignedByte" />
+          <xsd:element name="Icode" type="n0:char200" />
+          <xsd:element name="Uom" type="n0:char200" />
+          <xsd:element name="Istatus" type="xsd:unsignedByte" />
+          <xsd:element name="Sqty" type="n0:decimal19.9" />
+          <xsd:element name="Rqty" type="n0:decimal19.9" />
+          <xsd:element name="Focqty" type="n0:decimal19.9" />
+          <xsd:element name="Freeqty" type="n0:decimal19.9" />
+          <xsd:element name="Price" type="n0:decimal19.9" />
+          <xsd:element name="Idisc" type="n0:decimal19.9" />
+          <xsd:element name="Ttlamt" type="n0:decimal19.9" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZsdInvoiceErr">
+        <xsd:sequence>
+          <xsd:element name="Vbeln" type="n0:char10" />
+          <xsd:element name="Msgty" type="n0:char1" />
+          <xsd:element name="Message" type="n0:char220" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZinvanInvoiceHeaderTt">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZinvanInvoiceHeader" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZinvanInvoiceItem">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZinvanInvoiceItems" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZsdInvoiceErrTt">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZsdInvoiceErr" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ZsdInvanSoToInvoicePost">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="EtHead" type="tns:ZinvanInvoiceHeaderTt" />
+            <xsd:element name="EtItem" type="tns:ZinvanInvoiceItem" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZsdInvanSoToInvoicePostResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="EtError" type="tns:ZsdInvoiceErrTt" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ZsdInvanSoToInvoicePost">
+    <wsdl:part name="parameters" element="tns:ZsdInvanSoToInvoicePost" />
+  </wsdl:message>
+  <wsdl:message name="ZsdInvanSoToInvoicePostResponse">
+    <wsdl:part name="parameter" element="tns:ZsdInvanSoToInvoicePostResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ZSD_Invan_so_to_invoice_FG">
+    <wsdl:operation name="ZsdInvanSoToInvoicePost">
+      <wsdl:input message="tns:ZsdInvanSoToInvoicePost" />
+      <wsdl:output message="tns:ZsdInvanSoToInvoicePostResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="binding" type="tns:ZSD_Invan_so_to_invoice_FG">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ZsdInvanSoToInvoicePost">
+      <soap:operation soapAction="urn:sap-com:document:sap:soap:functions:mc-style:ZSD_Invan_so_to_invoice_FG:ZsdInvanSoToInvoicePostRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="binding" binding="tns:binding">
+      <soap:address location="http://ERPDXBSRV01.ufc.local:8000/sap/bc/srt/scs/sap/zsd_invan_so_to_invoice_fg?sap-client=500" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

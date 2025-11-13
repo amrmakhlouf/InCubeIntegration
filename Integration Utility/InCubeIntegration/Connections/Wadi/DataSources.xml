@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+    <Connection>
+      <Name>InCube</Name>
+      <Data>Data Source=arabco.dyndns.biz;Password=invan@123;User ID=incube;Initial Catalog=InVanData;Persist Security Info=True</Data>
+    </Connection>
+</Connections>

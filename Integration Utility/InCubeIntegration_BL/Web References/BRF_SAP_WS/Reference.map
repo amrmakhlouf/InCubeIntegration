@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="file:///D:/TFS Workspaces/InCube UAE/InVan/Development Utilities/Integration Utility/InCubeIntegration_BL/BRF_SAP_WS/ITF_O_S_EnvRecArqPalm.wsdl" filename="ITF_O_S_EnvRecArqPalm.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

@@ -1,0 +1,1 @@
+UPDATE Int_Configuration SET KeyValue = 'cubita' WHERE KeyName = 'SiteSymbol';

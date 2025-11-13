@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCFSAPService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCFSAPService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://testing.b1pro.com:8084/Service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/SAPbobsCOM" />
+  <xs:complexType name="MCompany">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DatabaseName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DatabaseServer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DbPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DbUsername" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LiscenceServer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SAPbobsCOM" minOccurs="0" name="ServerType" type="q1:BoDataServerTypes" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cmp" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="company_code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="company_db" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="company_desc_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="company_desc_e" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="company_server" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="currency_code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="currency_desc_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="currency_desc_e" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="currency_rate" type="xs:int" />
+      <xs:element minOccurs="0" name="currency_sign" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="decimal_digit" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MCompany" nillable="true" type="tns:MCompany" />
+  <xs:complexType name="MCustomer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AR_account_number" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Flag" type="tns:Action" />
+      <xs:element minOccurs="0" name="Slpcode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="basic_salary" type="xs:double" />
+      <xs:element minOccurs="0" name="birth_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="branch_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="branch_l" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="emp_id" type="xs:int" />
+      <xs:element minOccurs="0" name="employement_type" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="employment_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="family_name_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="family_name_l" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="father_name_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="father_name_l" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="first_name_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="first_name_l" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" type="xs:int" />
+      <xs:element minOccurs="0" name="grand_father_name_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="grand_father_name_l" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="job_title_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="job_title_l" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="last_working_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="marital_status" type="xs:int" />
+      <xs:element minOccurs="0" name="nationality" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="org_unit_a" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="org_unit_l" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="permanent_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="resignation_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="salary_currency" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SAPbobsCOM" minOccurs="0" name="salary_unit" type="q2:BoSalaryCostUnits" />
+      <xs:element minOccurs="0" name="social_security_salary" type="xs:double" />
+      <xs:element minOccurs="0" name="status" type="xs:int" />
+      <xs:element minOccurs="0" name="subject_to_social_sec" type="xs:boolean" />
+      <xs:element minOccurs="0" name="subject_to_tax" type="xs:boolean" />
+      <xs:element minOccurs="0" name="suspension_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="work_email" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MCustomer" nillable="true" type="tns:MCustomer" />
+  <xs:simpleType name="Action">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Add" />
+      <xs:enumeration value="Update" />
+      <xs:enumeration value="Delete" />
+      <xs:enumeration value="InActive" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Action" nillable="true" type="tns:Action" />
+  <xs:complexType name="MWareHouse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Whscode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MWareHouse" nillable="true" type="tns:MWareHouse" />
+</xs:schema>

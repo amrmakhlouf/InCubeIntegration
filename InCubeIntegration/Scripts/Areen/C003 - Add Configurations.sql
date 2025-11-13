@@ -1,0 +1,1 @@
+UPDATE Int_Configuration SET KeyValue = 'areen' WHERE KeyName = 'SiteSymbol'

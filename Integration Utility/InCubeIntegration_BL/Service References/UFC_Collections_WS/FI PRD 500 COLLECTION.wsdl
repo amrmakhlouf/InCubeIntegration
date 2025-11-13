@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:sap-com:document:sap:rfc:functions" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sap-com:document:sap:rfc:functions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+  </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="char1">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char100">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="100" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char18">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="18" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ZIN_VAN_COLLECTION">
+        <xsd:sequence>
+          <xsd:element name="ZPAY_NUM" type="tns:char10" />
+          <xsd:element name="ZVAN_INVOICE" type="tns:char10" />
+          <xsd:element name="ZBILL_TO" type="tns:char10" />
+          <xsd:element name="ZSHIP_TO" type="tns:char10" />
+          <xsd:element name="ZPAY_DATE" type="tns:char10" />
+          <xsd:element name="ZINV_DATE" type="tns:char10" />
+          <xsd:element name="ZSALEMAN_CODE" type="tns:char10" />
+          <xsd:element name="ZPAID_AMOUNT" type="tns:char18" />
+          <xsd:element name="ZPAY_TYPE" type="tns:char1" />
+          <xsd:element name="ZCHEQUE_NO" type="tns:char18" />
+          <xsd:element name="ZCHEQUE_DATE" type="tns:char10" />
+          <xsd:element name="ZBANK_CODE" type="tns:char10" />
+          <xsd:element name="ZINV_TYPE" type="tns:char1" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZFI_COLL_STATUS">
+        <xsd:sequence>
+          <xsd:element name="ZVAN_INVOICE" type="tns:char10" />
+          <xsd:element name="TYPE" type="tns:char1" />
+          <xsd:element name="STATUS_MESS" type="tns:char100" />
+          <xsd:element name="ZPAY_NUM" type="tns:char10" />
+          <xsd:element name="ZBILL_TO" type="tns:char10" />
+          <xsd:element name="ZSHIP_TO" type="tns:char10" />
+          <xsd:element name="ZPAY_DATE" type="tns:char10" />
+          <xsd:element name="ZINV_DATE" type="tns:char10" />
+          <xsd:element name="ZSALEMAN_CODE" type="tns:char10" />
+          <xsd:element name="ZPAID_AMOUNT" type="tns:char18" />
+          <xsd:element name="ZPAY_TYPE" type="tns:char1" />
+          <xsd:element name="ZCHEQUE_NO" type="tns:char18" />
+          <xsd:element name="ZCHEQUE_DATE" type="tns:char10" />
+          <xsd:element name="ZBANK_CODE" type="tns:char10" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZIN_COLLECTION_T">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZIN_VAN_COLLECTION" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZFI_COLL_STATUS_T">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZFI_COLL_STATUS" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ZINVAN_COLLECTION_POST_C1">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GT_COLLECTION" type="tns:ZIN_COLLECTION_T" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZINVAN_COLLECTION_POST_C1Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GT_STATUS" type="tns:ZFI_COLL_STATUS_T" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ZINVAN_COLLECTION_POST_C1">
+    <wsdl:part name="parameters" element="tns:ZINVAN_COLLECTION_POST_C1" />
+  </wsdl:message>
+  <wsdl:message name="ZINVAN_COLLECTION_POST_C1Response">
+    <wsdl:part name="parameter" element="tns:ZINVAN_COLLECTION_POST_C1Response" />
+  </wsdl:message>
+  <wsdl:portType name="zinvan_integration1">
+    <wsdl:operation name="ZINVAN_COLLECTION_POST_C1">
+      <wsdl:input message="tns:ZINVAN_COLLECTION_POST_C1" />
+      <wsdl:output message="tns:ZINVAN_COLLECTION_POST_C1Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="binding" type="tns:zinvan_integration1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ZINVAN_COLLECTION_POST_C1">
+      <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:zinvan_integration1:ZINVAN_COLLECTION_POST_C1Request" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="binding" binding="tns:binding">
+      <soap:address location="http://ERPDXBSRV01.ufc.local:8000/sap/bc/srt/scs/sap/zinvan_integration1?sap-client=500" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

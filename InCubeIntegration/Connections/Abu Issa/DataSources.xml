@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=invan;Persist Security Info=True;User ID=incube;Initial Catalog=AIH_Data_Prod;Data Source=192.168.1.143</Data>
+  </Connection>
+
+  <Connection>
+    <Name>InCubeSQL</Name>   
+    <Data>Password=AIProdApps321;User ID=APPS;Data Source=APPS1</Data>
+  </Connection>
+
+</Connections>
+

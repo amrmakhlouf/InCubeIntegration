@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=abc@123@abc;Persist Security Info=True;User ID=incube;Initial Catalog=InVanData;Data Source=10.80.64.98\AEDXBIVP01</Data>
+  </Connection>
+
+</Connections>

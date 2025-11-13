@@ -1,0 +1,1 @@
+UPDATE Int_Configuration SET KeyValue = 'hassani' WHERE KeyName = 'SiteSymbol';

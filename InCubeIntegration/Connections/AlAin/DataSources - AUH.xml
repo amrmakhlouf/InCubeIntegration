@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+<Connection>
+	<Name>InCubeSQL</Name>
+	<Data>Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AFLP;Data Source=192.168.146.93</Data>
+</Connection>
+
+<Connection>
+    	<Name>InCube</Name>   
+   	<Data>Data Source=AUHDP1-PC;Initial Catalog=InVanData;Integrated Security = True</Data>
+</Connection>
+
+
+</Connections>

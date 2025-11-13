@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+ <Connection>
+    <Name>InCubeSQL</Name>
+    <Data>Password=Xinvan123;Persist Security Info=True;User ID=incube;Initial Catalog=AFLP;Data Source=AFLPSQLSVR</Data>
+  </Connection>
+
+  <Connection>
+    <Name>InCube</Name>   
+    <Data>Password=pu3snaSA2;Persist Security Info=True;User ID=sa;Initial Catalog=InVan;Data Source=DBNODESQL</Data> 
+  </Connection>
+
+</Connections>

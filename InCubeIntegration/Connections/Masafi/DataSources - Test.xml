@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Connections>
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=sonicqa;Persist Security Info=True;User ID=incube;Initial Catalog=SonicDataQA;Data Source=172.16.41.17</Data>
+  </Connection>
+  <Connection>
+    <Name>OracleGet</Name>
+    <Data>Persist Security Info=False;User ID=xxinvan;Data Source=PROD;Password=XXinvan1234;Max Pool Size=20;Connection Timeout=60</Data>
+  </Connection>
+  <Connection>
+    <Name>OracleSend</Name>
+    <Data>Persist Security Info=False;User ID=xxinvan;Data Source=MTEST;Password=XXinvan1234;Max Pool Size=20;Connection Timeout=60</Data>
+  </Connection>
+  <Connection>
+    <Name>RoadNet</Name>
+    <Data>Password=roadnet;Persist Security Info=True;User ID=tsdba;Initial Catalog=UPSLT;Data Source=192.168.6.54\RoadNet</Data>
+  </Connection>
+  <Connection>
+    <Name>PRNExportPath</Name>
+    <Data>D:\PRN Files</Data>
+  </Connection>
+</Connections>

@@ -1,0 +1,103 @@
+KUWAIT.WORLD =
+  (DESCRIPTION = 
+    (ADDRESS_LIST = 
+        (ADDRESS = 
+          (PROTOCOL = TCP)
+          (HOST = 192.168.1.200)
+          (PORT = 1521)
+        )
+    )
+    (CONNECT_DATA = (SID = ORCL)
+    )
+  )
+Beq-local.world =
+  (DESCRIPTION = 
+    (ADDRESS_LIST = 
+        (ADDRESS = 
+          (COMMUNITY = beq.world)
+          (PROTOCOL = BEQ)
+          (PROGRAM = oracle73)
+          (ARGV0 = oracle73ORCL)
+          (ARGS = '(DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))')
+        )
+    )
+    (CONNECT_DATA = (SID = ORCL)
+    )
+  )
+Tcp-loopback.world = 
+  (DESCRIPTION = 
+    (ADDRESS_LIST = 
+        (ADDRESS = 
+          (COMMUNITY = tcp.world)
+          (PROTOCOL = TCP)
+          (Host = 127.0.0.1)
+          (Port = 1521)
+        )
+    )
+    (CONNECT_DATA = (SID = ORCL)
+    )
+  )
+Example1.world = 
+  (DESCRIPTION = 
+    (ADDRESS_LIST = 
+        (ADDRESS = 
+          (COMMUNITY = tcp.world)
+          (PROTOCOL = TCP)
+          (Host = Production1)
+          (Port = 1521)
+        )
+    )
+    (CONNECT_DATA = (SID = SID1)
+    )
+  )
+Example2.world = 
+  (DESCRIPTION = 
+    (ADDRESS_LIST = 
+        (ADDRESS = 
+          (COMMUNITY = spx.world)
+          (PROTOCOL = SPX)
+          (Service = Server_lsnr)
+        )
+    )
+    (CONNECT_DATA = (SID = ORCL)
+    )
+  )
+Example3.world = 
+  (DESCRIPTION = 
+    (ADDRESS_LIST = 
+        (ADDRESS = 
+          (COMMUNITY = nmp.world)
+          (PROTOCOL = NMP)
+          (Server = FinanceServer1)
+          (Pipe = ORAPIPE)
+        )
+    )
+    (CONNECT_DATA = (SID = ORCL)
+    )
+  )
+AWAL10.WORLD =
+  (DESCRIPTION = 
+    (ADDRESS_LIST = 
+        (ADDRESS = 
+          (PROTOCOL = TCP)
+          (HOST = 192.168.1.6)
+          (PORT = 1521)
+        )
+    )
+    (CONNECT_DATA = (SID = ADC)
+    )
+  )
+
+Rep60_MANI,Rep60_MANI.world=(ADDRESS=(PROTOCOL=tcp)(HOST=MANI)(PORT=1949))
+ORCL=
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.174)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = orcl)
+    )
+  )
+
+

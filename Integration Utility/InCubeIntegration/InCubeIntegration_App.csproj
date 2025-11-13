@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4AD2196D-8F88-46D9-9778-AF2473C61343}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InCubeIntegration_App</RootNamespace>
+    <AssemblyName>InCubeIntegration</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>InCubeIntegration_App.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppBase.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Connections\Abu Issa\tnsnames.ora" />
+    <None Include="Connections\Masafi\App - Test.config" />
+    <None Include="Connections\Masafi\App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connections\Masafi\tnsnames - Test.ora" />
+    <None Include="Connections\Masafi\tnsnames.oRA" />
+    <None Include="Connections\QNIE\App - 2.config" />
+    <None Include="Connections\QNIE\App - Test.config" />
+    <None Include="Connections\Anabtawi\khaled.pfx" />
+    <None Include="Connections\QNIE\App.config" />
+    <None Include="Connections\QNIE\Service - 2.config" />
+    <None Include="Connections\QNIE\Service.config" />
+    <None Include="Connections\UFC\App - Dev.config" />
+    <None Include="Connections\UFC\App - Test.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connections\UFC\App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connections\UFC\Service - Test.config" />
+    <None Include="Connections\UFC\Service.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connections\Vodafone\App.config" />
+    <None Include="Connections\Vodafone\Service.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InCubeIntegration_BL\InCubeIntegration_BL.csproj">
+      <Project>{a28f0ffc-11b6-4daf-8a6c-6f699a2da5c6}</Project>
+      <Name>InCubeIntegration_BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InCubeIntegration_UI\InCubeIntegration_UI.csproj">
+      <Project>{d0d0170f-6394-48b3-bec4-85a03d644473}</Project>
+      <Name>InCubeIntegration_UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InCubeLibrary\InCubeLibrary.csproj">
+      <Project>{bf0ddb08-4cd6-42df-9b1e-e7e712384fd4}</Project>
+      <Name>InCubeLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.ico" />
+    <Content Include="Connections\ABC\DataSources.xml" />
+    <Content Include="Connections\Abu Issa\DataSources.xml" />
+    <Content Include="Connections\ADRC\DataSources.xml" />
+    <Content Include="Connections\AlAinFoodTruck\DataSources.xml" />
+    <Content Include="Connections\Andalus\DataSources.xml" />
+    <Content Include="Connections\Awal\DataSources.xml" />
+    <Content Include="Connections\Badia\DataSources.xml" />
+    <Content Include="Connections\BRF\DataSources - Test.xml" />
+    <Content Include="Connections\Cubita\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\AlAin\DataSources1.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Areen\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\BRF\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\BRF QAS\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Anabtawi\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Del Monte US\DataSources.xml" />
+    <Content Include="Connections\DelmonJO\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Delmon\DataSources.xml" />
+    <Content Include="Connections\ESF\DataSources.xml" />
+    <Content Include="Connections\Masafi\DataSources - Test.xml" />
+    <Content Include="Connections\Masafi\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\QNIE\DataSources - 2.xml" />
+    <Content Include="Connections\QNIE\DataSources - Test.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Rawda\DataSources.xml" />
+    <Content Include="Connections\Tasil\DataSources.xml" />
+    <Content Include="Connections\UFC\DataSources - Test.xml" />
+    <Content Include="Connections\UFC\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\ESF\DataSources - Test.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Hassani\DataSources.xml" />
+    <Content Include="Connections\ADVOC\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Mai Dubai\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Del Monte\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\QNIE\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\UG\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Unitra\DataSources.xml" />
+    <Content Include="Connections\Vodafone\DataSources.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Connections\Wadi\DataSources.xml" />
+    <Content Include="DataSources.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Procedures\ABC\ABC Procs.sql" />
+    <Content Include="Procedures\Delmon\All Procedures.sql" />
+    <Content Include="Procedures\Rawdah\SP_Rawdah.sql" />
+    <Content Include="Scripts\ABC\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\ABC\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Abu Issa\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Abu Issa\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\ADRC\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\ADRC\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\ADVOC\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\ADVOC\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\AlAinFoodTruck\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\AlAinFoodTruck\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Badia\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Badia\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Badia\C003 - Master Data Import Procedures.sql" />
+    <Content Include="Scripts\Badia\C004 - Send Data Procedures.sql" />
+    <Content Include="Scripts\Bin Ablan\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Bin Ablan\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\BRF\C011 - PaymentsSyncHistory.sql" />
+    <Content Include="Scripts\BRF\C012 - Import Discount Feature.sql" />
+    <Content Include="Scripts\BRF\C013 - Add Credit note send privilege.sql" />
+    <Content Include="Scripts\BRF\C014 - Alter Insert Pending STP.sql" />
+    <Content Include="Scripts\Attar\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Attar\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\General\S042 - Add RoadNet Integration Screen.sql" />
+    <Content Include="Scripts\General\S043 - Add KeepDirectoryStructure Attribute.sql" />
+    <Content Include="Scripts\General\S044 - Add RoadNet Integration Main Menu.sql" />
+    <Content Include="Scripts\General\S045 - Add ComparisonOperator Attribute.sql" />
+    <Content Include="Scripts\General\S046 - Enhance Excel Import.sql" />
+    <Content Include="Scripts\General\S052 - Add Extract Maps Image.sql" />
+    <Content Include="Scripts\General\S053 - Add WS Machine name config.sql" />
+    <Content Include="Scripts\Seniora\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Hammodeh\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\General\S047 - Enhance data transfer.sql" />
+    <Content Include="Scripts\General\S048 - Update task filters with data transfer.sql" />
+    <Content Include="Scripts\General\S049 - Support Oracle Procedures.sql" />
+    <Content Include="Scripts\General\S050 - Add RoadNet Integration Special Instructions.sql" />
+    <Content Include="Scripts\General\S051 - Add Constant Values in Data Transfer.sql" />
+    <Content Include="Scripts\Khraim\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Khraim\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Shawar\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Shawar\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\TeleLink\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\TeleLink\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Cezar\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Cezar\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Cubita\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Cubita\C003 - Master Data Import Procedures.sql" />
+    <Content Include="Scripts\Cubita\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\AlAin\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\AlAin\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Areen\C001 - sp_UpdateCustomersForSupervisors.sql" />
+    <Content Include="Scripts\Areen\C002 - sp_AddTerritoryCustomersToGroups.sql" />
+    <Content Include="Scripts\Areen\C003 - Add Configurations.sql" />
+    <Content Include="Scripts\Areen\C004 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\BRF\C001 - CarrefourCustomers.sql" />
+    <Content Include="Scripts\BRF\C002 - OrderSyncHistory.sql" />
+    <Content Include="Scripts\BRF\C003 - PriceDefinition_Temp.sql" />
+    <Content Include="Scripts\BRF\C004 - Add Configurations.sql" />
+    <Content Include="Scripts\BRF\C005 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\BRF\C006 - Add Configurations.sql" />
+    <Content Include="Scripts\BRF\C007 - Add Site Procedures.sql" />
+    <Content Include="Scripts\BRF\C008 - Add Site Functions.sql" />
+    <Content Include="Scripts\BRF\C009 - Add Configurations.sql" />
+    <Content Include="Scripts\BRF\C010 - Add Site Triggers.sql" />
+    <Content Include="Scripts\Cubita\C004 - Send Data Procedures.sql" />
+    <Content Include="Scripts\Anabtawi\C001 - Add Configurations.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Anabtawi\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\DelMonteJO\C001 - Add Configurations.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\DelMonteJO\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Delmon\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Delmon\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\General\S020 - Adding send fields filters.sql" />
+    <Content Include="Scripts\General\S021 - Standard Integration Enhancements.sql" />
+    <Content Include="Scripts\General\S022 - Sending SMS for standard integration.sql" />
+    <Content Include="Scripts\General\S023 - Check upload function.sql" />
+    <Content Include="Scripts\General\S024 - Enhance progress for standard integration.sql" />
+    <Content Include="Scripts\General\S025 - Add integration configuration screen.sql" />
+    <Content Include="Scripts\General\S026 - Add excel import screen.sql" />
+    <Content Include="Scripts\General\S027 - Enhance progress for standard integration 2.sql" />
+    <Content Include="Scripts\General\S028 - Adding Integration Field %28DataBase Actions%29.sql" />
+    <Content Include="Scripts\General\S029 - Add Configuration DefaultMenu.sql" />
+    <Content Include="Scripts\General\S030 - Enhance Action Trigger Log.sql" />
+    <Content Include="Scripts\General\S031 - Add transactions management screen.sql" />
+    <Content Include="Scripts\General\S032 - Adding Integration Field %28Send Credit Note Request%29.sql" />
+    <Content Include="Scripts\General\S033 - Send Mails Schema.sql" />
+    <Content Include="Scripts\General\S034 - Data transfer types schema.sql" />
+    <Content Include="Scripts\General\S035 - Admin user access.sql" />
+    <Content Include="Scripts\General\S036 - Add Special Actions Menu.sql" />
+    <Content Include="Scripts\General\S037 - Enhance data transfer.sql" />
+    <Content Include="Scripts\General\S038 - Add WS Queue type config.sql" />
+    <Content Include="Scripts\General\S039 - Add Process Returns Screen.sql" />
+    <Content Include="Scripts\General\S040 - Add Integration Lookups Table.sql" />
+    <Content Include="Scripts\General\S041 - Add Export Images Field.sql" />
+    <Content Include="Scripts\Hassani\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Hassani\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\NEDM\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\NEDM\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\PepsiPal\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\PepsiPal\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Rawda\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Rawda\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\UFC\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\UFC\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\General\S001 - Integration Tables.sql" />
+    <Content Include="Scripts\General\S002 - Integration Filters Definition.sql" />
+    <Content Include="Scripts\General\S003 - Add Configurations.sql" />
+    <Content Include="Scripts\General\S004 - Modify Int_UserPrivileges.sql" />
+    <Content Include="Scripts\General\S005 - Modify Int_Configuration.sql" />
+    <Content Include="Scripts\General\S006 - Add Configurations.sql" />
+    <Content Include="Scripts\General\S007 - Adding Integration Configurations Menu.sql" />
+    <Content Include="Scripts\General\S008 - Adding Field.sql" />
+    <Content Include="Scripts\General\S009 - Schedules Enhancements.sql" />
+    <Content Include="Scripts\General\S010 - Adding Integration Fields.sql" />
+    <Content Include="Scripts\General\S011 - Add Integration Tables.sql" />
+    <Content Include="Scripts\General\S012 - Adding Integration Fields.sql" />
+    <Content Include="Scripts\General\S013 - Adding Special Function %28Delete Files%29.sql" />
+    <Content Include="Scripts\General\S014 - Adding Integration Fields.sql" />
+    <Content Include="Scripts\General\S015 - Login Alter.sql" />
+    <Content Include="Scripts\General\S016 - Adding Special Function %28Delete Files%29 - Alter.sql" />
+    <Content Include="Scripts\General\S017 - Add Standard Integration Tables.sql" />
+    <Content Include="Scripts\General\S018 - Adding Integration Fields.sql" />
+    <Content Include="Scripts\General\S019 - Adding Load Request Menu.sql" />
+    <Content Include="Scripts\Mai Dubai\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Mai Dubai\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Del Monte\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Del Monte\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Unitra\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Unitra\C002 - Add Admin Privileges.sql" />
+    <Content Include="Scripts\Vodafone\C001 - Add Configurations.sql" />
+    <Content Include="Scripts\Vodafone\C002 - Add Admin Privileges.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

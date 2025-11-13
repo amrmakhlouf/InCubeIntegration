@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=invan;Persist Security Info=True;User ID=incube;Initial Catalog=InVanData_test;Data Source=10.136.194.200;MultipleActiveResultSets=true</Data>
+  </Connection>
+
+  <Connection>
+    <Name>ATM</Name>
+    <Data></Data>
+  </Connection>
+  
+</Connections>
+

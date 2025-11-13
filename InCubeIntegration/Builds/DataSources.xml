@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=SonicData_Rashideen;Data Source=DESKTOP-VCAQPIQ\SQL2017</Data>
+  </Connection>
+
+  <Connection>
+    <Name>SAP</Name>
+    <Data>QPD</Data>
+  </Connection>
+
+</Connections>

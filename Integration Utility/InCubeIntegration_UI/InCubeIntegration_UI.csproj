@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0D0170F-6394-48B3-BEC4-85A03D644473}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InCubeIntegration_UI</RootNamespace>
+    <AssemblyName>InCubeIntegration_UI</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;Release</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;Release</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Forms\Data Transfer\frmAddEditDataTransferType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmAddEditDataTransferType.Designer.cs">
+      <DependentUpon>frmAddEditDataTransferType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmAddEditDatabaseConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmAddEditDatabaseConnection.Designer.cs">
+      <DependentUpon>frmAddEditDatabaseConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Configurations\frmAddEditFilesManagementJob.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Configurations\frmAddEditFilesManagementJob.Designer.cs">
+      <DependentUpon>frmAddEditFilesManagementJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmSetConstantValues.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmSetConstantValues.Designer.cs">
+      <DependentUpon>frmSetConstantValues.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Mails\frmAddEditMailTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Mails\frmAddEditMailTemplate.Designer.cs">
+      <DependentUpon>frmAddEditMailTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Mails\frmAddEditSenderProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Mails\frmAddEditSenderProfile.Designer.cs">
+      <DependentUpon>frmAddEditSenderProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmOrderDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmOrderDetails.Designer.cs">
+      <DependentUpon>frmOrderDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetIntegration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetIntegration.Designer.cs">
+      <DependentUpon>frmRoadNetIntegration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetIntegrationExecution.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetIntegrationExecution.Designer.cs">
+      <DependentUpon>frmRoadNetIntegrationExecution.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetRegions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetRegions.Designer.cs">
+      <DependentUpon>frmRoadNetRegions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetSpecialInstructions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetSpecialInstructions.Designer.cs">
+      <DependentUpon>frmRoadNetSpecialInstructions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRouteRegion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRouteRegion.Designer.cs">
+      <DependentUpon>frmRouteRegion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Schedule Management\frmAddSchedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Schedule Management\frmAddSchedule.Designer.cs">
+      <DependentUpon>frmAddSchedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin Mode\frmAdminOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin Mode\frmAdminOptions.Designer.cs">
+      <DependentUpon>frmAdminOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Configurations\frmConfigurations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Configurations\frmConfigurations.Designer.cs">
+      <DependentUpon>frmConfigurations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmDataTransferConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmDataTransferConfig.Designer.cs">
+      <DependentUpon>frmDataTransferConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Excel Import\frmDesignInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Excel Import\frmDesignInterface.designer.cs">
+      <DependentUpon>frmDesignInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmEditTransaction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmEditTransaction.Designer.cs">
+      <DependentUpon>frmEditTransaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmEmployeesImportingMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmEmployeesImportingMain.designer.cs">
+      <DependentUpon>frmEmployeesImportingMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin Mode\frmExecutionDetailsQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin Mode\frmExecutionDetailsQuery.Designer.cs">
+      <DependentUpon>frmExecutionDetailsQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Schedule Management\frmFieldFilters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Schedule Management\frmFieldFilters.Designer.cs">
+      <DependentUpon>frmFieldFilters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin Mode\frmFieldProcedures.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin Mode\frmFieldProcedures.Designer.cs">
+      <DependentUpon>frmFieldProcedures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Excel Import\frmImportExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Excel Import\frmImportExcel.designer.cs">
+      <DependentUpon>frmImportExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmImportTarget.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmImportTarget.designer.cs">
+      <DependentUpon>frmImportTarget.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmLoadRequestImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmLoadRequestImport.Designer.cs">
+      <DependentUpon>frmLoadRequestImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmLoadRequestImportDelmonteJO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmLoadRequestImportDelmonteJO.Designer.cs">
+      <DependentUpon>frmLoadRequestImportDelmonteJO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmIntegration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmIntegration.Designer.cs">
+      <DependentUpon>frmIntegration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Mails\frmMailConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Mails\frmMailConfiguration.Designer.cs">
+      <DependentUpon>frmMailConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmOperationsMonitoring.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmOperationsMonitoring.Designer.cs">
+      <DependentUpon>frmOperationsMonitoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmProcessReturns.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmProcessReturns.Designer.cs">
+      <DependentUpon>frmProcessReturns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetExport.Designer.cs">
+      <DependentUpon>frmRoadNetExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RoadNet\frmRoadNetImport.Designer.cs">
+      <DependentUpon>frmRoadNetImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Schedule Management\frmSchedulesManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Schedule Management\frmSchedulesManagement.Designer.cs">
+      <DependentUpon>frmSchedulesManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmSelectOrganization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmSelectOrganization.Designer.cs">
+      <DependentUpon>frmSelectOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmSelectPrimaryKeyColumns.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Data Transfer\frmSelectPrimaryKeyColumns.Designer.cs">
+      <DependentUpon>frmSelectPrimaryKeyColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmTransactionsManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Customized Functions\frmTransactionsManagement.Designer.cs">
+      <DependentUpon>frmTransactionsManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmUserAccess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmUserAccess.Designer.cs">
+      <DependentUpon>frmUserAccess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CustomProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\Data Transfer\frmAddEditDataTransferType.resx">
+      <DependentUpon>frmAddEditDataTransferType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Data Transfer\frmAddEditDatabaseConnection.resx">
+      <DependentUpon>frmAddEditDatabaseConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Configurations\frmAddEditFilesManagementJob.resx">
+      <DependentUpon>frmAddEditFilesManagementJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Data Transfer\frmSetConstantValues.resx">
+      <DependentUpon>frmSetConstantValues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Mails\frmAddEditMailTemplate.resx">
+      <DependentUpon>frmAddEditMailTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Mails\frmAddEditSenderProfile.resx">
+      <DependentUpon>frmAddEditSenderProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoadNet\frmOrderDetails.resx">
+      <DependentUpon>frmOrderDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoadNet\frmRoadNetIntegration.resx">
+      <DependentUpon>frmRoadNetIntegration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoadNet\frmRoadNetIntegrationExecution.resx">
+      <DependentUpon>frmRoadNetIntegrationExecution.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoadNet\frmRoadNetRegions.resx">
+      <DependentUpon>frmRoadNetRegions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoadNet\frmRoadNetSpecialInstructions.resx">
+      <DependentUpon>frmRoadNetSpecialInstructions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoadNet\frmRouteRegion.resx">
+      <DependentUpon>frmRouteRegion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schedule Management\frmAddSchedule.resx">
+      <DependentUpon>frmAddSchedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin Mode\frmAdminOptions.resx">
+      <DependentUpon>frmAdminOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Configurations\frmConfigurations.resx">
+      <DependentUpon>frmConfigurations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Data Transfer\frmDataTransferConfig.resx">
+      <DependentUpon>frmDataTransferConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Excel Import\frmDesignInterface.resx">
+      <DependentUpon>frmDesignInterface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Customized Functions\frmEditTransaction.resx">
+      <DependentUpon>frmEditTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Customized Functions\frmEmployeesImportingMain.resx">
+      <DependentUpon>frmEmployeesImportingMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin Mode\frmExecutionDetailsQuery.resx">
+      <DependentUpon>frmExecutionDetailsQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schedule Management\frmFieldFilters.resx">
+      <DependentUpon>frmFieldFilters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin Mode\frmFieldProcedures.resx">
+      <DependentUpon>frmFieldProcedures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Excel Import\frmImportExcel.resx">
+      <DependentUpon>frmImportExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Customized Functions\frmImportTarget.resx">
+      <DependentUpon>frmImportTarget.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmIntegration.resx">
+      <DependentUpon>frmIntegration.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Customized Functions\frmLoadRequestImport.resx">
+      <DependentUpon>frmLoadRequestImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Customized Functions\frmLoadRequestImportDelmonteJO.resx">
+      <DependentUpon>frmLoadRequestImportDelmonteJO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Mails\frmMailConfiguration.resx">
+      <DependentUpon>frmMailConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmOperationsMonitoring.resx">
+      <DependentUpon>frmOperationsMonitoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Customized Functions\frmProcessReturns.resx">
+      <DependentUpon>frmProcessReturns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoadNet\frmRoadNetExport.resx">
+      <DependentUpon>frmRoadNetExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RoadNet\frmRoadNetImport.resx">
+      <DependentUpon>frmRoadNetImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schedule Management\frmSchedulesManagement.resx">
+      <DependentUpon>frmSchedulesManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmSelectOrganization.resx">
+      <DependentUpon>frmSelectOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Data Transfer\frmSelectPrimaryKeyColumns.resx">
+      <DependentUpon>frmSelectPrimaryKeyColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Customized Functions\frmTransactionsManagement.resx">
+      <DependentUpon>frmTransactionsManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmUserAccess.resx">
+      <DependentUpon>frmUserAccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InCubeIntegration_BL\InCubeIntegration_BL.csproj">
+      <Project>{a28f0ffc-11b6-4daf-8a6c-6f699a2da5c6}</Project>
+      <Name>InCubeIntegration_BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InCubeIntegration_DAL\InCubeIntegration_DAL.csproj">
+      <Project>{51318a85-8fec-4de4-8266-397f87522016}</Project>
+      <Name>InCubeIntegration_DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InCubeLibrary\InCubeLibrary.csproj">
+      <Project>{bf0ddb08-4cd6-42df-9b1e-e7e712384fd4}</Project>
+      <Name>InCubeLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SwitchOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_access.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Manual_Integration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Salesmen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Monitoring_Integration.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Customers_Targets.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Schedule.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Routes Regions.png" />
+    <None Include="Resources\RoadNet.PNG" />
+    <None Include="Resources\Returns-512.png" />
+    <None Include="Resources\Transfer.png" />
+    <None Include="Resources\Admin.png" />
+    <None Include="Resources\DataSheet.png" />
+    <Content Include="Resources\ExcelImport.png" />
+    <None Include="Resources\Import.png" />
+    <None Include="Resources\Export.png" />
+    <None Include="Resources\instructions.png" />
+    <None Include="Resources\InCube.png" />
+    <Content Include="Resources\LoadRequest.png" />
+    <None Include="Resources\Procedures.png" />
+    <None Include="Resources\mail.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

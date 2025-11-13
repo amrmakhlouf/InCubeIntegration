@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=invan;Persist Security Info=True;User ID=incubeintegration;Initial Catalog=InVanData_Prod99;Data Source=10.136.194.212;MultipleActiveResultSets=true</Data>
+  </Connection>
+
+  <Connection>
+    <Name>StagingDB</Name>
+    <Data>Password=invan;Persist Security Info=True;User ID=incubeintegration;Initial Catalog=StagingDB;Data Source=10.136.194.212;MultipleActiveResultSets=true</Data>
+  </Connection>
+
+  <Connection>
+    <Name>ATM</Name>
+    <Data>Dsn=ATM;Uid=federalfoods;Pwd=EPhOKip0HRhLKTWAGx27FuCxt8SG25nKY;</Data>
+  </Connection>
+  
+</Connections>
+

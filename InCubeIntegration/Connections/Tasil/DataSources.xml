@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+	<Connection>
+		<Name>InCube</Name>
+		<Data>Data Source=10.15.3.11\SQLEXPRESS;Password=abc@123;User ID=sa;Initial Catalog=InVanData;Persist Security Info=True</Data>
+	</Connection>
+</Connections>

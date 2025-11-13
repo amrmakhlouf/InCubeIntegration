@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=maidxb12?;Persist Security Info=True;User ID=sa;Initial Catalog=MD_Data_Live;Data Source=192.168.50.16</Data>
+    </Connection>
+</Connections>
+

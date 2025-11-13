@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+	<Connection>
+		<Name>InCube</Name>
+		<Data>Data Source=AFLPSQLSVR;Password=Xinvan123;User ID=incube;Initial Catalog=InVanDataFoodTruck;Persist Security Info=True</Data>
+	</Connection>
+
+	<Connection>
+		<Name>DairyGP</Name>
+		<Data>Password=Xinvan123;Integrated Security=SSPI;Persist Security Info=False;User ID=incube;Initial Catalog=AFLP;Data Source=AFLPSQLSVR</Data>
+	</Connection>
+
+	<Connection>
+		<Name>PoultryGP</Name>
+		<Data>Password=Xinvan123;Integrated Security=SSPI;Persist Security Info=False;User ID=incube;Initial Catalog=AAPF;Data Source=AFLPSQLSVR</Data>
+	</Connection>
+ </Connections>

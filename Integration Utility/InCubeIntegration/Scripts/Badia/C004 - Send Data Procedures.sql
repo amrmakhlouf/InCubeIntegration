@@ -1,0 +1,490 @@
+--Send Transactions
+EXEC('
+CREATE PROCEDURE [dbo].[sp_SendTransactions]
+(
+@TriggerID INT,
+@FromDate NVARCHAR(10),
+@ToDate NVARCHAR(10),
+@EmployeeID INT,
+@TransactionType NVARCHAR(10)
+)
+AS
+BEGIN
+BEGIN TRY
+
+DECLARE 
+@TrxType AS INT,
+@TrxID AS NVARCHAR(50),
+@Date AS DATE,
+@Time AS TIME,
+@Customer AS NVARCHAR(50),
+@Salesman AS NVARCHAR(50),
+@CurCode AS NVARCHAR(4),
+@Outletcode AS NVARCHAR(3),
+@Shiftnumber AS int,
+@Packetnumber AS int,
+@Customerid AS nvarchar(8),
+@Salesmanid AS nvarchar(8),
+@InvoiceTypeId AS int,
+@Rate AS int,
+@RateSl AS int,
+@Net AS decimal(10,2),
+@reattc AS decimal(10,2),
+@cmpseqa AS int;
+
+
+declare Hloop cursor for
+SELECT 1 TRXTYPE,T.TRANSACTIONID TRXID,REPLACE(CONVERT(CHAR(10), CAST(T.TRANSACTIONDATE AS DATE), 103), ''/'', '''')  ''DATE'',
+REPLACE( CONVERT(CHAR(10),CAST(T.TRANSACTIONDATE AS TIME)),'':'','''') ''TIME'',COL.DESCRIPTION AS CUSTOMER,EL.DESCRIPTION SALESMAN,
+1 CURCODE,W.WAREHOUSECODE OUTLETCODE,'''' SHIFTNUMBER,1 PACKETNUMBER,
+CO.CUSTOMERCODE CUSTOMERID,E.EMPLOYEECODE AS SALESMANID,1 INVOICETYPEID,1 RATE,3.68 RATESI,
+CASE(TRANSACTIONTYPEID) WHEN 1 THEN T.NETTOTAL ELSE
+CASE(TRANSACTIONTYPEID) WHEN 2 THEN -1*T.NETTOTAL ELSE
+CASE(TRANSACTIONTYPEID) WHEN 3 THEN T.NETTOTAL ELSE
+CASE(TRANSACTIONTYPEID) WHEN 4 THEN -1*T.NETTOTAL ELSE T.NETTOTAL END END END END NET,T.NETTOTAL REATTC,1 CMPSEQA
+FROM [TRANSACTION] T 
+INNER JOIN TRANSACTIONDETAIL TD ON T.TRANSACTIONID=TD.TRANSACTIONID AND T.CUSTOMERID=TD.CUSTOMERID AND T.OUTLETID=TD.OUTLETID
+INNER JOIN CUSTOMEROUTLET CO ON CO.CUSTOMERID=T.CUSTOMERID AND CO.OUTLETID=T.OUTLETID
+INNER JOIN CUSTOMER CU ON CO.CUSTOMERID=CU.CUSTOMERID
+INNER JOIN CUSTOMEROUTLETLANGUAGE COL ON COL.CUSTOMERID=T.CUSTOMERID AND COL.OUTLETID=T.OUTLETID AND COL.LANGUAGEID=1
+INNER JOIN EMPLOYEE E ON T.EMPLOYEEID=E.EmployeeID
+INNER JOIN EMPLOYEELANGUAGE EL ON E.EMPLOYEEID=EL.EMPLOYEEID AND EL.LANGUAGEID=1
+LEFT OUTER JOIN EMPLOYEEVEHICLE EV ON E.EMPLOYEEID=EV.EMPLOYEEID
+LEFT OUTER JOIN WAREHOUSE W ON EV.VEHICLEID=W.WAREHOUSEID
+WHERE T.TRANSACTIONTYPEID IN (1,2,3,4) AND T.SynchronizeD=0
+GROUP BY 
+T.TRANSACTIONID ,CAST(T.TRANSACTIONDATE AS DATE) ,
+CAST(T.TRANSACTIONDATE AS TIME) ,COL.DESCRIPTION ,EL.DESCRIPTION ,
+W.WAREHOUSECODE ,
+CO.CUSTOMERCODE ,E.EMPLOYEECODE,
+CASE(TRANSACTIONTYPEID) WHEN 1 THEN T.NETTOTAL ELSE
+CASE(TRANSACTIONTYPEID) WHEN 2 THEN -1*T.NETTOTAL ELSE
+CASE(TRANSACTIONTYPEID) WHEN 3 THEN T.NETTOTAL ELSE
+CASE(TRANSACTIONTYPEID) WHEN 4 THEN -1*T.NETTOTAL ELSE T.NETTOTAL END END END END ,T.NETTOTAL 
+
+open hloop 
+fetch next from hloop into @TrxType,
+@TrxID,
+@Date,
+@Time,
+@Customer,
+@Salesman,
+@CurCode,
+@Outletcode,
+@Shiftnumber,
+@Packetnumber,
+@Customerid,
+@Salesmanid,
+@InvoiceTypeId,
+@Rate,
+@RateSl,
+@Net,
+@reattc,
+@cmpseqa
+
+while(@@FETCH_STATUS=0)
+BEGIN
+BEGIN TRY
+BEGIN TRANSACTION T1
+insert into ALBADIA_TEST..im_ret_VDRA (TrxType,
+TrxID,
+Date,
+Time,
+Customer,
+Salesman,
+CurCode,
+Outlet,
+Shift,
+Packet,
+Customerid,
+Salesmanid,
+InvoiceTypeId,
+cmpseqa
+)
+values
+(
+@TrxType,
+@TrxID,
+@Date,
+@Time,
+@Customer,
+@Salesman,
+@CurCode,
+@Outletcode,
+@Shiftnumber,
+@Packetnumber,
+@Customerid,
+@Salesmanid,
+@InvoiceTypeId,
+--@Rate,
+--@RateSl,
+--'''',--@Net,
+--'''',--@reattc,
+@cmpseqa
+)
+
+insert into ALBADIA_TEST..im_ret_VDRC (TrxType,
+TrxID,
+LineNum,
+MOP,
+CurCode,
+Amount,
+CheckCard,
+Maturity,
+Bank,
+Rate,
+RateSl,
+cmpseqc,
+Doc_Ref
+
+)
+values
+(
+@TrxType,
+@TrxID,
+1,
+''ON ACCOUNT'',
+@CurCode,
+@Net,
+NULL,
+NULL,
+NULL,
+1,
+3.68,
+@cmpseqa,
+NULL
+)
+--print ''finished header ''+@TrxID
+--DECLARE @TrxType AS INT,
+--@TrxID AS NVARCHAR(10),
+DECLARE @ItemCode AS NVARCHAR(21),
+@Unit AS NVARCHAR(10),
+@Qty AS DECIMAL(10,3),
+@FreeQty AS DECIMAL(10,3),
+@Price AS DECIMAL(10,2),
+@DiscPerc AS DECIMAL(10,4),
+@Vat AS DECIMAL(10,2),
+@Reason AS NVARCHAR(50),
+@KitCode AS NVARCHAR(10),
+@Descr AS NVARCHAR(10),
+@cmpseqb AS INT;
+
+DECLARE DLOOP CURSOR FOR
+select 1 TrxType,TD.TRANSACTIONID TrxID,I.ItemCode,PTL.DESCRIPTION Unit,
+CASE(TRANSACTIONTYPEID) WHEN 1 THEN SUM(TD.QUANTITY) ELSE
+CASE(TRANSACTIONTYPEID) WHEN 2 THEN -1*SUM(TD.QUANTITY) ELSE
+CASE(TRANSACTIONTYPEID) WHEN 3 THEN SUM(TD.QUANTITY) ELSE
+CASE(TRANSACTIONTYPEID) WHEN 4 THEN -1*SUM(TD.QUANTITY) ELSE SUM(TD.QUANTITY) END END END END  Qty,
+CASE(TD.SALESTRANSACTIONTYPEID) WHEN 2 THEN TD.QUANTITY ELSE
+CASE(TD.SALESTRANSACTIONTYPEID) WHEN 4 THEN TD.QUANTITY ELSE 0 END END FreeQty,TD.PRICE Price,CASE (SUM(TD.QUANTITY)*PRICE) WHEN 0 THEN 0 ELSE (SUM(TD.DISCOUNT)/(PRICE*SUM(TD.QUANTITY))) END DiscPerc,
+0 Vat,RRL.DESCRIPTION Reason,'''' KitCode,'''' Descr,1 cmpseqb
+FROM TRANSACTIONDETAIL TD
+INNER JOIN PACK P ON TD.PackID=P.PACKID
+INNER JOIN ITEM I ON P.ITEMID=I.ITEMID
+INNER JOIN PACKTYPELANGUAGE PTL ON P.PackTypeID=PTL.PackTypeID AND PTL.LanguageID=1
+LEFT OUTER JOIN ReturnReasonLanguage RRL ON TD.ReturnReason=RRL.ReturnReasonID AND RRL.LANGUAGEID=1
+INNER JOIN [TRANSACTION] T ON T.TRANSACTIONID=TD.TRANSACTIONID AND T.CUSTOMERID=TD.CUSTOMERID AND T.OUTLETID=TD.OUTLETID
+WHERE TD.TRANSACTIONID=@TrxID
+GROUP BY 
+TD.TRANSACTIONID ,I.ItemCode,PTL.DESCRIPTION ,
+CASE(TD.SALESTRANSACTIONTYPEID) WHEN 2 THEN TD.QUANTITY ELSE
+CASE(TD.SALESTRANSACTIONTYPEID) WHEN 4 THEN TD.QUANTITY ELSE 0 END END ,TD.PRICE ,
+RRL.DESCRIPTION ,TRANSACTIONTYPEID
+--print ''details selected ''+@TrxID
+open DLOOP 
+fetch next from DLOOP into @TrxType,
+@TrxID,
+@ItemCode,
+@Unit,
+@Qty,
+@FreeQty,
+@Price,
+@DiscPerc,
+@Vat,
+@Reason,
+@KitCode,
+@Descr,
+@cmpseqb
+WHILE(@@FETCH_STATUS=0)
+BEGIN
+--print ''detail loop ''+@TrxID
+INSERT INTO ALBADIA_TEST..im_ret_VDRB(TrxType,
+TrxID,
+ItemCode,
+Unit,
+Qty,
+FreeQty,
+Price,
+DiscPerc,
+Vat,
+Reason,
+KitCode,
+Descr,
+cmpseqb
+)
+VALUES
+(@TrxType,
+@TrxID,
+@ItemCode,
+@Unit,
+@Qty,
+@FreeQty,
+@Price,
+@DiscPerc,
+@Vat,
+@Reason,
+@KitCode,
+@Descr,
+@cmpseqb)
+
+fetch next from DLOOP into @TrxType,
+@TrxID,
+@ItemCode,
+@Unit,
+@Qty,
+@FreeQty,
+@Price,
+@DiscPerc,
+@Vat,
+@Reason,
+@KitCode,
+@Descr,
+@cmpseqb
+END
+CLOSE DLOOP
+DEALLOCATE DLOOP
+UPDATE [TRANSACTION] SET SYNCHRONIZED=1 WHERE TRANSACTIONID=@TrxID
+fetch next from hloop into @TrxType,
+@TrxID,
+@Date,
+@Time,
+@Customer,
+@Salesman,
+@CurCode,
+@Outletcode,
+@Shiftnumber,
+@Packetnumber,
+@Customerid,
+@Salesmanid,
+@InvoiceTypeId,
+@Rate,
+@RateSl,
+@Net,
+@reattc,
+@cmpseqa
+
+COMMIT TRANSACTION T1
+END TRY
+BEGIN CATCH
+ROLLBACK TRANSACTION T1
+INSERT INTO ERROR_TRACK (ErrorNumber,ProcedureName,ErrorLine,ErrorMessage,ErrorDate)
+SELECT ERROR_NUMBER(), ''Send Transactions [''+@TrxID+'']'',ERROR_LINE(),ERROR_MESSAGE(),GETDATE()
+ 
+END CATCH
+end
+close hloop
+deallocate hloop
+
+END TRY
+BEGIN CATCH
+INSERT INTO ERROR_TRACK (ErrorNumber,ProcedureName,ErrorLine,ErrorMessage,ErrorDate)
+SELECT ERROR_NUMBER(), ''sp_SendTransactions'',ERROR_LINE(),ERROR_MESSAGE(),GETDATE()
+ END CATCH
+end
+')
+GO
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+--Send Payments
+EXEC('
+CREATE PROCEDURE [dbo].[sp_SendCollections]
+(
+@TriggerID INT,
+@FromDate NVARCHAR(10),
+@ToDate NVARCHAR(10),
+@EmployeeID INT
+)
+AS
+BEGIN
+BEGIN TRY
+DECLARE 
+@TrxType AS INT,
+@TrxID AS NVARCHAR(10),
+@LineNum AS INT,
+@MOP AS NVARCHAR(10),
+@CurCode AS NVARCHAR(10),
+@Amount AS DECIMAL(10,3),
+@CheckCard AS NVARCHAR(10),
+@Maturity AS NVARCHAR(10),
+@Bank AS NVARCHAR(10),
+@Rate AS DECIMAL(10,3),
+@RateSl AS DECIMAL(10,3),
+@cmpseqc AS INT,
+@PAYID AS NVARCHAR(50),
+@PAYDATE DATE,
+@PAYTIME TIME,
+@Customer AS NVARCHAR(50),
+@Salesman AS NVARCHAR(50),
+@Outletcode AS NVARCHAR(3),
+@Customerid AS nvarchar(8),
+@Salesmanid AS nvarchar(8);
+
+
+declare PLOOP cursor for
+SELECT 2 TRXTYPE,T.TRANSACTIONID TRXID,ROW_NUMBER()OVER(ORDER BY T.TRANSACTIONID,CP.CUSTOMERPAYMENTID,CP.PAYMENTTYPEID) LineNum,PTL.DESCRIPTION MOP,''AED'' CURCODE
+,CP.APPLIEDAMOUNT Amount,CP.VOUCHERNUMBER CheckCard, CP.VOUCHERDATE Maturity, B.CODE BANK,1 RATE,3.68 RateSl,1 cmpseqc,
+CP.CUSTOMERPAYMENTID PAYID,REPLACE(CONVERT(CHAR(10), CAST(CP.PAYMENTDATE AS DATE), 103), ''/'', '''') ''DATE'',REPLACE(CONVERT(CHAR(10), CAST(CP.PAYMENTDATE AS DATE), 103), '':'', '''') ''TIME''
+,CO.CUSTOMERCODE,W.WAREHOUSECODE,E.EMPLOYEECODE,COL.DESCRIPTION,EL.DESCRIPTION
+FROM CUSTOMERPAYMENT CP 
+INNER JOIN [TRANSACTION] T ON CP.TRANSACTIONID=T.TRANSACTIONID AND CP.CUSTOMERID=T.CUSTOMERID AND CP.OUTLETID=T.OUTLETID
+INNER JOIN PAYMENTTYPELANGUAGE PTL ON CP.PaymentTypeID=PTL.PaymentTypeID AND PTL.LANGUAGEID=1
+LEFT JOIN BANK B ON CP.BankID=B.BankID
+INNER JOIN CUSTOMEROUTLET CO ON CO.CUSTOMERID=CP.CUSTOMERID AND CO.OUTLETID=CP.OUTLETID
+INNER JOIN CUSTOMER CU ON CO.CUSTOMERID=CU.CUSTOMERID
+INNER JOIN CUSTOMEROUTLETLANGUAGE COL ON COL.CUSTOMERID=CP.CUSTOMERID AND COL.OUTLETID=CP.OUTLETID AND COL.LANGUAGEID=1
+INNER JOIN EMPLOYEE E ON CP.EMPLOYEEID=E.EmployeeID
+INNER JOIN EMPLOYEELANGUAGE EL ON E.EMPLOYEEID=EL.EMPLOYEEID AND EL.LANGUAGEID=1
+LEFT OUTER JOIN EMPLOYEEVEHICLE EV ON E.EMPLOYEEID=EV.EMPLOYEEID
+LEFT OUTER JOIN WAREHOUSE W ON EV.VEHICLEID=W.WAREHOUSEID
+WHERE (CP.Synchronized = 0) 
+                    and CP.PaymentStatusID <>5 and CP.EmployeeID<>0
+GROUP BY 
+T.TRANSACTIONID ,PTL.DESCRIPTION 
+,CP.APPLIEDAMOUNT ,CP.VOUCHERNUMBER , CP.VOUCHERDATE , B.Code ,
+CP.CUSTOMERPAYMENTID ,CAST(CP.PAYMENTDATE AS DATE) ,CAST(CP.PAYMENTDATE AS TIME)
+,CP.PaymentTypeID,CO.CUSTOMERCODE,W.WAREHOUSECODE,E.EMPLOYEECODE,COL.DESCRIPTION,EL.DESCRIPTION
+open PLOOP 
+fetch next from PLOOP into @TrxType,
+@TrxID,
+@LineNum,
+@MOP,
+@CurCode,
+@Amount,
+@CheckCard,
+@Maturity,
+@Bank,
+@Rate,
+@RateSl,
+@cmpseqc,
+@PAYID ,
+@PAYDATE,
+@PAYTIME,@Customerid,@Outletcode,@Salesmanid,@Customer,@Salesman
+
+
+
+
+while(@@FETCH_STATUS=0)
+begiN
+BEGIN TRY
+BEGIN TRANSACTION T1
+insert into ALBADIA_TEST..im_ret_VDRC (TrxType,
+TrxID,
+LineNum,
+MOP,
+CurCode,
+Amount,
+CheckCard,
+Maturity,
+Bank,
+Rate,
+RateSl,
+cmpseqc,
+Doc_Ref
+
+)
+values
+(
+@TrxType,
+@PAYID,
+@LineNum,
+@MOP,
+@CurCode,
+@Amount,
+@CheckCard,
+@Maturity,
+@Bank,
+@Rate,
+@RateSl,
+@cmpseqc,
+@TrxID
+)
+
+insert into ALBADIA_TEST..im_ret_VDRA (TrxType,
+TrxID,
+Date,
+Time,
+Customer,
+Salesman,
+CurCode,
+Outlet,
+Shift,
+Packet,
+Customerid,
+Salesmanid,
+InvoiceTypeId,
+cmpseqa
+)
+values
+(
+@TrxType,
+@PAYID,
+@PAYDATE,
+@PAYTIME,
+@Customer,
+@Salesman,
+''AED'',
+@Outletcode,
+'''',
+1,
+@Customerid,
+@Salesmanid,
+2,
+--1,
+--3.68,
+--'''',--@Amount,
+--'''',--@Amount,
+@cmpseqc
+)
+
+UPDATE CUSTOMERPAYMENT SET SYNCHRONIZED=1 WHERE TRANSACTIONID=@TrxID AND CUSTOMERPAYMENTID=@PAYID AND PaymentTypeID IN (SELECT PAYMENTTYPEID FROM PAYMENTTYPELANGUAGE WHERE DESCRIPTION=@MOP AND LANGUAGEID=1)
+fetch next from PLOOP into @TrxType,
+@TrxID,
+@LineNum,
+@MOP,
+@CurCode,
+@Amount,
+@CheckCard,
+@Maturity,
+@Bank,
+@Rate,
+@RateSl,
+@cmpseqc,
+@PAYID ,
+@PAYDATE,
+@PAYTIME,@Customerid,@Outletcode,@Salesmanid,@Customer,@Salesman
+COMMIT TRANSACTION T1
+END TRY
+BEGIN CATCH
+ROLLBACK TRANSACTION T1
+INSERT INTO ERROR_TRACK (ErrorNumber,ProcedureName,ErrorLine,ErrorMessage,ErrorDate)
+SELECT ERROR_NUMBER(), ''Send Collection [''+@TrxID+'']'',ERROR_LINE(),ERROR_MESSAGE(),GETDATE()
+ 
+END CATCH
+end
+close PLOOP
+deallocate PLOOP
+
+END TRY
+BEGIN CATCH   
+INSERT INTO ERROR_TRACK (ErrorNumber,ProcedureName,ErrorLine,ErrorMessage,ErrorDate)
+SELECT ERROR_NUMBER(), ''[sp_SendCollections]'',ERROR_LINE(),ERROR_MESSAGE(),GETDATE()
+ 
+
+deallocate HLOOP
+deallocate PLOOP
+deallocate DLOOP
+
+END CATCH
+end
+')

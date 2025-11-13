@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Connections>
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Persist Security Info=True;User ID=sa;password=UGsa;Initial Catalog=UGLiveInVanData;Data Source=SRV-INVANSQLDB\UGDATABASESERVER</Data>
+  </Connection>
+</Connections>

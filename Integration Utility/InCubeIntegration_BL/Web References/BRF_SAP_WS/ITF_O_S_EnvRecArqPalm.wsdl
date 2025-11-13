@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:p1="http://www.EnviaRecebeArquivoPalm.com.br" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" name="ITF_O_S_EnvRecArqPalm" targetNamespace="http://www.EnviaRecebeArquivoPalm.com.br" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="OP_ITF_O_S_EnvRecArqPalm" />
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.EnviaRecebeArquivoPalm.com.br" targetNamespace="http://www.EnviaRecebeArquivoPalm.com.br" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="MTP_EnvRecArqPalm_Req" type="p1:DTP_EnvRecArqPalm_Req" />
+      <xsd:element name="MTP_EnvRecArqPalm_Resp" type="p1:DTP_EnvRecArqPalm_Resp" />
+      <xsd:complexType name="DTP_EnvRecArqPalm_Resp">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">5cc5a0a0f2fd11df92b500000147fe36</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Erro" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">51b0f4b0b2c011debcd5001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Mensagem" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">51b0f4b1b2c011deba00001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="NomeArq" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">51b0f4b2b2c011dea537001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="NumLinhas" type="xsd:integer">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">51b0f4b3b2c011deb3d3001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="T_Dados_OUT">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">51b0f4b4b2c011dec240001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="Dados" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">51b0f4b5b2c011dec3e7001f3c9e357f</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DTP_EnvRecArqPalm_Req">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">57d2f7fdf2fd11dfcb7c00000147fe36</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="CaixaPostal" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">0c217dc0b2c011deccb1001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TipoArquivo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">0c217dc1b2c011dea449001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Evento" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">0c217dc2b2c011de99fb001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="NumLinhas" type="xsd:integer">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">0c217dc3b2c011deb24e001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="IMEI" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">f3a160b0cb0811dec5ea001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Serial" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">f3a160b1cb0811de8ffd001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Versao" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">f3a160b2cb0811de968e001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="T_Dados_IN">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">0c217dc4b2c011dea3c6001f3c9e357f</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="Dados" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">0c217dc5b2c011deaf00001f3c9e357f</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="MTP_EnvRecArqPalm_Req">
+    <wsdl:documentation />
+    <wsdl:part name="MTP_EnvRecArqPalm_Req" element="p1:MTP_EnvRecArqPalm_Req" />
+  </wsdl:message>
+  <wsdl:message name="MTP_EnvRecArqPalm_Resp">
+    <wsdl:documentation />
+    <wsdl:part name="MTP_EnvRecArqPalm_Resp" element="p1:MTP_EnvRecArqPalm_Resp" />
+  </wsdl:message>
+  <wsdl:portType name="ITF_O_S_EnvRecArqPalm">
+    <wsdl:documentation />
+    <wsdl:operation name="ITF_O_S_EnvRecArqPalm">
+      <wsdl:documentation />
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_ITF_O_S_EnvRecArqPalm" />
+      </wsp:Policy>
+      <wsdl:input message="p1:MTP_EnvRecArqPalm_Req" />
+      <wsdl:output message="p1:MTP_EnvRecArqPalm_Resp" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ITF_O_S_EnvRecArqPalmBinding" type="p1:ITF_O_S_EnvRecArqPalm">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="ITF_O_S_EnvRecArqPalm">
+      <operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ITF_O_S_EnvRecArqPalmService">
+    <wsdl:port name="ITF_O_S_EnvRecArqPalmPort" binding="p1:ITF_O_S_EnvRecArqPalmBinding">
+      <address location="http://spouxp2d:50200/XISOAPAdapter/MessageServlet?channel=:BS_PALM_05:CC_PALM_SOAP_SND&amp;version=3.0&amp;Sender.Service=CC_PALM_SOAP_SND&amp;Interface=ITF_O_S_EnvRecArqPalm%5EBS_PALM_05" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

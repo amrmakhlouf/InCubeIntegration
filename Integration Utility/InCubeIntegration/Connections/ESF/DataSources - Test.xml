@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Data Source=192.168.0.5;Password=Yj4MmwOp;User ID=sa;Initial Catalog=InVanDataTest;Persist Security Info=True</Data>
+
+  </Connection>
+
+  <Connection>
+    <Name>InCubeSQL</Name>
+    <Data>Data Source=192.168.0.10;integrated Security=sspi;Initial Catalog=TESTF</Data>
+  </Connection>
+
+  <Connection>
+    <Name>InCubeGet</Name>
+    <Data>Data Source=192.168.0.5;Password=Yj4MmwOp;User ID=sa;Initial Catalog=VANTEST;Persist Security Info=True</Data>
+  </Connection>
+
+</Connections>
+

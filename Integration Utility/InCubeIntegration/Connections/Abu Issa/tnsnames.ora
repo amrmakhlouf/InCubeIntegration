@@ -1,0 +1,9 @@
+APPS1 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.73)(PORT = 1522))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = PROD)
+    )
+  )

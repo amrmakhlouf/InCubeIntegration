@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:sap-com:document:sap:rfc:functions" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="urn:sap-com:document:sap:rfc:functions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+  </wsdl:documentation>
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="BN_BN_binding">
+    <saptrnbnd:OptimizedXMLTransfer uri="http://xml.sap.com/2006/11/esi/esp/binxml" xmlns:saptrnbnd="http://www.sap.com/webas/710/soap/features/transportbinding/" wsp:Optional="true" />
+    <saptrnbnd:OptimizedMimeSerialization xmlns:saptrnbnd="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" wsp:Optional="true" />
+    <wsp:ExactlyOne xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:sapsp="http://www.sap.com/webas/630/soap/features/security/policy" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sp:HttpBasicAuthentication />
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic128Rsa15 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+    <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="true" />
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="IF_IF_zinvan_integration1">
+    <sapsession:Session xmlns:sapsession="http://www.sap.com/webas/630/soap/features/session/">
+      <sapsession:enableSession>false</sapsession:enableSession>
+    </sapsession:Session>
+    <sapcentraladmin:CentralAdministration xmlns:sapcentraladmin="http://www.sap.com/webas/700/soap/features/CentralAdministration/" wsp:Optional="true">
+      <sapcentraladmin:BusinessApplicationID>0050569D72C41EE6ACC5E26C419B6120</sapcentraladmin:BusinessApplicationID>
+    </sapcentraladmin:CentralAdministration>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="OP_IF_OP_ZINVAN_COLLECTION_POST_C1">
+    <sapcomhnd:enableCommit xmlns:sapcomhnd="http://www.sap.com/NW05/soap/features/commit/">false</sapcomhnd:enableCommit>
+    <sapblock:enableBlocking xmlns:sapblock="http://www.sap.com/NW05/soap/features/blocking/">true</sapblock:enableBlocking>
+    <saptrhnw05:required xmlns:saptrhnw05="http://www.sap.com/NW05/soap/features/transaction/">no</saptrhnw05:required>
+    <saprmnw05:enableWSRM xmlns:saprmnw05="http://www.sap.com/NW05/soap/features/wsrm/">false</saprmnw05:enableWSRM>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="char1">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char100">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="100" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char18">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="18" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ZIN_VAN_COLLECTION">
+        <xsd:sequence>
+          <xsd:element name="ZPAY_NUM" type="tns:char10" />
+          <xsd:element name="ZVAN_INVOICE" type="tns:char10" />
+          <xsd:element name="ZBILL_TO" type="tns:char10" />
+          <xsd:element name="ZSHIP_TO" type="tns:char10" />
+          <xsd:element name="ZPAY_DATE" type="tns:char10" />
+          <xsd:element name="ZINV_DATE" type="tns:char10" />
+          <xsd:element name="ZSALEMAN_CODE" type="tns:char10" />
+          <xsd:element name="ZPAID_AMOUNT" type="tns:char18" />
+          <xsd:element name="ZPAY_TYPE" type="tns:char1" />
+          <xsd:element name="ZCHEQUE_NO" type="tns:char18" />
+          <xsd:element name="ZCHEQUE_DATE" type="tns:char10" />
+          <xsd:element name="ZBANK_CODE" type="tns:char10" />
+          <xsd:element name="ZINV_TYPE" type="tns:char1" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZFI_COLL_STATUS">
+        <xsd:sequence>
+          <xsd:element name="ZVAN_INVOICE" type="tns:char10" />
+          <xsd:element name="TYPE" type="tns:char1" />
+          <xsd:element name="STATUS_MESS" type="tns:char100" />
+          <xsd:element name="ZPAY_NUM" type="tns:char10" />
+          <xsd:element name="ZBILL_TO" type="tns:char10" />
+          <xsd:element name="ZSHIP_TO" type="tns:char10" />
+          <xsd:element name="ZPAY_DATE" type="tns:char10" />
+          <xsd:element name="ZINV_DATE" type="tns:char10" />
+          <xsd:element name="ZSALEMAN_CODE" type="tns:char10" />
+          <xsd:element name="ZPAID_AMOUNT" type="tns:char18" />
+          <xsd:element name="ZPAY_TYPE" type="tns:char1" />
+          <xsd:element name="ZCHEQUE_NO" type="tns:char18" />
+          <xsd:element name="ZCHEQUE_DATE" type="tns:char10" />
+          <xsd:element name="ZBANK_CODE" type="tns:char10" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZIN_COLLECTION_T">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZIN_VAN_COLLECTION" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZFI_COLL_STATUS_T">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZFI_COLL_STATUS" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ZINVAN_COLLECTION_POST_C1">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GT_COLLECTION" type="tns:ZIN_COLLECTION_T" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZINVAN_COLLECTION_POST_C1Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GT_STATUS" type="tns:ZFI_COLL_STATUS_T" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ZINVAN_COLLECTION_POST_C1">
+    <wsdl:part name="parameters" element="tns:ZINVAN_COLLECTION_POST_C1" />
+  </wsdl:message>
+  <wsdl:message name="ZINVAN_COLLECTION_POST_C1Response">
+    <wsdl:part name="parameter" element="tns:ZINVAN_COLLECTION_POST_C1Response" />
+  </wsdl:message>
+  <wsdl:portType name="zinvan_integration1">
+    <wsdl:documentation>
+      <sapdoc:sapdoc xmlns:sapdoc="urn:sap:esi:documentation">
+        <sapdoc:docitem docURL="http://ECC-DEV-UFC.ufc.local:8000/sap/bc/esdt/docu/sd_text?sap-client=230&amp;sd_name=ZINVAN_INTEGRATION1" />
+      </sapdoc:sapdoc>
+    </wsdl:documentation>
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#IF_IF_zinvan_integration1" />
+    </wsp:Policy>
+    <wsdl:operation name="ZINVAN_COLLECTION_POST_C1">
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_IF_OP_ZINVAN_COLLECTION_POST_C1" />
+      </wsp:Policy>
+      <wsdl:input message="tns:ZINVAN_COLLECTION_POST_C1" />
+      <wsdl:output message="tns:ZINVAN_COLLECTION_POST_C1Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="binding" type="tns:zinvan_integration1">
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN_BN_binding" />
+    </wsp:Policy>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ZINVAN_COLLECTION_POST_C1">
+      <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:zinvan_integration1:ZINVAN_COLLECTION_POST_C1Request" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="binding" binding="tns:binding">
+      <soap:address location="http://ECC-DEV-UFC.ufc.local:8000/sap/bc/srt/scs/sap/zinvan_integration1?sap-client=230" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

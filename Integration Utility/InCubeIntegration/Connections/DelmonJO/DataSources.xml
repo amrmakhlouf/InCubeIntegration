@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+  <Connection>
+    <Name>InCube</Name>
+    <Data>
+      Data Source=JO-AMM-INVAN-02\SAP;Password=van;User ID=van;Initial Catalog=InVan_Android_Latest;Persist Security Info=True
+    </Data>
+  </Connection>
+</Connections>

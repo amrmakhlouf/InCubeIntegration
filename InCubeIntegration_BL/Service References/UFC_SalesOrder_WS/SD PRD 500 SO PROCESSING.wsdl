@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:n1="urn:sap-com:document:sap:rfc:functions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl" />
+  </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="char1">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="1" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char16">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="16" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char200">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="200" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char220">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="220" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char29">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="29" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+    <xsd:schema xmlns:n0="urn:sap-com:document:sap:rfc:functions" attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style">
+      <xsd:import namespace="urn:sap-com:document:sap:rfc:functions" />
+      <xsd:complexType name="ZinvanSoHeader">
+        <xsd:sequence>
+          <xsd:element name="Ordernumber" type="n0:char10" />
+          <xsd:element name="Routekey" type="n0:char10" />
+          <xsd:element name="Billtocode" type="n0:char200" />
+          <xsd:element name="Shiptocode" type="n0:char200" />
+          <xsd:element name="Orderdate" type="n0:char16" />
+          <xsd:element name="Deliverydate" type="n0:char16" />
+          <xsd:element name="Salesmancode" type="n0:char200" />
+          <xsd:element name="Locationcode" type="n0:char200" />
+          <xsd:element name="Routecode" type="n0:char200" />
+          <xsd:element name="Lponumber" type="n0:char200" />
+          <xsd:element name="Orderamount" type="n0:char29" />
+          <xsd:element name="Headerdiscount" type="n0:char29" />
+          <xsd:element name="Isprocessed" type="n0:char1" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZinvanSoItem">
+        <xsd:sequence>
+          <xsd:element name="Ordernumber" type="n0:char10" />
+          <xsd:element name="Billtocode" type="n0:char200" />
+          <xsd:element name="Shiptocode" type="n0:char200" />
+          <xsd:element name="Linenumber" type="n0:char10" />
+          <xsd:element name="Itemcode" type="n0:char200" />
+          <xsd:element name="Uom" type="n0:char200" />
+          <xsd:element name="Quantity" type="n0:char29" />
+          <xsd:element name="Price" type="n0:char29" />
+          <xsd:element name="Focindicator" type="n0:char1" />
+          <xsd:element name="Itemdiscount" type="n0:char29" />
+          <xsd:element name="Totallineamount" type="n0:char29" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Zreturn">
+        <xsd:sequence>
+          <xsd:element name="Ordernumber" type="n0:char10" />
+          <xsd:element name="Type" type="n0:char1" />
+          <xsd:element name="Message" type="n0:char220" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZinvanSoHeaderTt">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZinvanSoHeader" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZinvanSoItemTt">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:ZinvanSoItem" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZretTt">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="item" type="tns:Zreturn" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ZsdInvanSalesOrderCrWserv">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="EtSoHeader" type="tns:ZinvanSoHeaderTt" />
+            <xsd:element name="EtSoItem" type="tns:ZinvanSoItemTt" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZsdInvanSalesOrderCrWservResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Return" type="tns:ZretTt" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ZsdInvanSalesOrderCrWserv">
+    <wsdl:part name="parameters" element="tns:ZsdInvanSalesOrderCrWserv" />
+  </wsdl:message>
+  <wsdl:message name="ZsdInvanSalesOrderCrWservResponse">
+    <wsdl:part name="parameter" element="tns:ZsdInvanSalesOrderCrWservResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ZUFC_INVAN_SALE_ORD_POST">
+    <wsdl:operation name="ZsdInvanSalesOrderCrWserv">
+      <wsdl:input message="tns:ZsdInvanSalesOrderCrWserv" />
+      <wsdl:output message="tns:ZsdInvanSalesOrderCrWservResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="binding" type="tns:ZUFC_INVAN_SALE_ORD_POST">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ZsdInvanSalesOrderCrWserv">
+      <soap:operation soapAction="urn:sap-com:document:sap:soap:functions:mc-style:ZUFC_INVAN_SALE_ORD_POST:ZsdInvanSalesOrderCrWservRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="binding" binding="tns:binding">
+      <soap:address location="http://ERPDXBSRV01.ufc.local:8000/sap/bc/srt/scs/sap/zufc_invan_sale_ord_post?sap-client=500" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

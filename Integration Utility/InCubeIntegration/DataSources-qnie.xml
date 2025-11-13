@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+
+  <Connection>
+    <Name>InCube</Name>
+    <!--<Data>Data Source=sonic-sql-express.cgjaemphbwms.ap-south-1.rds.amazonaws.com,63513;Password=11493Ov468L675626vLI;User ID=LIWA_WS;Initial Catalog=SonicData_LIWA_QA;Persist Security Info=True</Data>-->
+    <Data>Server=sonic-sql-express.cgjaemphbwms.ap-south-1.rds.amazonaws.com,63513;Database=SonicData_LIWA_QA;User Id=LIWA_WS;Password=11493Ov468L675626vLI;</Data>
+    <Data>Password=Admin@432;Persist Security Info=True;User ID=incubeintegration;Initial Catalog=SonicData;Data Source=10.250.120.36</Data>
+  </Connection>
+
+  <Connection>
+    <Name>SAP</Name>
+    <Data>QQA</Data>
+  </Connection>
+
+</Connections>

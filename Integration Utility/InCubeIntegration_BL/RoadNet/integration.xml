@@ -1,0 +1,817 @@
+<integration>	
+
+
+
+	<Locations>
+		<Column>
+			CustomerCode
+		</Column>
+		<Column>
+			CustomerName
+		</Column>
+		<!--<Column>
+			DELIVERYADDRESS
+		</Column>
+		<Column>
+			CITY
+		</Column>
+		<Column>
+			STATE
+		</Column>
+		<Column>
+			PHONE
+		</Column>
+		<Column>
+			to_char(to_date(Concat('11/11/2018 ',OPEN_HOUR),'dd/mm/yyyy hh:mi:ss am'),'hh24:mi') "OPEN_HOUR"
+		</Column>
+		<Column>
+			to_char(to_date(Concat('11/11/2018 ',substr(CLOSE_HOUR,0,8)),'dd/mm/yyyy hh24:mi:ss'),'hh24:mi') "CLOSE_HOUR"
+		</Column>
+		<Column>
+			TW1START
+		</Column>
+		<Column>
+			TW1STOP
+		</Column>
+		<Column>
+			TW2START
+		</Column>
+		<Column>
+			TW2STOP	
+		</Column>
+		<Column>
+			SERVICE_TIME_TYPE	
+		</Column>
+		<Column>
+			ACCOUT_TYPE
+		</Column>-->
+		<Column>
+			GPSLatitude
+		</Column>
+		<Column>
+			GPSLongitude
+		</Column>
+		<!--<Column>
+			SERVICE_MINUTES "SERVICE_TIME"
+		</Column>-->
+
+		
+		<Mapping>
+			<RoadNetFiled>
+			AccountType
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			AddressLine1
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			AddressLine2
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Description
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			CustomerName
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			FixedFee
+			</RoadNetFiled>
+			<IntgratedTableColumnName>	
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Latitude
+			</RoadNetFiled>
+			<IntgratedTableColumnName>	
+			GPSLatitude 
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Longitude
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			GPSLongitude
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			LocationID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			CustomerCode
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			RegionID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			@DEMO
+			</IntgratedTableColumnName>
+		</Mapping>
+		
+		<Mapping>
+			<RoadNetFiled>
+			PhoneNumber
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Priority
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			ServiceTimeType
+			</RoadNetFiled>
+			<IntgratedTableColumnName>	
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			FixedNonHelperTime
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		
+		<Mapping>
+			<RoadNetFiled>
+			FixedHelperTime
+			</RoadNetFiled>
+			<IntgratedTableColumnName>	
+			</IntgratedTableColumnName>
+		</Mapping>
+		
+		<Mapping>
+			<RoadNetFiled>
+			DeliveryDays
+			</RoadNetFiled>
+			<IntgratedTableColumnName>	
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			StandardInstructions
+			</RoadNetFiled>
+			<IntgratedTableColumnName>	
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			CloseTime
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			OpenTime
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			TimeWindow1StartTime
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			TimeWindow1StopTime
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			TimeWindow2StartTime
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			TimeWindow2StopTime
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			TimeWindowType
+			</RoadNetFiled>
+			<IntgratedTableColumnName>	
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			UDF1
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			UDF2
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			UDF3
+			</RoadNetFiled>
+			<IntgratedTableColumnName>	
+			</IntgratedTableColumnName>
+		</Mapping>
+		
+		
+		
+		<DefaultFilter>
+		</DefaultFilter>
+		
+		
+		<TableName>
+			IMP_RN_LOCATIONINFO    
+		</TableName>
+		
+		<AfterImportQuery>
+		</AfterImportQuery>
+		
+		<Connection>
+		
+			<isOracle>
+			True
+			</isOracle>
+			<Data_Source>
+			orademo 
+			</Data_Source>
+			<Username>
+			roadnet
+			</Username>
+			<Password>
+			road321
+			</Password>
+			<ServerIP_Name>
+			</ServerIP_Name>
+			<DatabaseName>
+			</DatabaseName>
+		
+		</Connection>
+	</Locations>
+
+	<SKUs>
+
+		<Column>
+			SKUID
+		</Column>
+		<Column>
+			SKU_DESCRIPTION	
+		</Column>
+		<Column>
+			PACKAGE_TYPE_ID
+		</Column>
+		<Column>
+			'1' "SKUBRAND_ID"
+		</Column>
+		<Column>
+			UPDATED_DT
+		</Column>
+		<Column>
+			UPDATED_FLAG
+		</Column>
+		
+		
+		<Mapping>
+			<RoadNetFiled>
+			BrandID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			SKUBRAND_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Description
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			SKU_DESCRIPTION	
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			PackageTypeID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			PACKAGE_TYPE_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			ProductTypeID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			SkuID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			SKUID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			RegionID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			@MT-KUWAIT
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			WarehouseZoneID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			</IntgratedTableColumnName>
+		</Mapping>
+
+		
+		
+		<DefaultFilter>
+		</DefaultFilter>
+			
+		<TableName>
+			IMP_RN_SKU
+		</TableName>
+		
+		<AfterImportQuery>
+		</AfterImportQuery>
+		
+		<Connection>
+		
+			<isOracle>
+			True
+			</isOracle>
+			<Data_Source>
+			orademo 
+			</Data_Source>
+			<Username>
+			roadnet
+			</Username>
+			<Password>
+			road321
+			</Password>
+			<ServerIP_Name>
+			</ServerIP_Name>
+			<DatabaseName>
+			</DatabaseName>
+		
+		</Connection>
+	</SKUs>
+	
+	<PackageTypes>
+		<Column>
+			PACKAGE_TYPE_ID
+		</Column>
+		<Column>
+			DESCRIPTION
+		</Column>
+		<Column>
+			NVL(HEIGHT,0) "HEIGHT"
+		</Column>
+		<Column>
+			NVL(WIDTH,0) "WIDTH"
+		</Column>
+		<Column>
+			NVL(DEPTH,0 ) "DEPTH"
+		</Column>
+		<Column>
+			NVL(WEIGHT,0) "WEIGHT"
+		</Column>
+		<Column>
+			EQUIVALENCY_FACTOR
+		</Column>
+		<Column>
+			UPDATED_DT
+		</Column>
+
+		
+		
+		<Mapping>
+			<RoadNetFiled>
+			Depth
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			DEPTH
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			PackageTypeID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			PACKAGE_TYPE_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			RegionID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			@MT-KUWAIT
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Description
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			DESCRIPTION
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Height
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			HEIGHT
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Weight
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			WEIGHT
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Width
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			WIDTH
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Equivalence
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			EQUIVALENCY_FACTOR
+			</IntgratedTableColumnName>
+		</Mapping>	
+		
+		<TableName>
+			IMP_RN_PACKAGE_TYPE
+		</TableName>
+		
+		<AfterImportQuery>
+		</AfterImportQuery>
+		
+		<Connection>
+		
+			<isOracle>
+			True
+			</isOracle>
+			<Data_Source>
+			orademo 
+			</Data_Source>
+			<Username>
+			roadnet
+			</Username>
+			<Password>
+			road321
+			</Password>
+			<ServerIP_Name>
+			</ServerIP_Name>
+			<DatabaseName>
+			</DatabaseName>
+		
+		</Connection>
+	</PackageTypes>
+	
+	
+	
+	
+	<Orders>
+		<Column>
+			ORDER_ID	
+		</Column>
+		<Column>
+			CUSTOMER_ID	
+		</Column>
+		<Column>
+			ITEM_ID	
+		</Column>
+		<Column>
+			QUANTITY_SIZE1
+		</Column>
+		<Column>
+			QUANTITY_SIZE2
+		</Column>
+		<Column>
+			NVL(QUANTITY_SIZE3,0) "QUANTITY_SIZE3"
+		</Column>
+		<Column>
+			R_LOC_ID	
+		</Column>
+		<Column>
+			ROUTE_DT
+		</Column>
+		
+		
+		<Mapping>
+			<RoadNetFiled>
+			OrderNumber
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			ORDER_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			LocationID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			CUSTOMER_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Size1
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			QUANTITY_SIZE1
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Size2
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			QUANTITY_SIZE2
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			Size3
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			QUANTITY_SIZE3
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			SKUID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			ITEM_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			RegionID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			@MT-KUWAIT
+			</IntgratedTableColumnName>
+		</Mapping>	
+		
+		<TableName>
+			IMP_RN_ORDERS
+		</TableName>
+		
+		<AfterImportQuery>
+		</AfterImportQuery>
+		
+		<Connection>
+		
+			<isOracle>
+			True
+			</isOracle>
+			<Data_Source>
+			orademo 
+			</Data_Source>
+			<Username>
+			roadnet
+			</Username>
+			<Password>
+			road321
+			</Password>
+			<ServerIP_Name>
+			</ServerIP_Name>
+			<DatabaseName>
+			</DatabaseName>
+
+		
+		</Connection>
+	</Orders>
+	
+	<UPSLT>
+	
+		<Query>
+			Select 
+			O.ORDER_NUMBER
+			,S.LOCATION_ID
+			,LI.SKU
+			,LI.SIZE1
+			,LI.SIZE2
+			,LI.SIZE3
+			,R.ROUTE_ID 
+			,R.ROUTE_NUMBER
+			,convert(varchar(20),Convert(varchar(24),DATEADD(HH,3,S.ARRIVAL),22),101) as ExpectedArrivalTime
+			,convert(varchar(20),Convert(varchar(24),DATEADD(HH,3,DATEADD(MINUTE,S.SERVICE_TIME/60,S.ARRIVAL)),22),101) as ExpectedDepartureTime
+			,format(R.START_TIME,'yyyy/MM/dd HH;mm:ss') START_TIME
+			,format(R.COMPLETE_TIME,'yyyy/MM/dd HH;mm:ss') COMPLETE_TIME
+			,E.EQUIPMENT_TYPE_ID
+			,S.SEQUENCE_NUMBER as StopNumber 
+			,S.TRIP_NUMBER 
+			,'N' as PROCESSED
+
+			from TSDBA.RS_STOP as S
+			inner join TSDBA.RS_SESSION as SE on S.RN_SESSION_PKEY = SE.PKEY
+			inner join TSDBA.TS_LOCATION as L on S.LOCATION_ID = L.ID and S.LOCATION_REGION_ID = L.REGION_ID
+			inner join TSDBA.RS_ROUTE as R on S.ROUTE_PKEY = R.PKEY
+			inner join TSDBA.RS_ORDER as O on O.STOP_PKEY = S.PKEY
+			inner join TSDBA.RS_ROUTE_EQUIPMENT E ON R.PKEY = E.ROUTE_PKEY
+			inner join TSDBA.RS_LINE_ITEM as LI on LI.SKU_REGION_ID = SE.REGION_ID AND LI.RN_SESSION_PKEY = SE.PKEY AND LI.RN_ORDER_PKEY = O.PKEY
+
+			where R.STATUS = 'BUILT' and CONVERT(date, SE.SESSION_DATE , 102 )  = case DATEPART(dw, GETDATE()) when 6 THEN convert(date , GETDATE() + 2 ,102) else convert(date , GETDATE() + 1 ,102) end
+
+		</Query>
+		
+		<Connection>
+		
+			<isOracle>
+			False
+			</isOracle>
+			<Data_Source>
+			</Data_Source>
+			<Username>
+			TSDBA
+			</Username>
+			<Password>
+			roadnet
+			</Password>
+			<ServerIP_Name>
+			ROADNET\ROADNET
+			</ServerIP_Name>
+			<DatabaseName>
+			UPSLT
+			</DatabaseName>
+		
+		</Connection>
+		
+	</UPSLT>
+	
+	
+	<JourneyPlan>
+		<TableName>
+		EXP_RN_ORDERS
+		</TableName>
+		
+		<Connection>
+		
+			<isOracle>
+			True
+			</isOracle>
+			<Data_Source>
+			orademo 
+			</Data_Source>
+			<Username>
+			roadnet
+			</Username>
+			<Password>
+			road321
+			</Password>
+			<ServerIP_Name>
+			</ServerIP_Name>
+			<DatabaseName>
+			</DatabaseName>
+		
+		</Connection>
+		<PKColumn>
+		ORDER_ID
+		</PKColumn>
+		<PKColumn>
+		ITEM_ID
+		</PKColumn>
+			
+
+		<Mapping>
+			<RoadNetFiled>
+			ROUTE_ID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			ROUTE_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			ORDER_NUMBER
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			ORDER_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			LOCATION_ID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			CUST_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			StopNumber 
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			VISIT_SEQ_NO
+			</IntgratedTableColumnName>
+		</Mapping>
+
+		<Mapping>
+			<RoadNetFiled>
+			EQUIPMENT_TYPE_ID
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			EQUIPMENT_TYPE
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			TRIP_NUMBER
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			TRIP_NO
+			</IntgratedTableColumnName>
+		</Mapping>
+
+
+		<Mapping>
+			<RoadNetFiled>
+			SKU
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			ITEM_ID
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			SIZE1
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			QUANTITY_CBM
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			SIZE2
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			QUANTITY_NUM
+			</IntgratedTableColumnName>
+		</Mapping>
+		<Mapping>
+			<RoadNetFiled>
+			SIZE3
+			</RoadNetFiled>
+			<IntgratedTableColumnName>
+			QUANTITY_KG
+			</IntgratedTableColumnName>
+		</Mapping>
+
+
+		
+
+		
+	</JourneyPlan>
+	
+	
+</integration>

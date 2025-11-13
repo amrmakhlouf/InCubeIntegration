@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=SonicDemo4.0.33;Data Source=AHMADQADOMI_PC\SQLSRV17</Data>
+    <Data>Data Source=sonic-sql-express-us.coufv5zcnx59.us-east-1.rds.amazonaws.com,63513;Password=gPwf3nY2jDr35OLFcitw3lBryKKeDOnT;User ID=DelMonte_BO;Initial Catalog=SonicData_DelMonte;Persist Security Info=True</Data>
+    <Data>Password=sonicqa;Persist Security Info=True;User ID=incube;Initial Catalog=SonicDataTest;Data Source=172.16.41.17</Data>
+    <Data>Password=sonic@123;Persist Security Info=True;User ID=incubeintegration;Initial Catalog=SonicDataLive;Data Source=172.16.41.11</Data>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=AwalData;Data Source=AHMADQADOMI_PC\SQLSRV12</Data>
+    <Data>Password=invan@123;Persist Security Info=True;User ID=incube;Initial Catalog=InVanData;Data Source=192.168.2.19</Data>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=SonicData;Data Source=192.168.100.101</Data>
+    <Data>Password=abc@123@abc;Persist Security Info=True;User ID=incube;Initial Catalog=InVanData;Data Source=10.80.64.98\AEDXBIVP01</Data>
+    <!--<Data>Password=Admin@432;Persist Security Info=True;User ID=incubeintegration;Initial Catalog=SonicData;Data Source=10.250.120.36</Data>-->
+    <!--<Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=SonicDataNumerus;Data Source=AHMADQADOMI_PC\SQLSRV12</Data>-->
+    <!--<Data>Password=Admin@321;Persist Security Info=True;User ID=sa;Initial Catalog=SonicData;Data Source=10.250.120.36</Data>-->
+    <!--<Data>Data Source=10.15.3.11\SQLEXPRESS;Password=abc@123;User ID=sa;Initial Catalog=InVanData;Persist Security Info=True</Data>-->
+  </Connection>
+  
+  <Connection>
+    <Name>ESF</Name>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=InVanDataESF;Data Source=AHMADQADOMI_PC\SQLSRV17</Data>
+  </Connection>
+
+  <Connection>
+    <Name>TGT</Name>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=InVanDataESF;Data Source=AHMADQADOMI_PC\SQLSRV17</Data>
+  </Connection>
+  
+  <Connection>
+    <Name>SAP</Name>
+    <Data>QPD</Data>
+  </Connection>
+
+  <Connection>
+    <Name>ImagesSource</Name>
+    <Data>D:\Source\AutoSync\PreparedFile\FOImages</Data>
+  </Connection>
+
+  <Connection>
+    <Name>ImagesDestination</Name>
+    <Data>D:\Images</Data>
+  </Connection>
+
+  <Connection>
+    <Name>RoadNet</Name>
+    <Data>Password=roadnet;Persist Security Info=True;User ID=TSDBA;Initial Catalog=UPSLT;Data Source=192.168.6.54\RoadNet</Data>
+  </Connection>
+
+  <Connection>
+    <Name>StagingDB</Name>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=SonicData_HL;Data Source=AHMADQADOMI_PC\SQLSRV17</Data>
+  </Connection>
+
+  <Connection>
+    <Name>Oracle</Name>
+    <Data>Persist Security Info=False;User ID=xxinvan;Data Source=PROD;Password=XXinvan1234</Data>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=BRF;Data Source=AHMADQADOMI_PC\SQLSRV17</Data>
+  </Connection>
+
+  <Connection>
+    <Name>ExcelExportPath</Name>
+    <Data>D:\Excel\</Data>
+  </Connection>
+  
+</Connections>

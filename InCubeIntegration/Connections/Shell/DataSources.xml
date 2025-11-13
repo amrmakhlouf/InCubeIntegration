@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Connections>
+  <Connection>
+    <Name>InCube</Name>
+    <Data>Password=abc@123;Persist Security Info=True;User ID=sa;Initial Catalog=SonicData;Data Source=SonicServer</Data>
+  </Connection>
+ 
+  <Connection>
+    <Name>RoadNet</Name>
+    <Data>Password=roadnet;Persist Security Info=True;User ID=TSDBA;Initial Catalog=UPSLT;Data Source=RoadnetServer</Data>
+  </Connection>
+</Connections>
