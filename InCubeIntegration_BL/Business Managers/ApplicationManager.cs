@@ -183,7 +183,7 @@ namespace InCubeIntegration_BL
                     }
                     else
                     {
-                        int userID = Convert.ToInt16(field);
+                        int userID = Convert.ToInt32(field);
                         if (CoreGeneral.Common.IsTesting)
                         {
                             LoadUserPrivileges(userID);

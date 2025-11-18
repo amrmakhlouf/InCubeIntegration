@@ -278,7 +278,7 @@ namespace InCubeIntegration_BL
                         ProcName = "sp_UpdateLoadTransfer";
                         break;
                     case IntegrationField.STA_U:
-                        res = GetTaxRateTable(ref dtMasterData); 
+                        res = GetTaxRateTable(ref dtMasterData);
                         StagingTable = "Stg_TaxRate";
                         ProcName = "sp_UpdateTaxRate";
                         break;
@@ -398,11 +398,11 @@ CREATE TABLE {0}({1}
 ')", TableName, columns.Substring(0, columns.Length - 1));
 
                 incubeQuery = new InCubeQuery(db_vms, dataTableCreationQuery);
-//                if (TableName == "Stg_Customers") 
-//{
-//    string Query = "ALTER TABLE stg_customers ADD guid UNIQUEIDENTIFIER";
-//    incubeQuery = new InCubeQuery(db_vms, Query);
-//}
+                //                if (TableName == "Stg_Customers") 
+                //{
+                //    string Query = "ALTER TABLE stg_customers ADD guid UNIQUEIDENTIFIER";
+                //    incubeQuery = new InCubeQuery(db_vms, Query);
+                //}
 
 
                 if (incubeQuery.Execute() == InCubeErrors.Success)
@@ -483,6 +483,7 @@ CREATE TABLE {0}({1}
 
         private Result GetCollectionReversalTable(ref DataTable DT)
         {
+           
             if (webHeader == null)
                 throw (new Exception("Can't open session in API , please check the service!!"));
 
@@ -492,7 +493,7 @@ CREATE TABLE {0}({1}
                 string currentDate = DateTime.Now.ToString("yyyyMMdd");
                 DataTable dt1 = Tools.GetRequestTable<MezzanCollectionReversal>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    $"ZHH_INC_REVERSAL_CASH_SRV/ReversalCashSet?$filter=ICsCpCode eq '1330' and ICsClrEntryDate eq '{currentDate}'&$format=json",
+                    $"ZHH_INC_REVERSAL_CASH_SRV/ReversalCashSet?$filter=ICsCpCode eq '1030' and ICsClrEntryDate eq '{currentDate}'&$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -501,7 +502,7 @@ CREATE TABLE {0}({1}
                 // Call 2: CpCode 1350
                 DataTable dt2 = Tools.GetRequestTable<MezzanCollectionReversal>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    $"ZHH_INC_REVERSAL_CASH_SRV/ReversalCashSet?$filter=ICsCpCode eq '1350' and ICsClrEntryDate eq '{currentDate}'&$format=json",
+                    $"ZHH_INC_REVERSAL_CASH_SRV/ReversalCashSet?$filter=ICsCpCode eq '1230' and ICsClrEntryDate eq '{currentDate}'&$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -509,25 +510,21 @@ CREATE TABLE {0}({1}
 
                 DataTable dt3 = Tools.GetRequestTable<MezzanCollectionReversal>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    $"ZHH_INC_REVERSAL_CASH_SRV/ReversalCashSet?$filter=ICsCpCode eq '1110' and ICsClrEntryDate eq '{currentDate}'&$format=json",
+                    $"ZHH_INC_REVERSAL_CASH_SRV/ReversalCashSet?$filter=ICsCpCode eq '1590' and ICsClrEntryDate eq '{currentDate}'&$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
                     "GET", webHeader);
 
-                DataTable dt4 = Tools.GetRequestTable<MezzanCollectionReversal>(
-                    CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    $"ZHH_INC_REVERSAL_CASH_SRV/ReversalCashSet?$filter=ICsCpCode eq '1090' and ICsClrEntryDate eq '{currentDate}'&$format=json",
-                    "", "results",
-                    CoreGeneral.Common.GeneralConfigurations.WS_UserName,
-                    CoreGeneral.Common.GeneralConfigurations.WS_Password,
-                    "GET", webHeader);
+               
 
                 DT = new DataTable();
                 MergeTables(ref DT, dt1);
                 MergeTables(ref DT, dt2);
                 MergeTables(ref DT, dt3);
-                MergeTables(ref DT, dt4);
+             
+                
+
 
                 res = (DT != null && DT.Rows.Count > 0) ? Result.Success : Result.NoRowsFound;
             }
@@ -598,7 +595,7 @@ CREATE TABLE {0}({1}
             //    MergeTables(ref DT, dt4);
 
             //    res = (DT != null && DT.Rows.Count > 0) ? Result.Success : Result.NoRowsFound;
-           //     res =  Result.NoRowsFound;
+            //     res =  Result.NoRowsFound;
             //}
             //catch (Exception ex)
             //{
@@ -650,15 +647,17 @@ CREATE TABLE {0}({1}
             Result res = Result.Failure;
             try
             {
-               DataTable dt1 = null;
-               DataTable dt2 = null;
+                
+
+
+                DataTable dt1 = null;
+                DataTable dt2 = null;
                 DataTable dt3 = null;  // NEW third request
-                DataTable dt4 = null;
                 //Call for IPrCpCode 1110
 
                 dt1 = Tools.GetRequestTable<MezzanItems>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_MATERIAL_SRV/ProductSet?$filter=IPrCpCode eq '1110' and IPrDstrbChnl eq '03'&$format=json",
+                    "ZHH_INC_MATERIAL_SRV/ProductSet?$filter=IPrCpCode eq '1030' and IPrDstrbChnl eq '03'&$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -667,7 +666,7 @@ CREATE TABLE {0}({1}
                 //// Call for IPrCpCode 1350
                 dt2 = Tools.GetRequestTable<MezzanItems>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_MATERIAL_SRV/ProductSet?$filter=IPrCpCode eq '1350' and IPrDstrbChnl eq '03'&$format=json",
+                    "ZHH_INC_MATERIAL_SRV/ProductSet?$filter=IPrCpCode eq '1230' and IPrDstrbChnl eq '03'&$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -677,22 +676,15 @@ CREATE TABLE {0}({1}
 
                 dt3 = Tools.GetRequestTable<MezzanItems>(
                    CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                   "ZHH_INC_MATERIAL_SRV/ProductSet?$filter=IPrCpCode eq '1330' and IPrDstrbChnl eq '03'&$format=json",
+                   "ZHH_INC_MATERIAL_SRV/ProductSet?$filter=IPrCpCode eq '1590' and IPrDstrbChnl eq '03'&$format=json",
                    "", "results",
                    CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                    CoreGeneral.Common.GeneralConfigurations.WS_Password,
                    "GET", webHeader);
-               dt4 = Tools.GetRequestTable<MezzanItems>(
-                 CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                 "ZHH_INC_MATERIAL_SRV/ProductSet?$filter=IPrCpCode eq '1090' and IPrDstrbChnl eq '03'&$format=json",
-                 "", "results",
-                 CoreGeneral.Common.GeneralConfigurations.WS_UserName,
-                 CoreGeneral.Common.GeneralConfigurations.WS_Password,
-                 "GET", webHeader);
+            
 
-
-               // Initialize DT
-               DT = new DataTable();
+                // Initialize DT
+                DT = new DataTable();
 
                 // Merge dt1
                 if (dt1 != null && dt1.Rows.Count > 0)
@@ -721,16 +713,7 @@ CREATE TABLE {0}({1}
                             DT.ImportRow(row);
                     }
                 }
-                if (dt4 != null && dt4.Rows.Count > 0)
-                {
-                    if (DT.Rows.Count == 0)
-                        DT = dt4.Copy();
-                    else
-                    {
-                        foreach (DataRow row in dt4.Rows)
-                            DT.ImportRow(row);
-                    }
-                }
+                
 
                 // Final result
                 if (DT != null && DT.Rows.Count > 0)
@@ -798,24 +781,18 @@ CREATE TABLE {0}({1}
             Result res = Result.Failure;
             try
             {
-             DataTable dt1 = null;
-              DataTable dt2 = null;
+              
+                DataTable dt2 = null;
                 DataTable dt3 = null; // NEW third request
                 DataTable dt4 = null;
                 //  Call for ICuCpCodeSorg 1110
 
-                dt1 = Tools.GetRequestTable<MezzanCustomers>(
-                    CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_CUSTOMER_MASTER_SRV/CustomerMasterSet?$filter=( ICuType eq 'CREDIT' or ICuType eq 'CASH' or ICuType eq 'B2B' ) and ICuDiv eq '07' and ICuDstrbChnl eq '03' and ICuCpCodeSorg eq '1110'&$format=json",
-                    "", "results",
-                    CoreGeneral.Common.GeneralConfigurations.WS_UserName,
-                    CoreGeneral.Common.GeneralConfigurations.WS_Password,
-                    "GET", webHeader);
+             
 
                 //// Call for ICuCpCodeSorg 1350
                 dt2 = Tools.GetRequestTable<MezzanCustomers>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_CUSTOMER_MASTER_SRV/CustomerMasterSet?$filter=( ICuType eq 'CREDIT' or ICuType eq 'CASH' or ICuType eq 'B2B' ) and ICuDiv eq '07' and ICuDstrbChnl eq '03' and ICuCpCodeSorg eq '1350'&$format=json",
+                    "ZHH_INC_CUSTOMER_MASTER_SRV/CustomerMasterSet?$filter=( ICuType eq 'CREDIT' or ICuType eq 'CASH' or ICuType eq 'B2B' ) and ICuDiv eq '07' and ICuDstrbChnl eq '03' and ICuCpCodeSorg eq '1590'&$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -824,27 +801,27 @@ CREATE TABLE {0}({1}
                 // Call for ICuCpCodeSorg 1400 (example third API)
                 dt3 = Tools.GetRequestTable<MezzanCustomers>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_CUSTOMER_MASTER_SRV/CustomerMasterSet?$filter=( ICuType eq 'CREDIT' or ICuType eq 'CASH' or ICuType eq 'B2B' ) and ICuDiv eq '07' and ICuDstrbChnl eq '03' and ICuCpCodeSorg eq '1330'&$format=json",
+                    "ZHH_INC_CUSTOMER_MASTER_SRV/CustomerMasterSet?$filter=( ICuType eq 'CREDIT' or ICuType eq 'CASH' or ICuType eq 'B2B' ) and ICuDiv eq '07' and ICuDstrbChnl eq '03' and ICuCpCodeSorg eq '1230'&$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
                     "GET", webHeader);
                 dt4 = Tools.GetRequestTable<MezzanCustomers>(
                  CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                 "ZHH_INC_CUSTOMER_MASTER_SRV/CustomerMasterSet?$filter=( ICuType eq 'CREDIT' or ICuType eq 'CASH' or ICuType eq 'B2B' ) and ICuDiv eq '02' and ICuDstrbChnl eq '03' and ICuCpCodeSorg eq '1090'&$format=json",
+                 "ZHH_INC_CUSTOMER_MASTER_SRV/CustomerMasterSet?$filter=( ICuType eq 'CREDIT' or ICuType eq 'CASH' or ICuType eq 'B2B' ) and ICuDiv eq '02' and ICuDstrbChnl eq '03' and ICuCpCodeSorg eq '1030'&$format=json",
                  "", "results",
                  CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                  CoreGeneral.Common.GeneralConfigurations.WS_Password,
                  "GET", webHeader);
+
+                
 
 
                 // Merge into DT
                 DT = new DataTable();
 
                 // Merge dt1
-                if (dt1 != null && dt1.Rows.Count > 0)
-                    DT = dt1.Copy();
-
+            
                 //// Merge dt2
                 if (dt2 != null && dt2.Rows.Count > 0)
                 {
@@ -1035,6 +1012,9 @@ CREATE TABLE {0}({1}
 
         private Result GetPricesTable_A(ref DataTable DT)
         {
+            
+
+
             if (webHeader == null)
                 throw (new Exception("Can't open session in API , please check the service!!"));
 
@@ -1043,7 +1023,7 @@ CREATE TABLE {0}({1}
             {
                 DataTable dt1 = Tools.GetRequestTable<MezzanPriceList>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1110' and ICplDistrChl eq '03' and IPlPar eq 'A' &$format=json",
+                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1030' and ICplDistrChl eq '03' and IPlPar eq 'A' &$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -1051,7 +1031,7 @@ CREATE TABLE {0}({1}
 
                 DataTable dt2 = Tools.GetRequestTable<MezzanPriceList>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1350' and ICplDistrChl eq '03' and IPlPar eq 'A' &$format=json",
+                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1230' and ICplDistrChl eq '03' and IPlPar eq 'A' &$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -1059,23 +1039,16 @@ CREATE TABLE {0}({1}
 
                 DataTable dt3 = Tools.GetRequestTable<MezzanPriceList>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1330' and ICplDistrChl eq '03' and IPlPar eq 'A' &$format=json",
+                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1590' and ICplDistrChl eq '03' and IPlPar eq 'A' &$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
                     "GET", webHeader);
-                DataTable dt4 = Tools.GetRequestTable<MezzanPriceList>(
-                  CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                  "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1090' and ICplDistrChl eq '03' and IPlPar eq 'A' &$format=json",
-                  "", "results",
-                  CoreGeneral.Common.GeneralConfigurations.WS_UserName,
-                  CoreGeneral.Common.GeneralConfigurations.WS_Password,
-                  "GET", webHeader);
+              
                 DT = new DataTable();
                 MergeTables(ref DT, dt1);
                 MergeTables(ref DT, dt2);
                 MergeTables(ref DT, dt3);
-                MergeTables(ref DT, dt4);
 
                 res = (DT != null && DT.Rows.Count > 0) ? Result.Success : Result.NoRowsFound;
             }
@@ -1102,17 +1075,11 @@ CREATE TABLE {0}({1}
             Result res = Result.Failure;
             try
             {
-                DataTable dt1 = Tools.GetRequestTable<MezzanPriceList>(
-                    CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1930' and ICplDistrChl eq '03' and IPlPar eq 'B' &$format=json",
-                    "", "results",
-                    CoreGeneral.Common.GeneralConfigurations.WS_UserName,
-                    CoreGeneral.Common.GeneralConfigurations.WS_Password,
-                    "GET", webHeader);
+              
 
                 DataTable dt2 = Tools.GetRequestTable<MezzanPriceList>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1350' and ICplDistrChl eq '03' and IPlPar eq 'B' &$format=json",
+                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1590' and ICplDistrChl eq '03' and IPlPar eq 'B' &$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -1120,14 +1087,14 @@ CREATE TABLE {0}({1}
 
                 DataTable dt3 = Tools.GetRequestTable<MezzanPriceList>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1330' and ICplDistrChl eq '03' and IPlPar eq 'B' &$format=json",
+                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1230' and ICplDistrChl eq '03' and IPlPar eq 'B' &$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
                     "GET", webHeader);
                 DataTable dt4 = Tools.GetRequestTable<MezzanPriceList>(
                 CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1330' and ICplDistrChl eq '03' and IPlPar eq 'B' &$format=json",
+                "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1030' and ICplDistrChl eq '03' and IPlPar eq 'B' &$format=json",
                 "", "results",
                 CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                 CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -1135,7 +1102,7 @@ CREATE TABLE {0}({1}
 
 
                 DT = new DataTable();
-                MergeTables(ref DT, dt1);
+               
                 MergeTables(ref DT, dt2);
                 MergeTables(ref DT, dt3);
                 MergeTables(ref DT, dt4);
@@ -1166,7 +1133,7 @@ CREATE TABLE {0}({1}
             {
                 DataTable dt1 = Tools.GetRequestTable<MezzanPriceList>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1110' and ICplDistrChl eq '03' and IPlPar eq 'C' &$format=json",
+                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1590' and ICplDistrChl eq '03' and IPlPar eq 'C' &$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -1174,7 +1141,7 @@ CREATE TABLE {0}({1}
 
                 DataTable dt2 = Tools.GetRequestTable<MezzanPriceList>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1350' and ICplDistrChl eq '03' and IPlPar eq 'C' &$format=json",
+                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1230' and ICplDistrChl eq '03' and IPlPar eq 'C' &$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
@@ -1182,24 +1149,20 @@ CREATE TABLE {0}({1}
 
                 DataTable dt3 = Tools.GetRequestTable<MezzanPriceList>(
                     CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1330' and ICplDistrChl eq '03' and IPlPar eq 'C' &$format=json",
+                    "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1030' and ICplDistrChl eq '03' and IPlPar eq 'C' &$format=json",
                     "", "results",
                     CoreGeneral.Common.GeneralConfigurations.WS_UserName,
                     CoreGeneral.Common.GeneralConfigurations.WS_Password,
                     "GET", webHeader);
-                DataTable dt4 = Tools.GetRequestTable<MezzanPriceList>(
-                  CoreGeneral.Common.GeneralConfigurations.WS_URL +
-                  "ZHH_INC_PRODUCT_PRICE_MASTER_SRV/ProductPriceSet?$filter=IPlCpCode eq '1090' and ICplDistrChl eq '03' and IPlPar eq 'C' &$format=json",
-                  "", "results",
-                  CoreGeneral.Common.GeneralConfigurations.WS_UserName,
-                  CoreGeneral.Common.GeneralConfigurations.WS_Password,
-                  "GET", webHeader);
+
+                
+
+
 
                 DT = new DataTable();
-              MergeTables(ref DT, dt1);
-               MergeTables(ref DT, dt2);
+                MergeTables(ref DT, dt1);
+                MergeTables(ref DT, dt2);
                 MergeTables(ref DT, dt3);
-                MergeTables(ref DT, dt4);
                 res = (DT != null && DT.Rows.Count > 0) ? Result.Success : Result.NoRowsFound;
             }
             catch (Exception ex)
@@ -1217,9 +1180,9 @@ CREATE TABLE {0}({1}
         }
 
         #endregion
-        public async Task SendETransactionAsync(string headerData,string url)
+        public async Task SendETransactionAsync(string headerData, string url)
         {
-            
+
             var token = "D802B9A6-C4B6-496A-A87F-DDDF6C4DBD10";
 
             using (var client = new HttpClient())
@@ -1227,7 +1190,7 @@ CREATE TABLE {0}({1}
                 client.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-             
+
 
                 client.DefaultRequestHeaders.Accept.Add(
                     new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -1240,12 +1203,12 @@ CREATE TABLE {0}({1}
 
                 if (response.IsSuccessStatusCode)
                 {
-                   
+
                     Console.WriteLine("Posted successfully. Response: " + responseString);
                 }
                 else
                 {
-                    
+
                     Console.WriteLine($"Error {response.StatusCode}: {responseString}");
                 }
             }
@@ -1257,30 +1220,30 @@ CREATE TABLE {0}({1}
             //SendDelivery("", "SRE", false);
             //ReSendInvoice();
             ///////////////////////////
-           SendInvoice();
+            SendInvoice();
             SendDelivery("", "SRE", false);
-          SendPGI("", "SRE", false);
+            SendPGI("", "SRE", false);
             SendBilling("");
             SendExchange();
 
-         // AboodAPI("INV-11604-000021");
+            // AboodAPI("INV-11604-000021");
 
         }
 
         public override void SendATMCollections() //Offload
         {
-           SendOffload();
-           SendDelivery("", "WH",false);
-            SendPGI("", "WH",false);
+            SendOffload();
+            SendDelivery("", "WH", false);
+            SendPGI("", "WH", false);
         }
 
-        private void SendOffload()
+        private void SendOffloadOld()
         {
             try
             {
                 if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
 
-                string salespersonFilter = "", TransactionID = "", VanCode = "", WarehouseCode = "", OrderType = "", StorageLoc="", DivisionCode="";
+                string salespersonFilter = "", TransactionID = "", VanCode = "", WarehouseCode = "", OrderType = "", StorageLoc = "", DivisionCode = "";
                 int processID = 0;
                 string responseBody = "";
                 string headerData = "";
@@ -1480,343 +1443,756 @@ where convert(date, TransactionDate) >= '{0}' AND convert(date, TransactionDate)
                 CloseSession();
             }
         }
-
-        public override void SendOrders() //LoadRequest
+        private void SendOffload()
         {
             try
             {
-                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
-
-                string salespersonFilter = "", TransactionID = "", DivisionCode="", VanCode = "", WarehouseCode = "", OrderType = "", StorageLoc = "";
-                int processID = 0;
-                StringBuilder result = new StringBuilder();
-                Result res = Result.UnKnown;
+                if (this.webHeader == null)
+                    throw new Exception("Can't open session in API , please check the service!!");
+                string str1 = "";
+                string TransactionID = "";
+                string str2 = "";
+                int ID = 0;
                 string responseBody = "";
-                string headerData = "";
-
-                if (Filters.EmployeeID != -1)
-                {
-                    salespersonFilter = "AND RequestedBy = " + Filters.EmployeeID;
-                }
-                string invoicesHeader = string.Format(@"
-
-select DivisionCode, V_POST_LoadRequest.VanCode,V_POST_LoadRequest.StorageLoc,V_POST_LoadRequest.TransactionID,V_POST_LoadRequest.RequestedBy,V_POST_LoadRequest.TransactionDate,V_POST_LoadRequest.OrderType,V_POST_LoadRequest.WarehouseCode from 
-V_POST_LoadRequest 
-inner join Warehouse on V_POST_LoadRequest.VanCode = Warehouse.WarehouseCode
-inner join  EmployeeVehicle on EmployeeVehicle.VehicleID = Warehouse.WarehouseID
-where  convert(date,TransactionDate) >= '{0}' AND convert(date,TransactionDate) <= '{1}' {2}
-", Filters.FromDate.ToString("yyyy-MM-dd"), Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd"), salespersonFilter);
-                //$" WHERE AND TransactionDate >= '{Filters.FromDate.ToString("yyyy-MM-dd")}' AND TransactionDate < '{Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd")} {salespersonFilter}";
-                incubeQuery = new InCubeQuery(db_vms, invoicesHeader);
-
-                if (incubeQuery.Execute() != InCubeErrors.Success)
-                {
-                    res = Result.Failure;
-                    throw (new Exception("Order header query failed !!"));
-                }
-
-                DataTable dtInvoices = incubeQuery.GetDataTable();
-                if (dtInvoices.Rows.Count == 0)
-                    WriteMessage("There is no Order to send ..");
+                string body = "";
+                StringBuilder stringBuilder = new StringBuilder();
+                InCubeLibrary.Result result = InCubeLibrary.Result.UnKnown;
+                if (this.Filters.EmployeeID != -1)
+                    str1 = "AND RequestedBy = " + this.Filters.EmployeeID.ToString();
+                this.incubeQuery = new InCubeQuery(this.db_vms, $"\r\n select  organization.organizationcode, V_POST_OffLoadRequest.VanCode,V_POST_OffLoadRequest.StorageLoc,V_POST_OffLoadRequest.TransactionID,V_POST_OffLoadRequest.RequestedBy,V_POST_OffLoadRequest.TransactionDate,V_POST_OffLoadRequest.OrderType,V_POST_OffLoadRequest.WarehouseCode   from\r\nV_POST_OffLoadRequest\r\ninner join Warehouse on V_POST_OffLoadRequest.VanCode = Warehouse.WarehouseCode\r\ninner join  EmployeeVehicle on EmployeeVehicle.VehicleID = Warehouse.WarehouseID\r\ninner join organization on organization.organizationid = warehouse.organizationid\r\nwhere convert(date, TransactionDate) >= '{this.Filters.FromDate.ToString("yyyy - MM - dd")}' AND convert(date, TransactionDate) <= '{this.Filters.ToDate.AddDays(1.0).ToString("yyyy - MM - dd")}' {str1}\r\norder by V_POST_OffLoadRequest.TransactionID   ");
+                DataTable dataTable1 = this.incubeQuery.Execute() == 0 ? this.incubeQuery.GetDataTable() : throw new Exception("Order header query failed !!");
+                if (dataTable1.Rows.Count == 0)
+                    this.WriteMessage("There is no Order to send ..");
                 else
-                    SetProgressMax(dtInvoices.Rows.Count);
-
-                for (int i = 0; i < dtInvoices.Rows.Count; i++)
+                    this.SetProgressMax(dataTable1.Rows.Count);
+                for (int index1 = 0; index1 < dataTable1.Rows.Count; ++index1)
                 {
                     try
                     {
-                        res = Result.UnKnown;
-                        processID = 0;
-                        result = new StringBuilder();
-                        TransactionID = dtInvoices.Rows[i]["Transactionid"].ToString();
-                        DivisionCode = dtInvoices.Rows[i]["DivisionCode"].ToString();
-
-                        ReportProgress("Sending Transaction: " + TransactionID);
-                        WriteMessage("\r\n" + TransactionID + ": ");
-                        Dictionary<int, string> filters = new Dictionary<int, string>();
-                        filters.Add(11, TransactionID);
-                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
-                        VanCode = dtInvoices.Rows[i]["VanCode"].ToString();
-                        WarehouseCode = dtInvoices.Rows[i]["WarehouseCode"].ToString();
-                        OrderType = dtInvoices.Rows[i]["OrderType"].ToString();
-                        StorageLoc = dtInvoices.Rows[i]["StorageLoc"].ToString();
-
-                        string invoiceDetails = $@"SELECT I.ItemCode, WTD.Quantity, PTL.Description FROM WhTransDetail WTD
-                                                INNER JOIN Pack P ON P.PackID = WTD.PackID
-                                                INNER JOIN PackTypeLanguage PTL ON PTL.PackTypeID = P.PackTypeID AND PTL.LanguageID = 1
-                                                INNER JOIN Item I ON I.ItemID = P.ItemID
-                                                INNER JOIN WarehouseTransaction WT ON WT.TransactionID = WTD.TransactionID
-      INNER JOIN ConfigurationDivision CO ON CO.DivisionID = WT.DivisionID AND CO.Keyname = 'DefaultPriceListID'
-INNER JOIN PriceDefinition PD ON PD.PacKID = P.PackID AND PD.PriceListID = CO.KeyValue AND PD.Price > 0
-                                                WHERE WTD.TransactionID = '{TransactionID}'";
-
-                        incubeQuery = new InCubeQuery(db_vms, invoiceDetails);
-                        if (incubeQuery.Execute() != InCubeErrors.Success)
+                        result = InCubeLibrary.Result.UnKnown;
+                        ID = 0;
+                        stringBuilder = new StringBuilder();
+                        TransactionID = dataTable1.Rows[index1]["Transactionid"].ToString();
+                        string str3 = dataTable1.Rows[index1]["organizationcode"].ToString();
+                        this.ReportProgress("Sending Transaction: " + TransactionID);
+                        this.WriteMessage($"\r\n{TransactionID}: ");
+                        ID = this.execManager.LogIntegrationBegining(this.TriggerID, -1, new Dictionary<int, string>()
+          {
+            {
+              11,
+              TransactionID
+            }
+          });
+                        string str4 = dataTable1.Rows[index1]["VanCode"].ToString();
+                        str2 = dataTable1.Rows[index1]["WarehouseCode"].ToString();
+                        string str5 = dataTable1.Rows[index1]["OrderType"].ToString();
+                        string str6 = dataTable1.Rows[index1]["StorageLoc"].ToString();
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"SELECT I.ItemCode,DivisionCode, SUM(WTD.Quantity) Quantity, PTL.Description, WTD.PackID FROM WhTransDetail WTD\r\n                                                INNER JOIN Pack P ON P.PackID = WTD.PackID\r\n                                                INNER JOIN item i ON i.ItemID = p.ItemID\r\n                                                INNER JOIN ItemCategory ic ON ic.ItemCategoryID = i.ItemCategoryID\r\n\t\t\t\t\t\t\t\t\t\t\t\tinner join Division on Division.DivisionID =ic.DivisionID\r\n                                                INNER JOIN PackTypeLanguage PTL ON PTL.PackTypeID = P.PackTypeID AND PTL.LanguageID = 1\r\n                                                WHERE WTD.TransactionID = '{TransactionID}' \r\n                                                GROUP BY I.ItemCode, PTL.Description, WTD.PackID,DivisionCode\r\n                                                ORDER BY Division.Divisioncode, I.ItemCode, WTD.PackID");
+                        if (this.incubeQuery.Execute() != 0)
                         {
-                            res = Result.Failure;
-                            throw (new Exception("order details query failed !!"));
+                            result = InCubeLibrary.Result.Failure;
+                            throw new Exception("order details query failed !!");
                         }
-
-                        DataTable dtDetails = incubeQuery.GetDataTable();
-                        List<object> allDetailsList = new List<object>();
-                        for (int j = 0; j < dtDetails.Rows.Count; j++)
+                        DataTable dataTable2 = this.incubeQuery.GetDataTable();
+                        List<object> objectList = new List<object>();
+                        for (int index2 = 0; index2 < dataTable2.Rows.Count; ++index2)
                         {
-                            string ItemCode = "", UOM = "", Quantity = "";
-                            string ItemCategory = OrderType == "YKBW" ? "YKBW" : "YKBN";
-
-                            ItemCode = dtDetails.Rows[j]["ItemCode"].ToString();
-                            UOM = dtDetails.Rows[j]["Description"].ToString();
-                            Quantity = decimal.Parse(dtDetails.Rows[j]["Quantity"].ToString()).ToString("#0.000");
-
-
-                            string Plantt;
-
-                            if (DivisionCode == "1350")
+                            string str7 = str5 == "YKA" ? "YKAN" : "ZKAN";
+                            string str8 = dataTable2.Rows[index2]["ItemCode"].ToString();
+                            string str9 = dataTable2.Rows[index2]["DivisionCode"].ToString();
+                            string str10 = dataTable2.Rows[index2]["Description"].ToString();
+                            string str11 = Decimal.Parse(dataTable2.Rows[index2]["Quantity"].ToString()).ToString("#0.000");
+                            var data = new
                             {
-                                Plantt = "1351";
-                            }
-                            else if (DivisionCode == "1110")
-                            {
-                                Plantt = "1111";
-                            }
-                            else if (DivisionCode == "1330")
-                            {
-                                Plantt = "1331";
-                            }
-                            else if (DivisionCode == "1090")
-                            {
-                                Plantt = "1091";
-                            }
-                            else if (int.TryParse(DivisionCode, out int divisionInt))
-                            {
-                                Plantt = (divisionInt + 1).ToString();
-                            }
-                            else
-                            {
-                                Plantt = DivisionCode; // fallback if parsing fails
-                            }
-                            var details = new
-                            {
-                                //Plant = WarehouseCode,
-                        
-                                
-                                Plant = Plantt,
-
-
+                                Plant = str9,
                                 SalesDocumentno = "",
-                                Material = ItemCode,
+                                Material = str8,
                                 DiscPercent = "0.000",
-                                OrderQty = Quantity,
+                                OrderQty = str11,
                                 DiscValue = "0.000",
                                 Price = "0.000",
-                                ItemCategory = ItemCategory,
-                                SalesUnit = UOM,
+                                ItemCategory = str7,
+                                SalesUnit = str10,
                                 FocPercent = "0.000",
                                 FocValue = "0.000",
-                                StoreLoc = StorageLoc
+                                StoreLoc = str6
                             };
-
-                            allDetailsList.Add(details);
+                            objectList.Add((object)data);
                         }
-
-                        if (dtDetails.Rows.Count > 0)
+                        var data1 = new
                         {
-                            var headerDataObject = new
+                            LoadProcess = "",
+                            SalesDocumentno = "",
+                            SoldToParty = str4,
+                            StockPartner = str4,
+                            DiscPercent = "0.000",
+                            OrderType = str5,
+                            Status = "",
+                            CreditExceed = "",
+                            DiscValue = "0.000",
+                            SalesOrg = str3,
+                            DistributionChannel = "03",
+                            Division = str3 == "1030" ? "02" : "07",
+                            SalesmanId = str4,
+                            InvoiceNo = TransactionID,
+                            Reference = "",
+                            OrderReason = "",
+                            FocPercent = "0.000",
+                            FocValue = "0.000",
+                            HdrItem = objectList
+                        };
+                        body = JsonConvert.SerializeObject((object)data1);
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO PostingTransaction (TransactionID) VALUES ('{TransactionID}')");
+                        int num1 = (int)this.incubeQuery.ExecuteNonQuery();
+                        MezzanSimpleResult[] request = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_SALESORDER_SRV/HeaderSet", body, "", out responseBody, this.webHeader, this.cookies);
+                        if (request[0].d.SalesDocumentno == null || request[0].d.SalesDocumentno != null && request[0].d.SalesDocumentno.Trim() == "")
+                        {
+                            result = InCubeLibrary.Result.NoFileRetreived;
+                            stringBuilder.Append($"ERP ERROR Message:{(request[0].d.SalesDocumentno != null ? request[0].d.SalesDocumentno : "")}\r\n json:{body}");
+                            this.WriteMessage($"Error .. \r\n{TransactionID} \r\n{request[0].d.SalesDocumentno}");
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendOffload()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            int num2 = (int)this.incubeQuery.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            result = InCubeLibrary.Result.Success;
+                            stringBuilder.Append($"ERP No: {request[0].d.SalesDocumentno}\r\n Message:{(request[0].d.SalesDocumentno != null ? request[0].d.SalesDocumentno : "")}\r\n json:{body}");
+                            this.WriteMessage("Success, ERP No: " + request[0].d.SalesDocumentno);
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE [WarehouseTransaction] SET Synchronized = 1,LPONumber='1',TruckNumber='{request[0].d.SalesDocumentno}' WHERE TransactionID = '{TransactionID}'");
+                            int num3 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO SAP_Reference SELECT WarehouseTransaction.TransactionID, '{request[0].d.SalesDocumentno}', NULL, NULL, NULL, NULL, div.DivisionCode FROM WarehouseTransaction INNER JOIN ( SELECT DISTINCT DivisionCode, TransactionID FROM WhTransDetail INNER JOIN pack ON pack.PackID = WhTransDetail.PackID INNER JOIN item ON item.ItemID = pack.ItemID INNER JOIN ItemCategory ON ItemCategory.ItemCategoryID = item.ItemCategoryID INNER JOIN Division ON Division.DivisionID = ItemCategory.DivisionID ) div ON div.TransactionID = WarehouseTransaction.TransactionID WHERE WarehouseTransaction.TransactionID = '{TransactionID}'");
+                            int num4 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{request[0].d.SalesDocumentno}', 'SendOffload()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            int num5 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.SendDelivery(TransactionID, "WH", false);
+                        }
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"DELETE FROM PostingTransaction WHERE TransactionID='{TransactionID}'");
+                        int num6 = (int)this.incubeQuery.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"DELETE FROM PostingTransaction WHERE TransactionID= '{TransactionID}'");
+                        int num7 = (int)this.incubeQuery.ExecuteNonQuery();
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendOffload()', '{body}', '{responseBody.Replace("'", "*")}'");
+                        int num8 = (int)this.incubeQuery.ExecuteNonQuery();
+                        Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                        stringBuilder.Append(ex.Message);
+                        if (result == InCubeLibrary.Result.UnKnown)
+                        {
+                            result = InCubeLibrary.Result.Failure;
+                            this.WriteMessage("Unhandled exception !!");
+                        }
+                    }
+                    finally
+                    {
+                        this.execManager.LogIntegrationEnding(ID, result, "", stringBuilder.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                this.WriteMessage("Fetching order failed !!");
+            }
+            finally
+            {
+                this.CloseSession();
+            }
+        }
+        //        public override void SendOrdersOld() //LoadRequest
+        //        {
+        //            try
+        //            {
+        //                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
+
+        //                string salespersonFilter = "", TransactionID = "", DivisionCode = "", VanCode = "", WarehouseCode = "", OrderType = "", StorageLoc = "";
+        //                int processID = 0;
+        //                StringBuilder result = new StringBuilder();
+        //                Result res = Result.UnKnown;
+        //                string responseBody = "";
+        //                string headerData = "";
+
+        //                if (Filters.EmployeeID != -1)
+        //                {
+        //                    salespersonFilter = "AND RequestedBy = " + Filters.EmployeeID;
+        //                }
+
+        //                string invoicesHeader = string.Format(@"
+
+        //select DivisionCode, V_POST_LoadRequest.VanCode,V_POST_LoadRequest.StorageLoc,V_POST_LoadRequest.TransactionID,V_POST_LoadRequest.RequestedBy,V_POST_LoadRequest.TransactionDate,V_POST_LoadRequest.OrderType,V_POST_LoadRequest.WarehouseCode from 
+        //V_POST_LoadRequest 
+        //inner join Warehouse on V_POST_LoadRequest.VanCode = Warehouse.WarehouseCode
+        //inner join  EmployeeVehicle on EmployeeVehicle.VehicleID = Warehouse.WarehouseID
+        //where  convert(date,TransactionDate) >= '{0}' AND convert(date,TransactionDate) <= '{1}' {2}
+        //", Filters.FromDate.ToString("yyyy-MM-dd"), Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd"), salespersonFilter);
+        //                $" WHERE AND TransactionDate >= '{Filters.FromDate.ToString("yyyy-MM-dd")}' AND TransactionDate < '{Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd")} {salespersonFilter}";
+        //                incubeQuery = new InCubeQuery(db_vms, invoicesHeader);
+
+        //                if (incubeQuery.Execute() != InCubeErrors.Success)
+        //                {
+        //                    res = Result.Failure;
+        //                    throw (new Exception("Order header query failed !!"));
+        //                }
+
+        //                DataTable dtInvoices = incubeQuery.GetDataTable();
+        //                if (dtInvoices.Rows.Count == 0)
+        //                    WriteMessage("There is no Order to send ..");
+        //                else
+        //                    SetProgressMax(dtInvoices.Rows.Count);
+
+        //                for (int i = 0; i < dtInvoices.Rows.Count; i++)
+        //                {
+        //                    try
+        //                    {
+        //                        res = Result.UnKnown;
+        //                        processID = 0;
+        //                        result = new StringBuilder();
+        //                        TransactionID = dtInvoices.Rows[i]["Transactionid"].ToString();
+        //                        DivisionCode = dtInvoices.Rows[i]["DivisionCode"].ToString();
+
+        //                        ReportProgress("Sending Transaction: " + TransactionID);
+        //                        WriteMessage("\r\n" + TransactionID + ": ");
+        //                        Dictionary<int, string> filters = new Dictionary<int, string>();
+        //                        filters.Add(11, TransactionID);
+        //                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
+        //                        VanCode = dtInvoices.Rows[i]["VanCode"].ToString();
+        //                        WarehouseCode = dtInvoices.Rows[i]["WarehouseCode"].ToString();
+        //                        OrderType = dtInvoices.Rows[i]["OrderType"].ToString();
+        //                        StorageLoc = dtInvoices.Rows[i]["StorageLoc"].ToString();
+
+        //                        string invoiceDetails = $@"SELECT I.ItemCode, WTD.Quantity, PTL.Description FROM WhTransDetail WTD
+        //                                                INNER JOIN Pack P ON P.PackID = WTD.PackID
+        //                                                INNER JOIN PackTypeLanguage PTL ON PTL.PackTypeID = P.PackTypeID AND PTL.LanguageID = 1
+        //                                                INNER JOIN Item I ON I.ItemID = P.ItemID
+        //                                                INNER JOIN WarehouseTransaction WT ON WT.TransactionID = WTD.TransactionID
+        //      INNER JOIN ConfigurationDivision CO ON CO.DivisionID = WT.DivisionID AND CO.Keyname = 'DefaultPriceListID'
+        //INNER JOIN PriceDefinition PD ON PD.PacKID = P.PackID AND PD.PriceListID = CO.KeyValue AND PD.Price > 0
+        //                                                WHERE WTD.TransactionID = '{TransactionID}'";
+
+        //                        incubeQuery = new InCubeQuery(db_vms, invoiceDetails);
+        //                        if (incubeQuery.Execute() != InCubeErrors.Success)
+        //                        {
+        //                            res = Result.Failure;
+        //                            throw (new Exception("order details query failed !!"));
+        //                        }
+
+        //                        DataTable dtDetails = incubeQuery.GetDataTable();
+        //                        List<object> allDetailsList = new List<object>();
+        //                        for (int j = 0; j < dtDetails.Rows.Count; j++)
+        //                        {
+        //                            string ItemCode = "", UOM = "", Quantity = "";
+        //                            string ItemCategory = OrderType == "YKBW" ? "YKBW" : "YKBN";
+
+        //                            ItemCode = dtDetails.Rows[j]["ItemCode"].ToString();
+        //                            UOM = dtDetails.Rows[j]["Description"].ToString();
+        //                            Quantity = decimal.Parse(dtDetails.Rows[j]["Quantity"].ToString()).ToString("#0.000");
+
+
+        //                            string Plantt;
+
+        //                            if (DivisionCode == "1350")
+        //                            {
+        //                                Plantt = "1351";
+        //                            }
+        //                            else if (DivisionCode == "1110")
+        //                            {
+        //                                Plantt = "1111";
+        //                            }
+        //                            else if (DivisionCode == "1330")
+        //                            {
+        //                                Plantt = "1331";
+        //                            }
+        //                            else if (DivisionCode == "1090")
+        //                            {
+        //                                Plantt = "1091";
+        //                            }
+        //                            else if (int.TryParse(DivisionCode, out int divisionInt))
+        //                            {
+        //                                Plantt = (divisionInt + 1).ToString();
+        //                            }
+        //                            else
+        //                            {
+        //                                Plantt = DivisionCode; // fallback if parsing fails
+        //                            }
+        //                            var details = new
+        //                            {
+        //                                Plant = WarehouseCode,
+
+
+        //                                Plant = Plantt,
+
+
+        //                                SalesDocumentno = "",
+        //                                Material = ItemCode,
+        //                                DiscPercent = "0.000",
+        //                                OrderQty = Quantity,
+        //                                DiscValue = "0.000",
+        //                                Price = "0.000",
+        //                                ItemCategory = ItemCategory,
+        //                                SalesUnit = UOM,
+        //                                FocPercent = "0.000",
+        //                                FocValue = "0.000",
+        //                                StoreLoc = StorageLoc
+        //                            };
+
+        //                            allDetailsList.Add(details);
+        //                        }
+
+        //                        if (dtDetails.Rows.Count > 0)
+        //                        {
+        //                            var headerDataObject = new
+        //                            {
+        //                                LoadProcess = "",
+        //                                SalesDocumentno = "",
+        //                                SoldToParty = VanCode,
+        //                                StockPartner = VanCode,
+        //                                DiscPercent = "0.000",
+        //                                OrderType = OrderType,
+        //                                Status = "",
+        //                                CreditExceed = "",
+        //                                DiscValue = "0.000",
+        //                                SalesOrg = DivisionCode, //KSA
+        //                                DistributionChannel = "03",
+        //                                Division = DivisionCode == "1090" ? "02" : "07",
+        //                                SalesmanId = VanCode,
+        //                                InvoiceNo = TransactionID,
+        //                                Reference = "",
+        //                                OrderReason = "",
+        //                                FocPercent = "0.000",
+        //                                FocValue = "0.000",
+        //                                HdrItem = allDetailsList
+        //                            };
+
+        //                            headerData = JsonConvert.SerializeObject(headerDataObject);
+
+        //                            incubeQuery = new InCubeQuery(db_vms, "INSERT INTO PostingTransaction (TransactionID) VALUES ('" + TransactionID + "')");
+        //                            var x = incubeQuery.ExecuteNonQuery();
+
+        //                            MezzanSimpleResult[] result1 = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_SALESORDER_SRV/HeaderSet", headerData, "", out responseBody, webHeader, cookies);
+        //                            if (result1[0].d.SalesDocumentno == null || (result1[0].d.SalesDocumentno != null && result1[0].d.SalesDocumentno.Trim() == ""))
+        //                            {
+        //                                res = Result.NoFileRetreived;
+        //                                result.Append("ERP ERROR Message:" + (result1[0].d.SalesDocumentno != null ? result1[0].d.SalesDocumentno : "") + "\r\n json:" + headerData);
+        //                                WriteMessage("Error .. \r\n" + TransactionID + " \r\n" + result1[0].d.SalesDocumentno);
+
+        //                                incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendOrders()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+        //                                incubeQuery.ExecuteNonQuery();
+        //                            }
+        //                            else
+        //                            {
+        //                                res = Result.Success;
+        //                                result.Append("ERP No: " + result1[0].d.SalesDocumentno + "\r\n Message:" + (result1[0].d.SalesDocumentno != null ? result1[0].d.SalesDocumentno : "") + "\r\n json:" + headerData);
+        //                                WriteMessage("Success, ERP No: " + result1[0].d.SalesDocumentno);
+        //                                incubeQuery = new InCubeQuery(db_vms, "UPDATE [WarehouseTransaction] SET Synchronized = 1,LPONumber='1',TruckNumber='" + result1[0].d.SalesDocumentno + "' WHERE TransactionID = '" + TransactionID + "'");
+        //                                incubeQuery.ExecuteNonQuery();
+        //                                incubeQuery = new InCubeQuery(db_vms, "INSERT INTO SAP_Reference(TransactionID, SalesOrderRef) VALUES ('" + TransactionID + "', '" + result1[0].d.SalesDocumentno + "')");
+        //                                incubeQuery.ExecuteNonQuery();
+        //                                incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{result1[0].d.SalesDocumentno}', 'SendOrders()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+        //                                incubeQuery.ExecuteNonQuery();
+        //                            }
+
+        //                            incubeQuery = new InCubeQuery(db_vms, "DELETE FROM PostingTransaction WHERE TransactionID ='" + TransactionID + "'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                        }
+        //                        else
+        //                        {
+        //                            res = Result.NoFileRetreived;
+        //                            result.Append("No details found for this order ..");
+        //                            WriteMessage("No details found for this order ..");
+        //                        }
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        incubeQuery = new InCubeQuery(db_vms, "DELETE FROM PostingTransaction WHERE TransactionID= '" + TransactionID + "'");
+        //                        incubeQuery.ExecuteNonQuery();
+        //                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendOrders()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+        //                        incubeQuery.ExecuteNonQuery();
+        //                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+        //                        result.Append(ex.Message);
+        //                        if (res == Result.UnKnown)
+        //                        {
+        //                            res = Result.Failure;
+        //                            WriteMessage("Unhandled exception !!");
+        //                        }
+        //                    }
+        //                    finally
+        //                    {
+        //                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+        //                WriteMessage("Fetching order failed !!");
+        //            }
+        //            finally
+        //            {
+        //                CloseSession();
+        //            }
+        //        }
+        public override void SendOrders()
+        {
+            try
+            {
+                if (this.webHeader == null)
+                    throw new Exception("Can't open session in API , please check the service!!");
+                string str1 = "";
+                string str2 = "";
+                string str3 = "";
+                int ID = 0;
+                StringBuilder stringBuilder = new StringBuilder();
+                InCubeLibrary.Result result = InCubeLibrary.Result.UnKnown;
+                string responseBody = "";
+                string body = "";
+                if (this.Filters.EmployeeID != -1)
+                    str1 = "AND RequestedBy = " + this.Filters.EmployeeID.ToString();
+                this.incubeQuery = new InCubeQuery(this.db_vms, $"\r\n\r\nselect  DivisionCode,V_POST_LoadRequest.VanCode,V_POST_LoadRequest.StorageLoc,V_POST_LoadRequest.TransactionID,V_POST_LoadRequest.RequestedBy,V_POST_LoadRequest.TransactionDate,V_POST_LoadRequest.OrderType,V_POST_LoadRequest.WarehouseCode,Organization.Organizationcode from \r\nV_POST_LoadRequest \r\ninner join Warehouse on V_POST_LoadRequest.VanCode = Warehouse.WarehouseCode\r\ninner join  EmployeeVehicle on EmployeeVehicle.VehicleID = Warehouse.WarehouseID\r\ninner join Organization on Warehouse.OrganizationID=Organization.OrganizationID\r\nwhere  convert(date,TransactionDate) >= '{this.Filters.FromDate.ToString("yyyy-MM-dd")}' AND convert(date,TransactionDate) <= '{this.Filters.ToDate.AddDays(1.0).ToString("yyyy-MM-dd")}' {str1}\r\n");
+                DataTable dataTable1 = this.incubeQuery.Execute() == 0 ? this.incubeQuery.GetDataTable() : throw new Exception("Order header query failed !!");
+                if (dataTable1.Rows.Count == 0)
+                    this.WriteMessage("There is no Order to send ..");
+                else
+                    this.SetProgressMax(dataTable1.Rows.Count);
+                for (int index1 = 0; index1 < dataTable1.Rows.Count; ++index1)
+                {
+                    try
+                    {
+                        result = InCubeLibrary.Result.UnKnown;
+                        ID = 0;
+                        stringBuilder = new StringBuilder();
+                        str2 = dataTable1.Rows[index1]["Transactionid"].ToString();
+                        string str4 = dataTable1.Rows[index1]["DivisionCode"].ToString();
+                        string str5 = dataTable1.Rows[index1]["OrganizationCode"].ToString();
+                        this.ReportProgress("Sending Transaction: " + str2);
+                        this.WriteMessage($"\r\n{str2}: ");
+                        ID = this.execManager.LogIntegrationBegining(this.TriggerID, -1, new Dictionary<int, string>()
+                {
+                    { 11, str2 }
+                });
+                        string str6 = dataTable1.Rows[index1]["VanCode"].ToString();
+                        str3 = dataTable1.Rows[index1]["WarehouseCode"].ToString();
+                        string str7 = dataTable1.Rows[index1]["OrderType"].ToString();
+                        string str8 = dataTable1.Rows[index1]["StorageLoc"].ToString();
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"\r\nSELECT \r\n    I.ItemCode, \r\n    WTD.Quantity, \r\n    PTL.Description,\r\n    Division.DivisionCode\r\nFROM WhTransDetail WTD\r\nINNER JOIN Pack P ON P.PackID = WTD.PackID\r\nINNER JOIN PackTypeLanguage PTL ON PTL.PackTypeID = P.PackTypeID AND PTL.LanguageID = 1\r\nINNER JOIN Item I ON I.ItemID = P.ItemID\r\nINNER JOIN ItemCategory IC ON I.ItemCategoryID = IC.ItemCategoryID\r\nINNER JOIN Division ON Division.DivisionID = IC.DivisionID\r\nINNER JOIN WarehouseTransaction WT ON WT.TransactionID = WTD.TransactionID\r\nINNER JOIN ConfigurationOrganization CO \r\n    ON CO.OrganizationID = WT.OrganizationID AND CO.Keyname = 'DefaultPriceListID'\r\nINNER JOIN PriceDefinition PD \r\n    ON PD.PackID = P.PackID AND PD.PriceListID = CO.KeyValue AND PD.Price > 0\r\nWHERE \r\n    WTD.TransactionID = '{str2}'\r\n    {(string.IsNullOrEmpty(str4) ? "" : $"AND Division.DivisionCode = '{str4}'")}\r\nORDER BY \r\n    Division.DivisionCode, \r\n    I.ItemCode;");
+                        if (this.incubeQuery.Execute() != 0)
+                        {
+                            result = InCubeLibrary.Result.Failure;
+                            throw new Exception("order details query failed !!");
+                        }
+                        DataTable dataTable2 = this.incubeQuery.GetDataTable();
+                        List<object> objectList = new List<object>();
+                        for (int index2 = 0; index2 < dataTable2.Rows.Count; ++index2)
+                        {
+                            string str9 = "";
+                            string str10 = str7 == "YKBW" ? "YKBW" : "YKBN";
+                            string str11 = dataTable2.Rows[index2]["ItemCode"].ToString();
+                            string str12 = dataTable2.Rows[index2]["DivisionCode"].ToString();
+                            string str13 = dataTable2.Rows[index2]["Description"].ToString();
+                            str9 = Decimal.Parse(dataTable2.Rows[index2]["Quantity"].ToString()).ToString("#0.000");
+                            string str14 = Decimal.Parse(dataTable2.Rows[index2]["Quantity"].ToString()).ToString("#0.000");
+                            var data = new
+                            {
+                                Plant = str12,
+                                SalesDocumentno = "",
+                                Material = str11,
+                                DiscPercent = "0.000",
+                                OrderQty = str14,
+                                DiscValue = "0.000",
+                                Price = "0.000",
+                                ItemCategory = str10,
+                                SalesUnit = str13,
+                                FocPercent = "0.000",
+                                FocValue = "0.000",
+                                StoreLoc = str8
+                            };
+                            objectList.Add((object)data);
+                        }
+                        if (dataTable2.Rows.Count > 0)
+                        {
+                            var data = new
                             {
                                 LoadProcess = "",
                                 SalesDocumentno = "",
-                                SoldToParty = VanCode,
-                                StockPartner = VanCode,
+                                SoldToParty = str6,
+                                StockPartner = str6,
                                 DiscPercent = "0.000",
-                                OrderType = OrderType,
+                                OrderType = str7,
                                 Status = "",
                                 CreditExceed = "",
                                 DiscValue = "0.000",
-                                SalesOrg = DivisionCode, //KSA
+                                SalesOrg = str5,
                                 DistributionChannel = "03",
-                                Division = DivisionCode == "1090" ? "02" : "07",
-                                SalesmanId = VanCode,
-                                InvoiceNo = TransactionID,
+                                Division = str5 == "1030" ? "02" : "07",
+                                SalesmanId = str6,
+                                InvoiceNo = str2,
                                 Reference = "",
                                 OrderReason = "",
                                 FocPercent = "0.000",
                                 FocValue = "0.000",
-                                HdrItem = allDetailsList
+                                HdrItem = objectList
                             };
-
-                            headerData = JsonConvert.SerializeObject(headerDataObject);
-                           
-                            incubeQuery = new InCubeQuery(db_vms, "INSERT INTO PostingTransaction (TransactionID) VALUES ('" + TransactionID + "')");
-                           var x = incubeQuery.ExecuteNonQuery();
-
-                            MezzanSimpleResult[] result1 = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_SALESORDER_SRV/HeaderSet", headerData, "", out responseBody, webHeader, cookies);
-                            if (result1[0].d.SalesDocumentno == null || (result1[0].d.SalesDocumentno != null && result1[0].d.SalesDocumentno.Trim() == ""))
+                            body = JsonConvert.SerializeObject((object)data);
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO PostingTransaction (TransactionID) VALUES ('{str2}')");
+                            this.incubeQuery.ExecuteNonQuery();
+                            MezzanSimpleResult[] request = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_SALESORDER_SRV/HeaderSet", body, "", out responseBody, this.webHeader, this.cookies);
+                            if (request[0].d.SalesDocumentno == null || request[0].d.SalesDocumentno != null && request[0].d.SalesDocumentno.Trim() == "")
                             {
-                                res = Result.NoFileRetreived;
-                                result.Append("ERP ERROR Message:" + (result1[0].d.SalesDocumentno != null ? result1[0].d.SalesDocumentno : "") + "\r\n json:" + headerData);
-                                WriteMessage("Error .. \r\n" + TransactionID + " \r\n" + result1[0].d.SalesDocumentno);
-
-                                incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendOrders()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                                incubeQuery.ExecuteNonQuery();
+                                result = InCubeLibrary.Result.NoFileRetreived;
+                                stringBuilder.Append($"ERP ERROR Message:{(request[0].d.SalesDocumentno != null ? request[0].d.SalesDocumentno : "")}\r\n json:{body}");
+                                this.WriteMessage($"Error .. \r\n{str2} \r\n{request[0].d.SalesDocumentno}");
+                                this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{str2}', 'SendOrders()', '{body}', '{responseBody.Replace("'", "*")}'");
+                                int num = (int)this.incubeQuery.ExecuteNonQuery();
                             }
                             else
                             {
-                                res = Result.Success;
-                                result.Append("ERP No: " + result1[0].d.SalesDocumentno + "\r\n Message:" + (result1[0].d.SalesDocumentno != null ? result1[0].d.SalesDocumentno : "") + "\r\n json:" + headerData);
-                                WriteMessage("Success, ERP No: " + result1[0].d.SalesDocumentno);
-                                incubeQuery = new InCubeQuery(db_vms, "UPDATE [WarehouseTransaction] SET Synchronized = 1,LPONumber='1',TruckNumber='" + result1[0].d.SalesDocumentno + "' WHERE TransactionID = '" + TransactionID + "'");
-                                incubeQuery.ExecuteNonQuery();
-                                incubeQuery = new InCubeQuery(db_vms, "INSERT INTO SAP_Reference(TransactionID, SalesOrderRef) VALUES ('" + TransactionID + "', '" + result1[0].d.SalesDocumentno + "')");
-                                incubeQuery.ExecuteNonQuery();
-                                incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{result1[0].d.SalesDocumentno}', 'SendOrders()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                                incubeQuery.ExecuteNonQuery();
+                                result = InCubeLibrary.Result.Success;
+                                stringBuilder.Append($"ERP No: {request[0].d.SalesDocumentno}\r\n Message:{(request[0].d.SalesDocumentno != null ? request[0].d.SalesDocumentno : "")}\r\n json:{body}");
+                                this.WriteMessage("Success, ERP No: " + request[0].d.SalesDocumentno);
+                                this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE [WarehouseTransaction] SET Synchronized = 1,LPONumber='1',TruckNumber='{request[0].d.SalesDocumentno}' WHERE TransactionID = '{str2}'");
+                                int num1 = (int)this.incubeQuery.ExecuteNonQuery();
+                                this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO SAP_Reference(TransactionID, SalesOrderRef) VALUES ('{str2}', '{request[0].d.SalesDocumentno}')");
+                                int num2 = (int)this.incubeQuery.ExecuteNonQuery();
+                                this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{str2}', '{request[0].d.SalesDocumentno}', 'SendOrders()', '{body}', '{responseBody.Replace("'", "*")}'");
+                                int num3 = (int)this.incubeQuery.ExecuteNonQuery();
                             }
-
-                            incubeQuery = new InCubeQuery(db_vms, "DELETE FROM PostingTransaction WHERE TransactionID ='" + TransactionID + "'");
-                            incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"DELETE FROM PostingTransaction WHERE TransactionID ='{str2}'");
+                            int num4 = (int)this.incubeQuery.ExecuteNonQuery();
                         }
                         else
                         {
-                            res = Result.NoFileRetreived;
-                            result.Append("No details found for this order ..");
-                            WriteMessage("No details found for this order ..");
+                            result = InCubeLibrary.Result.NoFileRetreived;
+                            stringBuilder.Append("No details found for this order ..");
+                            this.WriteMessage("No details found for this order ..");
                         }
                     }
                     catch (Exception ex)
                     {
-                        incubeQuery = new InCubeQuery(db_vms, "DELETE FROM PostingTransaction WHERE TransactionID= '" + TransactionID + "'");
-                        incubeQuery.ExecuteNonQuery();
-                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendOrders()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                        incubeQuery.ExecuteNonQuery();
-                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                        result.Append(ex.Message);
-                        if (res == Result.UnKnown)
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"DELETE FROM PostingTransaction WHERE TransactionID= '{str2}'");
+                        int num5 = (int)this.incubeQuery.ExecuteNonQuery();
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{str2}', 'SendOrders()', '{body}', '{responseBody.Replace("'", "*")}'");
+                        int num6 = (int)this.incubeQuery.ExecuteNonQuery();
+                        Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                        stringBuilder.Append(ex.Message);
+                        if (result == InCubeLibrary.Result.UnKnown)
                         {
-                            res = Result.Failure;
-                            WriteMessage("Unhandled exception !!");
+                            result = InCubeLibrary.Result.Failure;
+                            this.WriteMessage("Unhandled exception !!");
                         }
                     }
                     finally
                     {
-                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+                        this.execManager.LogIntegrationEnding(ID, result, "", stringBuilder.ToString());
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                WriteMessage("Fetching order failed !!");
+                Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                this.WriteMessage("Fetching order failed !!");
             }
             finally
             {
-                CloseSession();
+                this.CloseSession();
             }
         }
 
-        public override void SendTransfers() // Load PGI
+        //        public override void SendTransfers() // Load PGI
+        //        {
+        //            try
+        //            {
+        //                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
+
+        //                string salespersonFilter = "", TransactionID = "", DeliveryRef = "";
+        //                int processID = 0;
+        //                StringBuilder result = new StringBuilder();
+        //                Result res = Result.UnKnown;
+        //                string responseBody = "";
+        //                string headerData = "";
+
+        //                if (Filters.EmployeeID != -1)
+        //                {
+        //                    salespersonFilter = "AND EmployeeID = " + Filters.EmployeeID;
+        //                }
+        //                string headerQuery = string.Format(@"SELECT V_POST_PGI.TransactionID,V_POST_PGI.DeliveryRef FROM V_POST_PGI 
+        //inner join WarehouseTransaction on V_POST_PGI.TransactionID =WarehouseTransaction.TransactionID 
+        //inner join EmployeeVehicle on EmployeeVehicle.VehicleID = WarehouseTransaction.WarehouseID
+        //where convert(date, TransactionDate) >= '{0}' AND convert(date, TransactionDate) <= '{1}' {2} 
+        //", Filters.FromDate.ToString("yyyy - MM - dd"), Filters.ToDate.AddDays(1).ToString("yyyy - MM - dd"), salespersonFilter);
+        //                incubeQuery = new InCubeQuery(db_vms, headerQuery);
+
+        //                if (incubeQuery.Execute() != InCubeErrors.Success)
+        //                {
+        //                    res = Result.Failure;
+        //                    throw (new Exception("PGI header query failed !!"));
+        //                }
+
+        //                DataTable dtHeader = incubeQuery.GetDataTable();
+        //                if (dtHeader.Rows.Count == 0)
+        //                    WriteMessage("There is no PGI to send ..");
+        //                else
+        //                    SetProgressMax(dtHeader.Rows.Count);
+
+        //                for (int i = 0; i < dtHeader.Rows.Count; i++)
+        //                {
+        //                    try
+        //                    {
+        //                        res = Result.UnKnown;
+        //                        processID = 0;
+        //                        result = new StringBuilder();
+        //                        TransactionID = dtHeader.Rows[i]["Transactionid"].ToString();
+        //                        ReportProgress("Sending Transaction: " + TransactionID);
+        //                        WriteMessage("\r\n" + TransactionID + ": ");
+        //                        Dictionary<int, string> filters = new Dictionary<int, string>();
+        //                        filters.Add(11, TransactionID);
+        //                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
+        //                        DeliveryRef = dtHeader.Rows[i]["DeliveryRef"].ToString();
+
+        //                        string currentDate = DateTime.Now.ToString("yyyyMMdd");
+        //                        headerData = $"'{DeliveryRef}''{currentDate}'";
+        //                        MezzanComplexResult[] PGIResult = Tools.GetRequest<MezzanComplexResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_DELIVERY_SRV/PostGoodsIssue?DeliveryNumber=" + headerData, "", "", out responseBody, webHeader, cookies);
+        //                        if (PGIResult[0].d.results[0].DeliveryNumber == null || (PGIResult[0].d.results[0].Message != null && PGIResult[0].d.results[0].Message.Trim() != "PGI has been Created" && PGIResult[0].d.results[0].Message.Trim() != "PGI already created for this Delivery No."))
+        //                        {
+        //                            res = Result.NoFileRetreived;
+        //                            result.Append("ERP ERROR Message:" + (PGIResult[0].d.results[0].DeliveryNumber != null ? PGIResult[0].d.results[0].DeliveryNumber : "") + "\r\n json:" + DeliveryRef);
+        //                            WriteMessage("Error .. \r\n" + TransactionID + " \r\n" + PGIResult[0].d.results[0].Message);
+
+        //                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendTransfers()', '{DeliveryRef}_{currentDate}', '{responseBody.Replace("'", "*")}'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                        }
+        //                        else
+        //                        {
+        //                            res = Result.Success;
+        //                            result.Append("ERP No: " + PGIResult[0].d.results[0].DeliveryNumber + "\r\n Message:" + (PGIResult[0].d.results[0].DeliveryNumber != null ? PGIResult[0].d.results[0].DeliveryNumber : "") + "\r\n json:" + DeliveryRef);
+        //                            WriteMessage("Success, ERP No: " + PGIResult[0].d.results[0].DeliveryNumber);
+        //                            incubeQuery = new InCubeQuery(db_vms, "UPDATE [WarehouseTransaction] SET Synchronized = 1,LPONumber='3' WHERE TransactionID = '" + TransactionID + "'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                            incubeQuery = new InCubeQuery(db_vms, "UPDATE WhDelivery SET PGIRef ='" + PGIResult[0].d.results[0].DeliveryNumber + "' WHERE TransactionID='" + TransactionID + "' AND DeliveryRef ='" + DeliveryRef + "'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                            incubeQuery = new InCubeQuery(db_vms, $"DELETE FROM SAP_Error WHERE TransactionID = '" + TransactionID + "'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{PGIResult[0].d.results[0].DeliveryNumber}', 'SendTransfers()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                        }
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendTransfers()', '{headerData.Replace("'", "_")}', '{responseBody.Replace("'", "*")}'");
+        //                        incubeQuery.ExecuteNonQuery();
+        //                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+        //                        result.Append(ex.Message);
+        //                        if (res == Result.UnKnown)
+        //                        {
+        //                            res = Result.Failure;
+        //                            WriteMessage("Unhandled exception !!");
+        //                        }
+        //                    }
+        //                    finally
+        //                    {
+        //                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+        //                WriteMessage("Fetching order failed !!");
+        //            }
+        //            finally
+        //            {
+        //                CloseSession();
+        //            }
+        //        }
+        public override void SendTransfers()
         {
             try
             {
-                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
-
-                string salespersonFilter = "", TransactionID = "", DeliveryRef = "";
-                int processID = 0;
-                StringBuilder result = new StringBuilder();
-                Result res = Result.UnKnown;
+                if (this.webHeader == null)
+                    throw new Exception("Can't open session in API , please check the service!!");
+                string str1 = "";
+                string str2 = "";
+                int ID = 0;
+                StringBuilder stringBuilder = new StringBuilder();
+                InCubeLibrary.Result result = InCubeLibrary.Result.UnKnown;
                 string responseBody = "";
-                string headerData = "";
-
-                if (Filters.EmployeeID != -1)
-                {
-                    salespersonFilter = "AND EmployeeID = " + Filters.EmployeeID;
-                }
-                string headerQuery = string.Format(@"SELECT V_POST_PGI.TransactionID,V_POST_PGI.DeliveryRef FROM V_POST_PGI 
-inner join WarehouseTransaction on V_POST_PGI.TransactionID =WarehouseTransaction.TransactionID 
-inner join EmployeeVehicle on EmployeeVehicle.VehicleID = WarehouseTransaction.WarehouseID
-where convert(date, TransactionDate) >= '{0}' AND convert(date, TransactionDate) <= '{1}' {2} 
-", Filters.FromDate.ToString("yyyy - MM - dd"), Filters.ToDate.AddDays(1).ToString("yyyy - MM - dd"), salespersonFilter);
-                incubeQuery = new InCubeQuery(db_vms, headerQuery);
-
-                if (incubeQuery.Execute() != InCubeErrors.Success)
-                {
-                    res = Result.Failure;
-                    throw (new Exception("PGI header query failed !!"));
-                }
-
-                DataTable dtHeader = incubeQuery.GetDataTable();
-                if (dtHeader.Rows.Count == 0)
-                    WriteMessage("There is no PGI to send ..");
+                string str3 = "";
+                if (this.Filters.EmployeeID != -1)
+                    str1 = "AND EmployeeID = " + this.Filters.EmployeeID.ToString();
+                this.incubeQuery = new InCubeQuery(this.db_vms, $"SELECT V_POST_PGI.TransactionID,V_POST_PGI.DeliveryRef FROM V_POST_PGI \r\ninner join WarehouseTransaction on V_POST_PGI.TransactionID =WarehouseTransaction.TransactionID \r\ninner join EmployeeVehicle on EmployeeVehicle.VehicleID = WarehouseTransaction.WarehouseID\r\nwhere convert(date, TransactionDate) >= '{this.Filters.FromDate.ToString("yyyy - MM - dd")}' AND convert(date, TransactionDate) <= '{this.Filters.ToDate.AddDays(1.0).ToString("yyyy - MM - dd")}' {str1} \r\n");
+                DataTable dataTable = this.incubeQuery.Execute() == 0 ? this.incubeQuery.GetDataTable() : throw new Exception("PGI header query failed !!");
+                if (dataTable.Rows.Count == 0)
+                    this.WriteMessage("There is no PGI to send ..");
                 else
-                    SetProgressMax(dtHeader.Rows.Count);
-
-                for (int i = 0; i < dtHeader.Rows.Count; i++)
+                    this.SetProgressMax(dataTable.Rows.Count);
+                for (int index = 0; index < dataTable.Rows.Count; ++index)
                 {
                     try
                     {
-                        res = Result.UnKnown;
-                        processID = 0;
-                        result = new StringBuilder();
-                        TransactionID = dtHeader.Rows[i]["Transactionid"].ToString();
-                        ReportProgress("Sending Transaction: " + TransactionID);
-                        WriteMessage("\r\n" + TransactionID + ": ");
-                        Dictionary<int, string> filters = new Dictionary<int, string>();
-                        filters.Add(11, TransactionID);
-                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
-                        DeliveryRef = dtHeader.Rows[i]["DeliveryRef"].ToString();
-
-                        string currentDate = DateTime.Now.ToString("yyyyMMdd");
-                        headerData = $"'{DeliveryRef}''{currentDate}'";
-                        MezzanComplexResult[] PGIResult = Tools.GetRequest<MezzanComplexResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_DELIVERY_SRV/PostGoodsIssue?DeliveryNumber=" + headerData, "", "", out responseBody, webHeader, cookies);
-                        if (PGIResult[0].d.results[0].DeliveryNumber == null || (PGIResult[0].d.results[0].Message != null && PGIResult[0].d.results[0].Message.Trim() != "PGI has been Created" && PGIResult[0].d.results[0].Message.Trim() != "PGI already created for this Delivery No."))
+                        result = InCubeLibrary.Result.UnKnown;
+                        ID = 0;
+                        stringBuilder = new StringBuilder();
+                        str2 = dataTable.Rows[index]["Transactionid"].ToString();
+                        this.ReportProgress("Sending Transaction: " + str2);
+                        this.WriteMessage($"\r\n{str2}: ");
+                        ID = this.execManager.LogIntegrationBegining(this.TriggerID, -1, new Dictionary<int, string>()
+                {
+                    {
+                        11,
+                        str2
+                    }
+                });
+                        string str4 = dataTable.Rows[index]["DeliveryRef"].ToString();
+                        string str5 = DateTime.Now.ToString("yyyyMMdd");
+                        str3 = $"'{str4}''{str5}'";
+                        MezzanComplexResult[] request = Tools.GetRequest<MezzanComplexResult>($"{CoreGeneral.Common.GeneralConfigurations.WS_URL}ZHH_INC_DELIVERY_SRV/PostGoodsIssue?DeliveryNumber={str3}", "", "", out responseBody, this.webHeader, this.cookies);
+                        if (request[0].d.results[0].DeliveryNumber == null || request[0].d.results[0].Message != null && request[0].d.results[0].Message.Trim() != "PGI has been Created" && request[0].d.results[0].Message.Trim() != "PGI already created for this Delivery No.")
                         {
-                            res = Result.NoFileRetreived;
-                            result.Append("ERP ERROR Message:" + (PGIResult[0].d.results[0].DeliveryNumber != null ? PGIResult[0].d.results[0].DeliveryNumber : "") + "\r\n json:" + DeliveryRef);
-                            WriteMessage("Error .. \r\n" + TransactionID + " \r\n" + PGIResult[0].d.results[0].Message);
-
-                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendTransfers()', '{DeliveryRef}_{currentDate}', '{responseBody.Replace("'", "*")}'");
-                            incubeQuery.ExecuteNonQuery();
+                            result = InCubeLibrary.Result.NoFileRetreived;
+                            stringBuilder.Append($"ERP ERROR Message:{(request[0].d.results[0].DeliveryNumber != null ? request[0].d.results[0].DeliveryNumber : "")}\r\n json:{str4}");
+                            this.WriteMessage($"Error .. \r\n{str2} \r\n{request[0].d.results[0].Message}");
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{str2}', 'SendTransfers()', '{str4}_{str5}', '{responseBody.Replace("'", "*")}'");
+                            int num = (int)this.incubeQuery.ExecuteNonQuery();
                         }
                         else
                         {
-                            res = Result.Success;
-                            result.Append("ERP No: " + PGIResult[0].d.results[0].DeliveryNumber + "\r\n Message:" + (PGIResult[0].d.results[0].DeliveryNumber != null ? PGIResult[0].d.results[0].DeliveryNumber : "") + "\r\n json:" + DeliveryRef);
-                            WriteMessage("Success, ERP No: " + PGIResult[0].d.results[0].DeliveryNumber);
-                            incubeQuery = new InCubeQuery(db_vms, "UPDATE [WarehouseTransaction] SET Synchronized = 1,LPONumber='3' WHERE TransactionID = '" + TransactionID + "'");
-                            incubeQuery.ExecuteNonQuery();
-                            incubeQuery = new InCubeQuery(db_vms, "UPDATE WhDelivery SET PGIRef ='" + PGIResult[0].d.results[0].DeliveryNumber + "' WHERE TransactionID='" + TransactionID + "' AND DeliveryRef ='" + DeliveryRef + "'");
-                            incubeQuery.ExecuteNonQuery();
-                            incubeQuery = new InCubeQuery(db_vms, $"DELETE FROM SAP_Error WHERE TransactionID = '" + TransactionID + "'");
-                            incubeQuery.ExecuteNonQuery();
-                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{PGIResult[0].d.results[0].DeliveryNumber}', 'SendTransfers()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                            incubeQuery.ExecuteNonQuery();
+                            result = InCubeLibrary.Result.Success;
+                            stringBuilder.Append($"ERP No: {request[0].d.results[0].DeliveryNumber}\r\n Message:{(request[0].d.results[0].DeliveryNumber != null ? request[0].d.results[0].DeliveryNumber : "")}\r\n json:{str4}");
+                            this.WriteMessage("Success, ERP No: " + request[0].d.results[0].DeliveryNumber);
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE [WarehouseTransaction] SET Synchronized = 1,LPONumber='3' WHERE TransactionID = '{str2}'");
+                            int num1 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE WhDelivery SET PGIRef ='{request[0].d.results[0].DeliveryNumber}' WHERE TransactionID='{str2}' AND DeliveryRef ='{str4}'");
+                            int num2 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"DELETE FROM SAP_Error WHERE TransactionID = '{str2}'");
+                            int num3 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{str2}', '{request[0].d.results[0].DeliveryNumber}', 'SendTransfers()', '{str3}', '{responseBody.Replace("'", "*")}'");
+                            int num4 = (int)this.incubeQuery.ExecuteNonQuery();
                         }
                     }
                     catch (Exception ex)
                     {
-                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendTransfers()', '{headerData.Replace("'", "_")}', '{responseBody.Replace("'", "*")}'");
-                        incubeQuery.ExecuteNonQuery();
-                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                        result.Append(ex.Message);
-                        if (res == Result.UnKnown)
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{str2}', 'SendTransfers()', '{str3.Replace("'", "_")}', '{responseBody.Replace("'", "*")}'");
+                        int num = (int)this.incubeQuery.ExecuteNonQuery();
+                        Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                        stringBuilder.Append(ex.Message);
+                        if (result == InCubeLibrary.Result.UnKnown)
                         {
-                            res = Result.Failure;
-                            WriteMessage("Unhandled exception !!");
+                            result = InCubeLibrary.Result.Failure;
+                            this.WriteMessage("Unhandled exception !!");
                         }
                     }
                     finally
                     {
-                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+                        this.execManager.LogIntegrationEnding(ID, result, "", stringBuilder.ToString());
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                WriteMessage("Fetching order failed !!");
+                Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                this.WriteMessage("Fetching order failed !!");
             }
             finally
             {
-                CloseSession();
+                this.CloseSession();
             }
         }
 
@@ -1826,7 +2202,7 @@ where convert(date, TransactionDate) >= '{0}' AND convert(date, TransactionDate)
             {
                 if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
 
-                string salespersonFilter = "", TransactionID = "", DivisionCode="", RetTransactionID = "", TransactionType="", CustomerCode = "", EmployeeCode = "", OrderType = "", MainItem = "", OrganizationCode = "", HDiscount = "", OrderReason = "", Reference = "", CreditExceed = "";
+                string salespersonFilter = "", TransactionID = "", DivisionCode = "", RetTransactionID = "", TransactionType = "", CustomerCode = "", EmployeeCode = "", OrderType = "", MainItem = "", OrganizationCode = "", HDiscount = "", OrderReason = "", Reference = "", CreditExceed = "";
                 int processID = 0;
                 StringBuilder result = new StringBuilder();
                 Result res = Result.UnKnown;
@@ -1899,7 +2275,7 @@ where convert(date, TransactionDate) >= '{0}' AND convert(date, TransactionDate)
                         CreditExceed = dtHeader.Rows[i]["CreditExceed"].ToString();
                         //IIF(TD.Price<>PD.Price, TD.Price, 0) 
 
-                        string detailsQuery= $@"
+                        string detailsQuery = $@"
                                       
 
 SELECT I.ItemCode, SUM(TD.Quantity) Quantity, PTL.Description, TD.Price*10 Price, IIF(TD.Price<>PD.Price,SUM(TD.Discount)*-10,SUM(TD.Discount)*-10) Discount, 0 DiscountPercentage,
@@ -1937,7 +2313,7 @@ SELECT I.ItemCode, SUM(TD.Quantity) Quantity, PTL.Description, TD.Price*10 Price
 
 
 
-                      
+
 
                         incubeQuery = new InCubeQuery(db_vms, detailsQuery);
                         if (incubeQuery.Execute() != InCubeErrors.Success)
@@ -2057,7 +2433,7 @@ SELECT I.ItemCode, SUM(TD.Quantity) Quantity, PTL.Description, TD.Price*10 Price
                             SendPGI(RetTransactionID, "SRE", true);
 
                             SendDelivery(TransactionID, "SRE", true);
-                            SendPGI(TransactionID, "SRE",true);
+                            SendPGI(TransactionID, "SRE", true);
 
                             SendBilling(TransactionID);
                             AboodAPI(TransactionID);
@@ -2804,240 +3180,240 @@ WHERE t.TransactionID = '{transactionID}'");
         }
 
 
-public void SendDelivery(string TransactionID, string TransactionType, bool IsExch)
-    {
-        try
+        public void SendDelivery(string TransactionID, string TransactionType, bool IsExch)
         {
-            if (this.webHeader == null)
-                throw new Exception("Can't open session in API, please check the service!!");
-
-            string str1 = "";
-            string str2 = "";
-            int ID = 0;
-            StringBuilder stringBuilder = new StringBuilder();
-            InCubeLibrary.Result result = InCubeLibrary.Result.UnKnown;
-            string responseBody = "";
-            string body = "";
-
-            if (this.Filters.EmployeeID != -1)
-                str1 = "AND EmployeeID = " + this.Filters.EmployeeID.ToString();
-
-            string queryString1;
-            if (TransactionType == "WH")
+            try
             {
-                DateTime dateTime = this.Filters.FromDate;
-                string str3 = dateTime.ToString("yyyy-MM-dd");
-                dateTime = this.Filters.ToDate;
-                dateTime = dateTime.AddDays(1.0);
-                string str4 = dateTime.ToString("yyyy-MM-dd");
-                string str5 = str1;
-                queryString1 = $"SELECT Divisioncode, SalesOrderRef, V_POST_OffloadDelivery.Employeecode,OrganizationCode,V_POST_OffloadDelivery.TransactionID,V_POST_OffloadDelivery.TransactionTypeID FROM V_POST_OffloadDelivery \r\n\t\r\n\twhere  convert(date,TransactionDate) >= '{str3}' AND convert(date,TransactionDate) <= '{str4}' {str5}\r\n\torder by V_POST_OffloadDelivery.TransactionID, V_POST_OffloadDelivery.Divisioncode";
-            }
-            else if (!IsExch)
-            {
-                DateTime dateTime = this.Filters.FromDate;
-                string str6 = dateTime.ToString("yyyy-MM-dd");
-                dateTime = this.Filters.ToDate;
-                dateTime = dateTime.AddDays(1.0);
-                string str7 = dateTime.ToString("yyyy-MM-dd");
-                string str8 = str1;
-                queryString1 = $"SELECT Divisioncode, SalesOrderRef,V_POST_SalesDelivery.EmployeeCode,OrganizationCode,V_POST_SalesDelivery.TransactionID,V_POST_SalesDelivery.TransactionTypeID  FROM\tV_POST_SalesDelivery\r\ninner join [Transaction] on V_POST_SalesDelivery.TransactionID= [Transaction].TransactionID   where   convert(date,TransactionDate) >= '{str6}' AND convert(date,TransactionDate) <= '{str7}' {str8} order by V_POST_SalesDelivery.TransactionID, Divisioncode ";
-            }
-            else
-            {
-                queryString1 = $"SELECT Divisioncode,  SalesOrderRef,V_POST_SalesDelivery.EmployeeCode,OrganizationCode,V_POST_SalesDelivery.TransactionID,V_POST_SalesDelivery.TransactionTypeID  FROM\tV_POST_SalesDelivery\r\ninner join [Transaction] on V_POST_SalesDelivery.TransactionID= [Transaction].TransactionID  where [Transaction].Transactionid='{TransactionID}' order by V_POST_SalesDelivery.TransactionID, Divisioncode  ";
-            }
+                if (this.webHeader == null)
+                    throw new Exception("Can't open session in API, please check the service!!");
 
-            this.incubeQuery = new InCubeQuery(this.db_vms, queryString1);
-            DataTable dataTable1;
-            if (this.incubeQuery.Execute() == 0)
-            {
-                dataTable1 = this.incubeQuery.GetDataTable();
-            }
-            else
-            {
-                throw new Exception("delivery header query failed !!");
-            }
+                string str1 = "";
+                string str2 = "";
+                int ID = 0;
+                StringBuilder stringBuilder = new StringBuilder();
+                InCubeLibrary.Result result = InCubeLibrary.Result.UnKnown;
+                string responseBody = "";
+                string body = "";
 
-            if (dataTable1.Rows.Count == 0)
-                this.WriteMessage("There is no Order to send ..");
-            else
-                this.SetProgressMax(dataTable1.Rows.Count);
+                if (this.Filters.EmployeeID != -1)
+                    str1 = "AND EmployeeID = " + this.Filters.EmployeeID.ToString();
 
-            for (int index1 = 0; index1 < dataTable1.Rows.Count; ++index1)
-            {
-                try
+                string queryString1;
+                if (TransactionType == "WH")
                 {
-                    result = InCubeLibrary.Result.UnKnown;
-                    ID = 0;
-                    stringBuilder = new StringBuilder();
-                    string str9 = dataTable1.Rows[index1]["SalesOrderRef"].ToString();
-                    string str10 = dataTable1.Rows[index1]["Divisioncode"].ToString();
-                    this.ReportProgress("Sending Delivery: " + str9);
-                    this.WriteMessage($"\r\n{str9}: ");
-                    ID = this.execManager.LogIntegrationBegining(this.TriggerID, -1, new Dictionary<int, string>()
+                    DateTime dateTime = this.Filters.FromDate;
+                    string str3 = dateTime.ToString("yyyy-MM-dd");
+                    dateTime = this.Filters.ToDate;
+                    dateTime = dateTime.AddDays(1.0);
+                    string str4 = dateTime.ToString("yyyy-MM-dd");
+                    string str5 = str1;
+                    queryString1 = $"SELECT Divisioncode, SalesOrderRef, V_POST_OffloadDelivery.Employeecode,OrganizationCode,V_POST_OffloadDelivery.TransactionID,V_POST_OffloadDelivery.TransactionTypeID FROM V_POST_OffloadDelivery \r\n\t\r\n\twhere  convert(date,TransactionDate) >= '{str3}' AND convert(date,TransactionDate) <= '{str4}' {str5}\r\n\torder by V_POST_OffloadDelivery.TransactionID, V_POST_OffloadDelivery.Divisioncode";
+                }
+                else if (!IsExch)
+                {
+                    DateTime dateTime = this.Filters.FromDate;
+                    string str6 = dateTime.ToString("yyyy-MM-dd");
+                    dateTime = this.Filters.ToDate;
+                    dateTime = dateTime.AddDays(1.0);
+                    string str7 = dateTime.ToString("yyyy-MM-dd");
+                    string str8 = str1;
+                    queryString1 = $"SELECT Divisioncode, SalesOrderRef,V_POST_SalesDelivery.EmployeeCode,OrganizationCode,V_POST_SalesDelivery.TransactionID,V_POST_SalesDelivery.TransactionTypeID  FROM\tV_POST_SalesDelivery\r\ninner join [Transaction] on V_POST_SalesDelivery.TransactionID= [Transaction].TransactionID   where   convert(date,TransactionDate) >= '{str6}' AND convert(date,TransactionDate) <= '{str7}' {str8} order by V_POST_SalesDelivery.TransactionID, Divisioncode ";
+                }
+                else
+                {
+                    queryString1 = $"SELECT Divisioncode,  SalesOrderRef,V_POST_SalesDelivery.EmployeeCode,OrganizationCode,V_POST_SalesDelivery.TransactionID,V_POST_SalesDelivery.TransactionTypeID  FROM\tV_POST_SalesDelivery\r\ninner join [Transaction] on V_POST_SalesDelivery.TransactionID= [Transaction].TransactionID  where [Transaction].Transactionid='{TransactionID}' order by V_POST_SalesDelivery.TransactionID, Divisioncode  ";
+                }
+
+                this.incubeQuery = new InCubeQuery(this.db_vms, queryString1);
+                DataTable dataTable1;
+                if (this.incubeQuery.Execute() == 0)
+                {
+                    dataTable1 = this.incubeQuery.GetDataTable();
+                }
+                else
+                {
+                    throw new Exception("delivery header query failed !!");
+                }
+
+                if (dataTable1.Rows.Count == 0)
+                    this.WriteMessage("There is no Order to send ..");
+                else
+                    this.SetProgressMax(dataTable1.Rows.Count);
+
+                for (int index1 = 0; index1 < dataTable1.Rows.Count; ++index1)
+                {
+                    try
+                    {
+                        result = InCubeLibrary.Result.UnKnown;
+                        ID = 0;
+                        stringBuilder = new StringBuilder();
+                        string str9 = dataTable1.Rows[index1]["SalesOrderRef"].ToString();
+                        string str10 = dataTable1.Rows[index1]["Divisioncode"].ToString();
+                        this.ReportProgress("Sending Delivery: " + str9);
+                        this.WriteMessage($"\r\n{str9}: ");
+                        ID = this.execManager.LogIntegrationBegining(this.TriggerID, -1, new Dictionary<int, string>()
                 {
                     { 11, str9 }
                 });
-                    string str11 = dataTable1.Rows[index1]["EmployeeCode"].ToString();
-                    str2 = dataTable1.Rows[index1]["OrganizationCode"].ToString();
-                    TransactionID = dataTable1.Rows[index1]["TransactionID"].ToString();
-                    int int32_1 = Convert.ToInt32(dataTable1.Rows[index1]["TransactionTypeID"]);
+                        string str11 = dataTable1.Rows[index1]["EmployeeCode"].ToString();
+                        str2 = dataTable1.Rows[index1]["OrganizationCode"].ToString();
+                        TransactionID = dataTable1.Rows[index1]["TransactionID"].ToString();
+                        int int32_1 = Convert.ToInt32(dataTable1.Rows[index1]["TransactionTypeID"]);
 
-                    string queryString2;
-                    if (TransactionType == "WH")
-                    {
-                        queryString2 = $"\t\tselect * from( SELECT FORMAT(ROW_NUMBER() OVER (ORDER BY d.DivisionCode, I.ItemCode), '000000') LineNum,d.DivisionCode ,I.ItemCode, SUM(TD.Quantity) Quantity, TD.PackID, 0 Price, count(1) cnt, P.Barcode\r\n                                                FROM WhTransDetail TD\r\n                                                INNER JOIN Pack P ON P.PackID = TD.PackID\r\n                                                INNER JOIN Item I ON I.ItemID = P.ItemID\r\n\t\t\t\t\t\t\t\t\t\t\t\tINNER JOIN ItemCategory Ic ON Ic.ItemCategoryID = i.ItemCategoryID\r\n\t\t\t\t\t\t\t\t\t\t\t\tINNER JOIN Division d ON d.DivisionID = ic.DivisionID\r\n                                                WHERE TD.TransactionID = '{TransactionID}' \r\n                                                GROUP BY I.ItemCode, TD.PackID, P.Barcode,d.DivisionCode)u\r\n                                                where u.DivisionCode='{str10}'";
-                    }
-                    else
-                    {
-                        queryString2 = $"select * from\r\n(SELECT FORMAT(ROW_NUMBER() OVER (ORDER BY  td.SalesTransactionTypeID,d.DivisionCode,I.ItemCode) + case when (select TransactionTypeID from [Transaction] where TransactionID = '{TransactionID}') = 3 then (select count(distinct PackID) ReturnItemsCount from [TransactionDetail] where Transactionid in (select Transactionid from   [Transaction] where SourceTransactionID ='{TransactionID}')) else 0 end, '000000') LineNum,\r\nI.ItemCode, SUM(TD.Quantity) Quantity, TD.PackID, TD.Price, count(1) cnt, P.Barcode,d.DivisionCode\r\nFROM TransactionDetail TD\r\nINNER JOIN Pack P ON P.PackID = TD.PackID\r\nINNER JOIN Item I ON I.ItemID = P.ItemID\r\nINNER JOIN ItemCategory Ic ON Ic.ItemCategoryID = i.ItemCategoryID\r\nINNER JOIN Division d ON d.DivisionID = ic.DivisionID\r\nWHERE TD.TransactionID = '{TransactionID}'\r\nGROUP BY I.ItemCode, TD.PackID, TD.Price, P.Barcode ,td.SalesTransactionTypeID,d.DivisionCode\r\n) D where d.DivisionCode= '{str10}'\r\n\r\n";
-                    }
-
-                    this.incubeQuery = new InCubeQuery(this.db_vms, queryString2);
-                    if (this.incubeQuery.Execute() != 0)
-                    {
-                        result = InCubeLibrary.Result.Failure;
-                        throw new Exception("delivery details query failed !!");
-                    }
-                    DataTable dataTable2 = this.incubeQuery.GetDataTable();
-                    List<object> objectList1 = new List<object>();
-
-                    for (int index2 = 0; index2 < dataTable2.Rows.Count; ++index2)
-                    {
-                        string str12 = dataTable2.Rows[index2]["ItemCode"].ToString();
-                        string str13 = dataTable2.Rows[index2]["DivisionCode"].ToString();
-                        string str14 = dataTable2.Rows[index2]["LineNum"].ToString();
-                        string str15 = Decimal.Parse(dataTable2.Rows[index2]["Quantity"].ToString()).ToString("#0.000");
-                        string str16 = dataTable2.Rows[index2]["PackID"].ToString();
-                        string str17 = Decimal.Parse(dataTable2.Rows[index2]["Price"].ToString()).ToString("#0.000000000");
-                        int int32_2 = Convert.ToInt32(dataTable2.Rows[index2]["cnt"]);
-                        string str18 = dataTable2.Rows[index2]["Barcode"].ToString();
-
-                        string queryString3;
-                        if (int32_2 > 1)
+                        string queryString2;
+                        if (TransactionType == "WH")
                         {
-                            if (int32_1 == 0)
-                            {
-                                queryString3 = $"select distinct WTD.Quantity * p.Quantity Quantity, case when WT.TransactionTypeID= 2 and WTD.BatchNo= '1990/01/01' and    wtd.WarehouseID<> -1 then '8888888888' when  (WT.TransactionTypeID= 2 and wtd.WarehouseID=-1 and WTD.BatchNo= '1990/01/01')  then '9999999999' when   WT.TransactionTypeID= 6 then '9999999999' else ISNULL(STD.BatchNo,WTD.BatchNo)  end as BatchNo , uom.Barcode from warehouseTransaction WT\r\n                                                    INNER JOIN WHTransDetail WTD ON WTD.TransactionID = WT.TransactionID\r\n\r\n                                                    inner join pack p on p.packid = wtd.packid\r\n                                                    inner join pack uom on uom.itemid = p.itemid and uom.Quantity = 1 and uom.barcode = p.GTIN\r\n                                                    LEFT JOIN [Transaction] T ON T.RouteHistoryID = WT.RouteHistoryID and T.TransactionTypeID = 4\r\n                                                    LEFT JOIN TransactionDetail TD ON TD.TransactionID = T.TransactionID AND TD.PackID = WTD.PackID AND TD.BatchNo = WTD.BatchNo AND TD.Quantity = WTD.Quantity AND TD.ExpiryDate = WTD.ExpiryDate\r\n                                                    LEFT JOIN [Transaction] ST ON ST.TransactionID = T.SourceTransactionID\r\n                                                    LEFT JOIN TransactionDetail STD ON STD.TransactionID = ST.TransactionID AND STD.PackID = TD.PackID AND STD.Quantity = TD.Quantity\r\n                                                    where wt.transactionid ='{TransactionID}' AND WTD.PackID = {str16}";
-                            }
-                            else
-                            {
-                                queryString3 = $"SELECT td.Quantity * p.Quantity Quantity, CASE\r\n        WHEN SalesTransactionTypeID in (5,6,8,9,10) THEN\r\n            CASE\r\n                WHEN PackStatusID in (select StatusID from PackStatus where ReSellable=1) THEN '8888888888'\r\n                ELSE '9999999999'\r\n            END\r\n        when BatchNo ='1990/01/01' and SalesTransactionTypeID in (1,2,3,4,5,6,7,8)  then '8888888888'\r\n        ELSE BatchNo\r\n\r\n    END AS BatchNo, uom.Barcode \r\n                                                        FROM {(TransactionType == "WH" ? "WhTransDetail" : "TransactionDetail")} td \r\n                                                        inner join pack p on p.packid = td.packid\r\n                                                        inner join pack uom on uom.itemid = p.itemid and uom.Quantity = 1 and uom.barcode = p.GTIN\r\n                                                        WHERE TransactionID = '{TransactionID}' AND td.PackID = {str16} and Price = {str17}";
-                            }
-                        }
-                        else if (int32_1 == 0)
-                        {
-                            queryString3 = $"select distinct WTD.Quantity, case when WT.TransactionTypeID= 2 and WTD.BatchNo= '1990/01/01' and    wtd.WarehouseID<> -1 then '8888888888' when  (WT.TransactionTypeID= 2 and wtd.WarehouseID=-1 and WTD.BatchNo= '1990/01/01')  then '9999999999' when   WT.TransactionTypeID= 6 then '9999999999' else ISNULL(STD.BatchNo,WTD.BatchNo)  end as BatchNo , '{str18}' barcode from warehouseTransaction WT\r\n                                                    INNER JOIN WHTransDetail WTD ON WTD.TransactionID = WT.TransactionID\r\n                                                    LEFT JOIN [Transaction] T ON T.RouteHistoryID = WT.RouteHistoryID and T.TransactionTypeID = 4\r\n                                                    LEFT JOIN TransactionDetail TD ON TD.TransactionID = T.TransactionID AND TD.PackID = WTD.PackID AND TD.BatchNo = WTD.BatchNo AND TD.Quantity = WTD.Quantity AND TD.ExpiryDate = WTD.ExpiryDate\r\n                                                    LEFT JOIN [Transaction] ST ON ST.TransactionID = T.SourceTransactionID\r\n                                                    LEFT JOIN TransactionDetail STD ON STD.TransactionID = ST.TransactionID AND STD.PackID = TD.PackID AND STD.Quantity = TD.Quantity\r\n                                                    where wt.transactionid ='{TransactionID}' AND WTD.PackID = {str16}";
+                            queryString2 = $"\t\tselect * from( SELECT FORMAT(ROW_NUMBER() OVER (ORDER BY d.DivisionCode, I.ItemCode), '000000') LineNum,d.DivisionCode ,I.ItemCode, SUM(TD.Quantity) Quantity, TD.PackID, 0 Price, count(1) cnt, P.Barcode\r\n                                                FROM WhTransDetail TD\r\n                                                INNER JOIN Pack P ON P.PackID = TD.PackID\r\n                                                INNER JOIN Item I ON I.ItemID = P.ItemID\r\n\t\t\t\t\t\t\t\t\t\t\t\tINNER JOIN ItemCategory Ic ON Ic.ItemCategoryID = i.ItemCategoryID\r\n\t\t\t\t\t\t\t\t\t\t\t\tINNER JOIN Division d ON d.DivisionID = ic.DivisionID\r\n                                                WHERE TD.TransactionID = '{TransactionID}' \r\n                                                GROUP BY I.ItemCode, TD.PackID, P.Barcode,d.DivisionCode)u\r\n                                                where u.DivisionCode='{str10}'";
                         }
                         else
                         {
-                            queryString3 = $"SELECT Quantity, CASE\r\n        WHEN SalesTransactionTypeID in (5,6,8,9,10) THEN\r\n            CASE\r\n                WHEN PackStatusID in (select StatusID from PackStatus where ReSellable=1) THEN '8888888888'\r\n                ELSE '9999999999'\r\n            END\r\n       when BatchNo ='1990/01/01' and SalesTransactionTypeID in  (1,2,3,4,5,6,7,8)    then '8888888888'\r\n        ELSE BatchNo\r\n    END AS BatchNo, '{str18}' barcode FROM {(TransactionType == "WH" ? "WhTransDetail" : "TransactionDetail")} WHERE TransactionID = '{TransactionID}' AND PackID = {str16} and Price = {str17}";
+                            queryString2 = $"select * from\r\n(SELECT FORMAT(ROW_NUMBER() OVER (ORDER BY  td.SalesTransactionTypeID,d.DivisionCode,I.ItemCode) + case when (select TransactionTypeID from [Transaction] where TransactionID = '{TransactionID}') = 3 then (select count(distinct PackID) ReturnItemsCount from [TransactionDetail] where Transactionid in (select Transactionid from   [Transaction] where SourceTransactionID ='{TransactionID}')) else 0 end, '000000') LineNum,\r\nI.ItemCode, SUM(TD.Quantity) Quantity, TD.PackID, TD.Price, count(1) cnt, P.Barcode,d.DivisionCode\r\nFROM TransactionDetail TD\r\nINNER JOIN Pack P ON P.PackID = TD.PackID\r\nINNER JOIN Item I ON I.ItemID = P.ItemID\r\nINNER JOIN ItemCategory Ic ON Ic.ItemCategoryID = i.ItemCategoryID\r\nINNER JOIN Division d ON d.DivisionID = ic.DivisionID\r\nWHERE TD.TransactionID = '{TransactionID}'\r\nGROUP BY I.ItemCode, TD.PackID, TD.Price, P.Barcode ,td.SalesTransactionTypeID,d.DivisionCode\r\n) D where d.DivisionCode= '{str10}'\r\n\r\n";
                         }
 
-                        this.incubeQuery = new InCubeQuery(this.db_vms, queryString3);
+                        this.incubeQuery = new InCubeQuery(this.db_vms, queryString2);
                         if (this.incubeQuery.Execute() != 0)
                         {
                             result = InCubeLibrary.Result.Failure;
-                            throw new Exception("delivery batch query failed !!");
+                            throw new Exception("delivery details query failed !!");
                         }
-                        DataTable dataTable3 = this.incubeQuery.GetDataTable();
-                        List<object> objectList2 = new List<object>();
+                        DataTable dataTable2 = this.incubeQuery.GetDataTable();
+                        List<object> objectList1 = new List<object>();
 
-                        for (int index3 = 0; index3 < dataTable3.Rows.Count; ++index3)
+                        for (int index2 = 0; index2 < dataTable2.Rows.Count; ++index2)
                         {
-                            string str19 = dataTable3.Rows[index3]["BatchNo"].ToString();
-                            string str20 = Decimal.Parse(dataTable3.Rows[index3]["Quantity"].ToString()).ToString("#0.000");
-                            string str21 = dataTable3.Rows[index3]["barcode"].ToString();
-                            var batchData = new
+                            string str12 = dataTable2.Rows[index2]["ItemCode"].ToString();
+                            string str13 = dataTable2.Rows[index2]["DivisionCode"].ToString();
+                            string str14 = dataTable2.Rows[index2]["LineNum"].ToString();
+                            string str15 = Decimal.Parse(dataTable2.Rows[index2]["Quantity"].ToString()).ToString("#0.000");
+                            string str16 = dataTable2.Rows[index2]["PackID"].ToString();
+                            string str17 = Decimal.Parse(dataTable2.Rows[index2]["Price"].ToString()).ToString("#0.000000000");
+                            int int32_2 = Convert.ToInt32(dataTable2.Rows[index2]["cnt"]);
+                            string str18 = dataTable2.Rows[index2]["Barcode"].ToString();
+
+                            string queryString3;
+                            if (int32_2 > 1)
+                            {
+                                if (int32_1 == 0)
+                                {
+                                    queryString3 = $"select distinct WTD.Quantity * p.Quantity Quantity, case when WT.TransactionTypeID= 2 and WTD.BatchNo= '1990/01/01' and    wtd.WarehouseID<> -1 then '8888888888' when  (WT.TransactionTypeID= 2 and wtd.WarehouseID=-1 and WTD.BatchNo= '1990/01/01')  then '9999999999' when   WT.TransactionTypeID= 6 then '9999999999' else ISNULL(STD.BatchNo,WTD.BatchNo)  end as BatchNo , uom.Barcode from warehouseTransaction WT\r\n                                                    INNER JOIN WHTransDetail WTD ON WTD.TransactionID = WT.TransactionID\r\n\r\n                                                    inner join pack p on p.packid = wtd.packid\r\n                                                    inner join pack uom on uom.itemid = p.itemid and uom.Quantity = 1 and uom.barcode = p.GTIN\r\n                                                    LEFT JOIN [Transaction] T ON T.RouteHistoryID = WT.RouteHistoryID and T.TransactionTypeID = 4\r\n                                                    LEFT JOIN TransactionDetail TD ON TD.TransactionID = T.TransactionID AND TD.PackID = WTD.PackID AND TD.BatchNo = WTD.BatchNo AND TD.Quantity = WTD.Quantity AND TD.ExpiryDate = WTD.ExpiryDate\r\n                                                    LEFT JOIN [Transaction] ST ON ST.TransactionID = T.SourceTransactionID\r\n                                                    LEFT JOIN TransactionDetail STD ON STD.TransactionID = ST.TransactionID AND STD.PackID = TD.PackID AND STD.Quantity = TD.Quantity\r\n                                                    where wt.transactionid ='{TransactionID}' AND WTD.PackID = {str16}";
+                                }
+                                else
+                                {
+                                    queryString3 = $"SELECT td.Quantity * p.Quantity Quantity, CASE\r\n        WHEN SalesTransactionTypeID in (5,6,8,9,10) THEN\r\n            CASE\r\n                WHEN PackStatusID in (select StatusID from PackStatus where ReSellable=1) THEN '8888888888'\r\n                ELSE '9999999999'\r\n            END\r\n        when BatchNo ='1990/01/01' and SalesTransactionTypeID in (1,2,3,4,5,6,7,8)  then '8888888888'\r\n        ELSE BatchNo\r\n\r\n    END AS BatchNo, uom.Barcode \r\n                                                        FROM {(TransactionType == "WH" ? "WhTransDetail" : "TransactionDetail")} td \r\n                                                        inner join pack p on p.packid = td.packid\r\n                                                        inner join pack uom on uom.itemid = p.itemid and uom.Quantity = 1 and uom.barcode = p.GTIN\r\n                                                        WHERE TransactionID = '{TransactionID}' AND td.PackID = {str16} and Price = {str17}";
+                                }
+                            }
+                            else if (int32_1 == 0)
+                            {
+                                queryString3 = $"select distinct WTD.Quantity, case when WT.TransactionTypeID= 2 and WTD.BatchNo= '1990/01/01' and    wtd.WarehouseID<> -1 then '8888888888' when  (WT.TransactionTypeID= 2 and wtd.WarehouseID=-1 and WTD.BatchNo= '1990/01/01')  then '9999999999' when   WT.TransactionTypeID= 6 then '9999999999' else ISNULL(STD.BatchNo,WTD.BatchNo)  end as BatchNo , '{str18}' barcode from warehouseTransaction WT\r\n                                                    INNER JOIN WHTransDetail WTD ON WTD.TransactionID = WT.TransactionID\r\n                                                    LEFT JOIN [Transaction] T ON T.RouteHistoryID = WT.RouteHistoryID and T.TransactionTypeID = 4\r\n                                                    LEFT JOIN TransactionDetail TD ON TD.TransactionID = T.TransactionID AND TD.PackID = WTD.PackID AND TD.BatchNo = WTD.BatchNo AND TD.Quantity = WTD.Quantity AND TD.ExpiryDate = WTD.ExpiryDate\r\n                                                    LEFT JOIN [Transaction] ST ON ST.TransactionID = T.SourceTransactionID\r\n                                                    LEFT JOIN TransactionDetail STD ON STD.TransactionID = ST.TransactionID AND STD.PackID = TD.PackID AND STD.Quantity = TD.Quantity\r\n                                                    where wt.transactionid ='{TransactionID}' AND WTD.PackID = {str16}";
+                            }
+                            else
+                            {
+                                queryString3 = $"SELECT Quantity, CASE\r\n        WHEN SalesTransactionTypeID in (5,6,8,9,10) THEN\r\n            CASE\r\n                WHEN PackStatusID in (select StatusID from PackStatus where ReSellable=1) THEN '8888888888'\r\n                ELSE '9999999999'\r\n            END\r\n       when BatchNo ='1990/01/01' and SalesTransactionTypeID in  (1,2,3,4,5,6,7,8)    then '8888888888'\r\n        ELSE BatchNo\r\n    END AS BatchNo, '{str18}' barcode FROM {(TransactionType == "WH" ? "WhTransDetail" : "TransactionDetail")} WHERE TransactionID = '{TransactionID}' AND PackID = {str16} and Price = {str17}";
+                            }
+
+                            this.incubeQuery = new InCubeQuery(this.db_vms, queryString3);
+                            if (this.incubeQuery.Execute() != 0)
+                            {
+                                result = InCubeLibrary.Result.Failure;
+                                throw new Exception("delivery batch query failed !!");
+                            }
+                            DataTable dataTable3 = this.incubeQuery.GetDataTable();
+                            List<object> objectList2 = new List<object>();
+
+                            for (int index3 = 0; index3 < dataTable3.Rows.Count; ++index3)
+                            {
+                                string str19 = dataTable3.Rows[index3]["BatchNo"].ToString();
+                                string str20 = Decimal.Parse(dataTable3.Rows[index3]["Quantity"].ToString()).ToString("#0.000");
+                                string str21 = dataTable3.Rows[index3]["barcode"].ToString();
+                                var batchData = new
+                                {
+                                    ItemNumber = str14,
+                                    BatchNumber = str19,
+                                    Quantity = str20,
+                                    SalesUOM = str21
+                                };
+                                objectList2.Add(batchData);
+                            }
+
+                            var itemData = new
                             {
                                 ItemNumber = str14,
-                                BatchNumber = str19,
-                                Quantity = str20,
-                                SalesUOM = str21
+                                MaterialNumber = str12,
+                                Plant = str13,
+                                Quantity = str15,
+                                DeliveryNumber = "",
+                                SalesUOM = str18,
+                                ItemToBatch = objectList2
                             };
-                            objectList2.Add(batchData);
+                            objectList1.Add(itemData);
                         }
 
-                        var itemData = new
+                        var headerData = new
                         {
-                            ItemNumber = str14,
-                            MaterialNumber = str12,
-                            Plant = str13,
-                            Quantity = str15,
-                            DeliveryNumber = "",
-                            SalesUOM = str18,
-                            ItemToBatch = objectList2
+                            SalesOrderNumber = str9,
+                            StockPartner = str11,
+                            ShippingPoint = "",
+                            HeaderToItem = objectList1
                         };
-                        objectList1.Add(itemData);
+
+                        body = JsonConvert.SerializeObject(headerData);
+                        MezzanComplexResult[] request = Tools.GetRequest<MezzanComplexResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_DELIVERY_SRV/HeaderSet", body, "", out responseBody, this.webHeader, this.cookies);
+
+                        if (request[0].d.HeaderToItem.results[0].DeliveryNumber == null || request[0].d.HeaderToItem.results[0].Message != null && request[0].d.HeaderToItem.results[0].Message.Trim().ToLower() != "delivery and batch created")
+                        {
+                            result = InCubeLibrary.Result.NoFileRetreived;
+                            stringBuilder.Append($"ERP ERROR Message:{(request[0].d.HeaderToItem.results[0].DeliveryNumber != null ? request[0].d.HeaderToItem.results[0].DeliveryNumber : "")}\r\n json:{body}");
+                            this.WriteMessage($"Error .. \r\n{TransactionID} \r\n{request[0].d.HeaderToItem.results[0].DeliveryNumber}");
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendDeliver()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            int num = (int)this.incubeQuery.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            result = InCubeLibrary.Result.Success;
+                            stringBuilder.Append($"ERP No: {request[0].d.HeaderToItem.results[0].DeliveryNumber}\r\n Message:{(request[0].d.HeaderToItem.results[0].Message != null ? request[0].d.HeaderToItem.results[0].Message : "")}\r\n json:{body}");
+                            this.WriteMessage("Success, ERP No: " + request[0].d.HeaderToItem.results[0].DeliveryNumber);
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE SAP_Reference SET DeliveryRef = '{request[0].d.HeaderToItem.results[0].DeliveryNumber}' WHERE TransactionID = '{TransactionID}' and Divisioncode ='{str10}'  ");
+                            int num1 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{request[0].d.HeaderToItem.results[0].DeliveryNumber}', 'SendDelivery()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            int num2 = (int)this.incubeQuery.ExecuteNonQuery();
+                        }
                     }
-
-                    var headerData = new
+                    catch (Exception ex)
                     {
-                        SalesOrderNumber = str9,
-                        StockPartner = str11,
-                        ShippingPoint = "",
-                        HeaderToItem = objectList1
-                    };
-
-                    body = JsonConvert.SerializeObject(headerData);
-                    MezzanComplexResult[] request = Tools.GetRequest<MezzanComplexResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_DELIVERY_SRV/HeaderSet", body, "", out responseBody, this.webHeader, this.cookies);
-
-                    if (request[0].d.HeaderToItem.results[0].DeliveryNumber == null || request[0].d.HeaderToItem.results[0].Message != null && request[0].d.HeaderToItem.results[0].Message.Trim().ToLower() != "delivery and batch created")
-                    {
-                        result = InCubeLibrary.Result.NoFileRetreived;
-                        stringBuilder.Append($"ERP ERROR Message:{(request[0].d.HeaderToItem.results[0].DeliveryNumber != null ? request[0].d.HeaderToItem.results[0].DeliveryNumber : "")}\r\n json:{body}");
-                        this.WriteMessage($"Error .. \r\n{TransactionID} \r\n{request[0].d.HeaderToItem.results[0].DeliveryNumber}");
                         this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendDeliver()', '{body}', '{responseBody.Replace("'", "*")}'");
                         int num = (int)this.incubeQuery.ExecuteNonQuery();
+                        Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                        stringBuilder.Append(ex.Message);
+                        if (result == InCubeLibrary.Result.UnKnown)
+                        {
+                            result = InCubeLibrary.Result.Failure;
+                            this.WriteMessage("Unhandled exception !!");
+                        }
                     }
-                    else
+                    finally
                     {
-                        result = InCubeLibrary.Result.Success;
-                        stringBuilder.Append($"ERP No: {request[0].d.HeaderToItem.results[0].DeliveryNumber}\r\n Message:{(request[0].d.HeaderToItem.results[0].Message != null ? request[0].d.HeaderToItem.results[0].Message : "")}\r\n json:{body}");
-                        this.WriteMessage("Success, ERP No: " + request[0].d.HeaderToItem.results[0].DeliveryNumber);
-                        this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE SAP_Reference SET DeliveryRef = '{request[0].d.HeaderToItem.results[0].DeliveryNumber}' WHERE TransactionID = '{TransactionID}' and Divisioncode ='{str10}'  ");
-                        int num1 = (int)this.incubeQuery.ExecuteNonQuery();
-                        this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{request[0].d.HeaderToItem.results[0].DeliveryNumber}', 'SendDelivery()', '{body}', '{responseBody.Replace("'", "*")}'");
-                        int num2 = (int)this.incubeQuery.ExecuteNonQuery();
+                        this.execManager.LogIntegrationEnding(ID, result, "", stringBuilder.ToString());
                     }
                 }
-                catch (Exception ex)
-                {
-                    this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{TransactionID}', 'SendDeliver()', '{body}', '{responseBody.Replace("'", "*")}'");
-                    int num = (int)this.incubeQuery.ExecuteNonQuery();
-                    Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                    stringBuilder.Append(ex.Message);
-                    if (result == InCubeLibrary.Result.UnKnown)
-                    {
-                        result = InCubeLibrary.Result.Failure;
-                        this.WriteMessage("Unhandled exception !!");
-                    }
-                }
-                finally
-                {
-                    this.execManager.LogIntegrationEnding(ID, result, "", stringBuilder.ToString());
-                }
+
+                if (IsExch)
+                    return;
+
+                this.SendPGI(TransactionID, TransactionType, false);
             }
-
-            if (IsExch)
-                return;
-
-            this.SendPGI(TransactionID, TransactionType, false);
+            catch (Exception ex)
+            {
+                Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                this.WriteMessage("Fetching order failed !!");
+            }
+            finally
+            {
+                this.CloseSession();
+            }
         }
-        catch (Exception ex)
-        {
-            Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-            this.WriteMessage("Fetching order failed !!");
-        }
-        finally
-        {
-            this.CloseSession();
-        }
-    }
 
-    // Helper to sanitize SQL strings
-    private static string EscapeForSql(string input)
+        // Helper to sanitize SQL strings
+        private static string EscapeForSql(string input)
         {
             return (input ?? "").Replace("'", "*");
         }
@@ -3207,7 +3583,7 @@ public void SendDelivery(string TransactionID, string TransactionType, bool IsEx
                             incubeQuery = new InCubeQuery(db_vms, "DELETE FROM SAP_ResendTransaction WHERE TransactionID= '" + TransactionID + "'");
                             incubeQuery.ExecuteNonQuery();
 
-                            SendDelivery(TransactionID, "SRE",false);
+                            SendDelivery(TransactionID, "SRE", false);
                         }
 
                         incubeQuery = new InCubeQuery(db_vms, "DELETE FROM PostingTransaction WHERE TransactionID= '" + TransactionID + "'");
@@ -3824,7 +4200,7 @@ inner join [Transaction] on V_POST_SalesDelivery.TransactionID= [Transaction].Tr
 
                             incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{deliveryResult[0].d.HeaderToItem.results[0].DeliveryNumber}', 'SendDelivery()', '{headerData}', '{responseBody.Replace("'", "*")}'");
                             incubeQuery.ExecuteNonQuery();
-                            SendPGI(TransactionID, TransactionType,false);
+                            SendPGI(TransactionID, TransactionType, false);
                         }
                     }
                     catch (Exception ex)
@@ -3859,7 +4235,7 @@ inner join [Transaction] on V_POST_SalesDelivery.TransactionID= [Transaction].Tr
 
         public void AboodAPI(string TransactionID)
         {
-            string Transactionid = "", billtocode = "", shiptocode = "", TransactionTypeID = "", ArchiveDate = "", QRCode = "", PIH = "", GeneratedID = "", ETransactionStatus = "", UUID="";
+            string Transactionid = "", billtocode = "", shiptocode = "", TransactionTypeID = "", ArchiveDate = "", QRCode = "", PIH = "", GeneratedID = "", ETransactionStatus = "", UUID = "";
             Result res = Result.UnKnown;
             int processID = 0;
             StringBuilder result = new StringBuilder();
@@ -3913,8 +4289,8 @@ where SAP_Reference.Transactionid = '{TransactionID}'";
                     filters.Add(11, TransactionID);
                     processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
                     ArchiveDate = DateTime
-                        .Parse(dtHeader.Rows[i]["ArchiveDate"].ToString())     
-                        .ToUniversalTime()                                     
+                        .Parse(dtHeader.Rows[i]["ArchiveDate"].ToString())
+                        .ToUniversalTime()
                         .ToString("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
                     shiptocode = dtHeader.Rows[i]["shiptocode"].ToString();
@@ -4230,7 +4606,7 @@ where SAP_Reference.Transactionid = '{TransactionID}'";
             }
         }
 
-        private void SendPGIOld(string TransactionID, string TransactionType,bool isExch)
+        private void SendPGIOld(string TransactionID, string TransactionType, bool isExch)
         {
             try
             {
@@ -4298,7 +4674,7 @@ INNER JOIN WarehouseTransaction
                         Dictionary<int, string> filters = new Dictionary<int, string>();
                         filters.Add(11, TransactionID);
                         processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
-                        DeliveryNumber = dtHeader.Rows[i]["DeliveryRef"].ToString();      
+                        DeliveryNumber = dtHeader.Rows[i]["DeliveryRef"].ToString();
                         TransactionID = dtHeader.Rows[i]["TransactionID"].ToString();
 
                         string currentDate = DateTime.Now.ToString("yyyyMMdd");
@@ -4328,7 +4704,7 @@ INNER JOIN WarehouseTransaction
                                 if (isExch == false)
                                 {
                                     SendBilling(TransactionID);
-                                    AboodAPI( TransactionID);
+                                    AboodAPI(TransactionID);
                                 }
                             }
                             else
@@ -4555,873 +4931,1289 @@ INNER JOIN WarehouseTransaction
         {
             try
             {
-                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
+                if (this.webHeader == null)
+                    throw new Exception("Can't open session in API, please check the service!!");
 
-                string salespersonFilter = "", VoucherNumber = "", CustomerCode = "", DivisionCode="", VoucherDate = "", CustomerPaymentID = "", PayType="", EmployeeCode = "";
-                int processID = 0;
-                StringBuilder result = new StringBuilder();
-                Result res = Result.UnKnown;
+                string str1 = "";
+                string str2 = "";
+                string str3 = "";
+                int ID = 0;
+                StringBuilder stringBuilder = new StringBuilder();
+                InCubeLibrary.Result result = InCubeLibrary.Result.UnKnown;
                 string responseBody = "";
-                string headerData = "";
+                string body = "";
 
-                if (Filters.EmployeeID != -1)
+                if (this.Filters.EmployeeID != -1)
+                    str1 = "AND EmployeeID = " + this.Filters.EmployeeID;
+
+                this.incubeQuery = new InCubeQuery(this.db_vms,
+                    $"SELECT * FROM V_POST_BankCollection " +
+                    $"WHERE convert(date,PaymentDate) >= '{this.Filters.FromDate:yyyy-MM-dd}' " +
+                    $"AND convert(date,PaymentDate) <= '{this.Filters.ToDate.AddDays(1):yyyy-MM-dd}' {str1}");
+
+                DataTable dataTable1 = this.incubeQuery.Execute() == 0
+                    ? this.incubeQuery.GetDataTable()
+                    : throw new Exception("Order header query failed !!");
+
+                if (dataTable1.Rows.Count == 0)
                 {
-                    salespersonFilter = "AND EmployeeID = " + Filters.EmployeeID;
+                    this.WriteMessage("There is no Order to send ..");
+                    return;
                 }
-                string headerQuery = string.Format(@"SELECT * FROM V_POST_BankCollection
-where  convert(date,PaymentDate) >= '{0}' AND convert(date,PaymentDate) <= '{1}' {2}", Filters.FromDate.ToString("yyyy-MM-dd"), Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd"), salespersonFilter); incubeQuery = new InCubeQuery(db_vms, headerQuery);
-
-                if (incubeQuery.Execute() != InCubeErrors.Success)
-                {
-                    res = Result.Failure;
-                    throw (new Exception("Order header query failed !!"));
-                }
-
-                DataTable dtHeader = incubeQuery.GetDataTable();
-                if (dtHeader.Rows.Count == 0)
-                    WriteMessage("There is no Order to send ..");
                 else
-                    SetProgressMax(dtHeader.Rows.Count);
+                {
+                    this.SetProgressMax(dataTable1.Rows.Count);
+                }
 
-                for (int i = 0; i < dtHeader.Rows.Count; i++)
+                foreach (DataRow row in dataTable1.Rows)
                 {
                     try
                     {
-                        res = Result.UnKnown;
-                        processID = 0;
-                        result = new StringBuilder();
-                        CustomerPaymentID = dtHeader.Rows[i]["CustomerPaymentID"].ToString();
-                        DivisionCode = dtHeader.Rows[i]["DivisionCode"].ToString();
+                        result = InCubeLibrary.Result.UnKnown;
+                        ID = 0;
+                        stringBuilder.Clear();
 
-                        ReportProgress("Sending Transaction: " + CustomerPaymentID);
-                        WriteMessage("\r\n" + CustomerPaymentID + ": ");
-                        Dictionary<int, string> filters = new Dictionary<int, string>();
-                        filters.Add(11, CustomerPaymentID);
-                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
-                        CustomerCode = dtHeader.Rows[i]["CustomerCode"].ToString();
-                        VoucherNumber = dtHeader.Rows[i]["VoucherNumber"].ToString();
-                        VoucherDate = dtHeader.Rows[i]["VoucherDate"].ToString();
-                        PayType = dtHeader.Rows[i]["PayType"].ToString();
-                        EmployeeCode = dtHeader.Rows[i]["EmployeeCode"].ToString();
+                        str3 = row["CustomerPaymentID"].ToString();
+                        str2 = row["DivisionCode"].ToString();
+                        string str4 = row["OrganizationCode"].ToString();
+                        string str5 = row["CustomerCode"].ToString();
+                        string str6 = row["VoucherNumber"].ToString();
+                        string str7 = row["VoucherDate"].ToString();
+                        string str8 = row["PayType"].ToString();
+                        string str9 = row["EmployeeCode"].ToString();
 
-                        string detailsQuery = $@"select SR.BillingRef, CP.AppliedAmount, CP.AppliedPaymentID, FORMAT(ROW_NUMBER() OVER (ORDER BY CP.AppliedPaymentID), '000') LineNum from CustomerPayment CP
-                                                INNER JOIN SAP_Reference SR ON SR.TransactionID = CP.TransactionID
-                                                LEFT JOIN SAP_Reference S ON S.TransactionID = CP.AppliedPaymentID
-                                                where CustomerPaymentID = '{CustomerPaymentID}' AND SR.BillingRef IS NOT NULL AND (S.TransactionID IS NULL OR S.CollectionRef IS NULL)";
+                        this.ReportProgress("Sending Transaction: " + str3);
+                        this.WriteMessage($"\r\n{str3}: ");
 
-                        incubeQuery = new InCubeQuery(db_vms, detailsQuery);
-                        if (incubeQuery.Execute() != InCubeErrors.Success)
+                        ID = this.execManager.LogIntegrationBegining(this.TriggerID, -1, new Dictionary<int, string>()
+                {
+                    { 11, str3 }
+                });
+
+                        // Fetch Customer Payment details
+                        this.incubeQuery = new InCubeQuery(this.db_vms,
+                            $"SELECT SR.BillingRef, CP.AppliedAmount, CP.AppliedPaymentID, " +
+                            $"FORMAT(ROW_NUMBER() OVER (ORDER BY CP.AppliedPaymentID), '000') LineNum " +
+                            $"FROM CustomerPayment CP " +
+                            $"INNER JOIN SAP_Reference SR ON SR.TransactionID = CP.TransactionID " +
+                            $"LEFT JOIN SAP_Reference S ON S.TransactionID = CP.AppliedPaymentID " +
+                            $"WHERE CustomerPaymentID = '{str3}' AND SR.BillingRef IS NOT NULL AND (S.TransactionID IS NULL OR S.CollectionRef IS NULL)");
+
+                        if (this.incubeQuery.Execute() != 0)
                         {
-                            res = Result.Failure;
-                            throw (new Exception("customer payment details query failed !!"));
+                            result = InCubeLibrary.Result.Failure;
+                            throw new Exception("Customer payment details query failed !!");
                         }
 
-                        DataTable dtDetails = incubeQuery.GetDataTable();
-                        List<object> allDetailsList = new List<object>();
-                        for (int j = 0; j < dtDetails.Rows.Count; j++)
+                        DataTable dataTable2 = this.incubeQuery.GetDataTable();
+                        List<object> objectList = new List<object>();
+
+                        foreach (DataRow detailRow in dataTable2.Rows)
                         {
-                            string BillingRef = "", AppliedAmount = "", LineNo = "", AppliedPaymentID = "";
+                            string billingRef = detailRow["BillingRef"].ToString();
+                            string appliedAmount = Decimal.Parse(detailRow["AppliedAmount"].ToString()).ToString("#0.000");
+                            string lineNum = detailRow["LineNum"].ToString();
+                            string appliedPaymentID = detailRow["AppliedPaymentID"].ToString();
 
-                            BillingRef = dtDetails.Rows[j]["BillingRef"].ToString();
-                            AppliedAmount = decimal.Parse(dtDetails.Rows[j]["AppliedAmount"].ToString()).ToString("#0.000");
-                            LineNo = dtDetails.Rows[j]["LineNum"].ToString();
-                            AppliedPaymentID = dtDetails.Rows[j]["AppliedPaymentID"].ToString();
-
-                            var details = new
+                            var detail = new
                             {
-                                Itemno = LineNo,
-                                DocumentHdrTxt = PayType,
-                                AmountLc = AppliedAmount,
-                                Assignment = BillingRef
+                                Itemno = lineNum,
+                                DocumentHdrTxt = str8,
+                                AmountLc = appliedAmount,
+                                Assignment = billingRef
                             };
 
-                            allDetailsList.Add(details);
+                            objectList.Add(detail);
 
-                            incubeQuery = new InCubeQuery(db_vms, $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef,PGIRef,DeliveryRef) VALUES ('{AppliedPaymentID}','{BillingRef}','Bank','{CustomerPaymentID}')");
-                            incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms,
+                                $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef,PGIRef,DeliveryRef) " +
+                                $"VALUES ('{appliedPaymentID}','{billingRef}','Bank','{str3}')");
+                            _ = this.incubeQuery.ExecuteNonQuery();
                         }
 
-                        var headerDataObject = new
+                        var data = new
                         {
-                            CompanyCode = DivisionCode,
-                            DocumentDate = VoucherDate,
-                            Reference = VoucherNumber,
-                            DocumentHdrTxt = PayType,
-                            Customer = CustomerCode,
-                            SalesmanCode = EmployeeCode,
+                            CompanyCode = str4,
+                            DocumentDate = str7,
+                            Reference = str6,
+                            DocumentHdrTxt = str8,
+                            Customer = str5,
+                            SalesmanCode = str9,
                             Message = "",
                             DocumentNumber = "",
-                            PostToItem = allDetailsList
+                            PostToItem = objectList
                         };
 
-                        headerData = JsonConvert.SerializeObject(headerDataObject);
+                        body = JsonConvert.SerializeObject(data);
 
-                        MezzanSimpleResult[] bankResult = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_BANK_POSTING_SRV/PostingDataSet", headerData, "", out responseBody, webHeader, cookies);
-                        if (bankResult[0].d.DocumentNumber == null || (bankResult[0].d.Message != null && bankResult[0].d.Message.Trim() != "Document posted successfully"))
+                        MezzanSimpleResult[] request = Tools.GetRequest<MezzanSimpleResult>(
+                            CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_BANK_POSTING_SRV/PostingDataSet",
+                            body, "", out responseBody, this.webHeader, this.cookies);
+
+                        if (request[0].d.DocumentNumber == null || request[0].d.Message?.Trim() != "Document posted successfully")
                         {
-                            res = Result.NoFileRetreived;
-                            result.Append("ERP ERROR Message:" + (bankResult[0].d.Message != null ? bankResult[0].d.Message : "") + "\r\n json:" + headerData);
-                            WriteMessage("Error .. \r\n" + CustomerPaymentID + " \r\n" + bankResult[0].d.DocumentNumber);
-
-                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendBankCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                            incubeQuery.ExecuteNonQuery();
+                            result = InCubeLibrary.Result.NoFileRetreived;
+                            stringBuilder.Append($"ERP ERROR Message:{request[0].d.Message}\r\n json:{body}");
+                            this.WriteMessage($"Error .. \r\n{str3} \r\n{request[0].d.DocumentNumber}");
+                            this.incubeQuery = new InCubeQuery(this.db_vms,
+                                $"EXEC SP_InsertUpdateErrors '{str3}','SendBankCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            _ = this.incubeQuery.ExecuteNonQuery();
                         }
                         else
                         {
-                            res = Result.Success;
-                            result.Append("ERP No: " + bankResult[0].d.DocumentNumber + "\r\n Message:" + (bankResult[0].d.Message != null ? bankResult[0].d.Message : "") + "\r\n json:" + headerData);
-                            WriteMessage("Success, ERP No: " + bankResult[0].d.DocumentNumber);
-                            incubeQuery = new InCubeQuery(db_vms, "UPDATE [CustomerPayment] SET Synchronized = 1  WHERE CustomerPaymentID = '" + CustomerPaymentID + "'");
-                            incubeQuery.ExecuteNonQuery();
+                            result = InCubeLibrary.Result.Success;
+                            stringBuilder.Append($"ERP No: {request[0].d.DocumentNumber}\r\n Message:{request[0].d.Message}\r\n json:{body}");
+                            this.WriteMessage("Success, ERP No: " + request[0].d.DocumentNumber);
 
-                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{CustomerPaymentID}', '{bankResult[0].d.DocumentNumber}', 'SendBankCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                            incubeQuery.ExecuteNonQuery();
-                            incubeQuery = new InCubeQuery(db_vms, "UPDATE [SAP_Reference] SET CollectionRef = '" + bankResult[0].d.DocumentNumber + "' WHERE PGIRef='Bank' and DeliveryRef = '" + CustomerPaymentID + "'");
-                            incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms,
+                                $"UPDATE [CustomerPayment] SET Synchronized = 1 WHERE CustomerPaymentID = '{str3}'");
+                            _ = this.incubeQuery.ExecuteNonQuery();
+
+                            this.incubeQuery = new InCubeQuery(this.db_vms,
+                                $"EXEC SP_InsertSAPPostingData '{str3}', '{request[0].d.DocumentNumber}', 'SendBankCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            _ = this.incubeQuery.ExecuteNonQuery();
+
+                            this.incubeQuery = new InCubeQuery(this.db_vms,
+                                $"UPDATE [SAP_Reference] SET CollectionRef = '{request[0].d.DocumentNumber}' WHERE PGIRef='Bank' AND DeliveryRef = '{str3}'");
+                            _ = this.incubeQuery.ExecuteNonQuery();
                         }
                     }
                     catch (Exception ex)
                     {
-                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendBankCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                        incubeQuery.ExecuteNonQuery();
-                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                        result.Append(ex.Message);
-                        if (res == Result.UnKnown)
+                        this.incubeQuery = new InCubeQuery(this.db_vms,
+                            $"EXEC SP_InsertUpdateErrors '{str3}','SendBankCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                        _ = this.incubeQuery.ExecuteNonQuery();
+
+                        Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                            MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+
+                        stringBuilder.Append(ex.Message);
+
+                        if (result == InCubeLibrary.Result.UnKnown)
                         {
-                            res = Result.Failure;
-                            WriteMessage("Unhandled exception !!");
+                            result = InCubeLibrary.Result.Failure;
+                            this.WriteMessage("Unhandled exception !!");
                         }
                     }
                     finally
                     {
-                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+                        this.execManager.LogIntegrationEnding(ID, result, "", stringBuilder.ToString());
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                WriteMessage("Fetching order failed !!");
+                Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name,
+                    MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                this.WriteMessage("Fetching order failed !!");
             }
             finally
             {
-                CloseSession();
+                this.CloseSession();
             }
         }
-     
         private void SendChequeCollection()
         {
             try
             {
-                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
-
-                string salespersonFilter = "", BankCode = "", VoucherNumber = "", EmployeeCode = "", VoucherDate = "", CustomerPaymentID = "";
-                int processID = 0;
-                StringBuilder result = new StringBuilder();
-                Result res = Result.UnKnown;
+                if (this.webHeader == null)
+                    throw new Exception("Can't open session in API , please check the service!!");
+                string str1 = "";
+                string str2 = "";
+                int ID = 0;
+                StringBuilder stringBuilder = new StringBuilder();
+                InCubeLibrary.Result result1 = InCubeLibrary.Result.UnKnown;
                 string responseBody = "";
-                string headerData = "";
-
-                if (Filters.EmployeeID != -1)
-                {
-                    salespersonFilter = "AND EmployeeID = " + Filters.EmployeeID;
-                }
-                string headerQuery = string.Format(@"SELECT * FROM V_POST_ChequeCollection
-where  convert(date,PaymentDate) >= '{0}' AND convert(date,PaymentDate) <= '{1}' {2}", Filters.FromDate.ToString("yyyy-MM-dd"), Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd"), salespersonFilter); incubeQuery = new InCubeQuery(db_vms, headerQuery);
-
-                if (incubeQuery.Execute() != InCubeErrors.Success)
-                {
-                    res = Result.Failure;
-                    throw (new Exception("Order header query failed !!"));
-                }
-
-                DataTable dtHeader = incubeQuery.GetDataTable();
-                if (dtHeader.Rows.Count == 0)
-                    WriteMessage("There is no Order to send ..");
+                string body = "";
+                if (this.Filters.EmployeeID != -1)
+                    str1 = "AND EmployeeID = " + this.Filters.EmployeeID.ToString();
+                this.incubeQuery = new InCubeQuery(this.db_vms, $"SELECT * FROM V_POST_ChequeCollection\r\nwhere  convert(date,PaymentDate) >= '{this.Filters.FromDate.ToString("yyyy-MM-dd")}' AND convert(date,PaymentDate) <= '{this.Filters.ToDate.AddDays(1.0).ToString("yyyy-MM-dd")}' {str1}");
+                DataTable dataTable1 = this.incubeQuery.Execute() == 0 ? this.incubeQuery.GetDataTable() : throw new Exception("Order header query failed !!");
+                if (dataTable1.Rows.Count == 0)
+                    this.WriteMessage("There is no Order to send ..");
                 else
-                    SetProgressMax(dtHeader.Rows.Count);
-
-                for (int i = 0; i < dtHeader.Rows.Count; i++)
+                    this.SetProgressMax(dataTable1.Rows.Count);
+                for (int index1 = 0; index1 < dataTable1.Rows.Count; ++index1)
                 {
                     try
                     {
-                        res = Result.UnKnown;
-                        processID = 0;
-                        result = new StringBuilder();
-                        CustomerPaymentID = dtHeader.Rows[i]["CustomerPaymentID"].ToString();
-                        ReportProgress("Sending Transaction: " + CustomerPaymentID);
-                        WriteMessage("\r\n" + CustomerPaymentID + ": ");
-                        Dictionary<int, string> filters = new Dictionary<int, string>();
-                        filters.Add(11, CustomerPaymentID);
-                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
-                        BankCode = dtHeader.Rows[i]["Code"].ToString();
-                        EmployeeCode = dtHeader.Rows[i]["EmployeeCode"].ToString();
-                        VoucherNumber = dtHeader.Rows[i]["VoucherNumber"].ToString();
-                        VoucherDate = dtHeader.Rows[i]["VoucherDate"].ToString();
-
-                        string detailsQuery = $@"select SR.BillingRef, CP.AppliedAmount, CP.AppliedPaymentID from CustomerPayment CP
-                                                INNER JOIN SAP_Reference SR ON SR.TransactionID = CP.TransactionID
-                                                LEFT JOIN SAP_Reference S ON S.TransactionID = CP.AppliedPaymentID
-                                                where CustomerPaymentID = '{CustomerPaymentID}' AND SR.BillingRef IS NOT NULL AND (S.TransactionID IS NULL OR S.CollectionRef IS NULL)";
-
-                        incubeQuery = new InCubeQuery(db_vms, detailsQuery);
-                        if (incubeQuery.Execute() != InCubeErrors.Success)
+                        result1 = InCubeLibrary.Result.UnKnown;
+                        ID = 0;
+                        stringBuilder = new StringBuilder();
+                        str2 = dataTable1.Rows[index1]["CustomerPaymentID"].ToString();
+                        this.ReportProgress("Sending Transaction: " + str2);
+                        this.WriteMessage($"\r\n{str2}: ");
+                        ID = this.execManager.LogIntegrationBegining(this.TriggerID, -1, new Dictionary<int, string>()
+                {
+                    { 11, str2 }
+                });
+                        string str3 = dataTable1.Rows[index1]["Code"].ToString();
+                        string str4 = dataTable1.Rows[index1]["EmployeeCode"].ToString();
+                        string str5 = dataTable1.Rows[index1]["VoucherNumber"].ToString();
+                        string str6 = dataTable1.Rows[index1]["VoucherDate"].ToString();
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"select SR.BillingRef, IIF(cp.organizationid<>9 ,(CP.AppliedAmount) *10,(CP.AppliedAmount)), CP.AppliedPaymentID from CustomerPayment CP\r\nINNER JOIN SAP_Reference SR ON SR.TransactionID = CP.TransactionID\r\nLEFT JOIN SAP_Reference S ON S.TransactionID = CP.AppliedPaymentID\r\nwhere CustomerPaymentID = '{str2}' AND SR.BillingRef IS NOT NULL AND (S.TransactionID IS NULL OR S.CollectionRef IS NULL)");
+                        if (this.incubeQuery.Execute() != 0)
                         {
-                            res = Result.Failure;
-                            throw (new Exception("customer payment details query failed !!"));
+                            result1 = InCubeLibrary.Result.Failure;
+                            throw new Exception("customer payment details query failed !!");
                         }
-
-                        DataTable dtDetails = incubeQuery.GetDataTable();
-                        List<object> allDetailsList = new List<object>();
-                        for (int j = 0; j < dtDetails.Rows.Count; j++)
+                        DataTable dataTable2 = this.incubeQuery.GetDataTable();
+                        List<object> objectList = new List<object>();
+                        for (int index2 = 0; index2 < dataTable2.Rows.Count; ++index2)
                         {
-                            string BillingRef = "", AppliedAmount="", AppliedPaymentID="";
-
-                            BillingRef = dtDetails.Rows[j]["BillingRef"].ToString();
-                            AppliedAmount = decimal.Parse(dtDetails.Rows[j]["AppliedAmount"].ToString()).ToString("#0.000");
-                            AppliedPaymentID = dtDetails.Rows[j]["AppliedPaymentID"].ToString();
-
-                            var details = new
+                            string str7 = dataTable2.Rows[index2]["BillingRef"].ToString();
+                            string str8 = Decimal.Parse(dataTable2.Rows[index2]["AppliedAmount"].ToString()).ToString("#0.000");
+                            string str9 = dataTable2.Rows[index2]["AppliedPaymentID"].ToString();
+                            var data = new
                             {
                                 CheckNo = "",
-                                BillingNo = BillingRef,
-                                Amount = AppliedAmount,
+                                BillingNo = str7,
+                                Amount = str8,
                                 DocumentNumber = "",
                                 Message = ""
                             };
-
-                            allDetailsList.Add(details);
-
-
-                            incubeQuery = new InCubeQuery(db_vms, $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef, PGIRef, DeliveryRef) VALUES ('{AppliedPaymentID}','{BillingRef}', 'Cheque', '{CustomerPaymentID}')");
-                            incubeQuery.ExecuteNonQuery();
+                            objectList.Add((object)data);
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef, PGIRef, DeliveryRef) VALUES ('{str9}','{str7}', 'Cheque', '{str2}')");
+                            int num = (int)this.incubeQuery.ExecuteNonQuery();
                         }
-
-                        var headerDataObject = new
+                        var data1 = new
                         {
-                            BankKey = BankCode,
-                            CheckNo = VoucherNumber,
-                            Date = VoucherDate,
-                            Customer = EmployeeCode,
-                            CheckToBilling = allDetailsList
+                            BankKey = str3,
+                            CheckNo = str5,
+                            Date = str6,
+                            Customer = str4,
+                            CheckToBilling = objectList
                         };
-
-                        headerData = JsonConvert.SerializeObject(headerDataObject);
-
-                        MezzanComplexResult[] chequeResult = Tools.GetRequest<MezzanComplexResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_CHECK_COLLECTION_SRV/CheckDataSet", headerData, "", out responseBody, webHeader, cookies);
-                        if (chequeResult[0].d.CheckToBilling.results[0].BillingNo == null || (chequeResult[0].d.CheckToBilling.results[0].DocumentNumber != null && chequeResult[0].d.CheckToBilling.results[0].DocumentNumber.Trim() == ""))
+                        body = JsonConvert.SerializeObject((object)data1);
+                        MezzanComplexResult[] request = Tools.GetRequest<MezzanComplexResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_CHECK_COLLECTION_SRV/CheckDataSet", body, "", out responseBody, this.webHeader, this.cookies);
+                        if (request[0].d.CheckToBilling.results[0].BillingNo == null || request[0].d.CheckToBilling.results[0].DocumentNumber != null && request[0].d.CheckToBilling.results[0].DocumentNumber.Trim() == "")
                         {
-                            res = Result.NoFileRetreived;
-                            result.Append("ERP ERROR Message:" + (chequeResult[0].d.CheckToBilling.results[0].Message != null ? chequeResult[0].d.CheckToBilling.results[0].Message : "") + "\r\n json:" + headerData);
-                            WriteMessage("Error .. \r\n" + CustomerPaymentID + " \r\n" + chequeResult[0].d.CheckToBilling.results[0].BillingNo);
-
-                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendChequeCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                            incubeQuery.ExecuteNonQuery();
+                            result1 = InCubeLibrary.Result.NoFileRetreived;
+                            stringBuilder.Append($"ERP ERROR Message:{(request[0].d.CheckToBilling.results[0].Message != null ? request[0].d.CheckToBilling.results[0].Message : "")}\r\n json:{body}");
+                            this.WriteMessage($"Error .. \r\n{str2} \r\n{request[0].d.CheckToBilling.results[0].BillingNo}");
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{str2}','SendChequeCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            int num = (int)this.incubeQuery.ExecuteNonQuery();
                         }
                         else
                         {
-                            res = Result.Success;
-                            result.Append("ERP No: " + chequeResult[0].d.CheckToBilling.results[0].DocumentNumber + "\r\n Message:" + (chequeResult[0].d.CheckToBilling.results[0].Message != null ? chequeResult[0].d.CheckToBilling.results[0].Message : "") + "\r\n json:" + headerData);
-                            WriteMessage("Success, ERP No: " + chequeResult[0].d.CheckToBilling.results[0].BillingNo);
-                            incubeQuery = new InCubeQuery(db_vms, "UPDATE [CustomerPayment] SET Synchronized = 1  WHERE CustomerPaymentID = '" + CustomerPaymentID + "'");
-                            incubeQuery.ExecuteNonQuery();
-
-                            foreach(var item in chequeResult[0].d.CheckToBilling.results)
+                            result1 = InCubeLibrary.Result.Success;
+                            stringBuilder.Append($"ERP No: {request[0].d.CheckToBilling.results[0].DocumentNumber}\r\n Message:{(request[0].d.CheckToBilling.results[0].Message != null ? request[0].d.CheckToBilling.results[0].Message : "")}\r\n json:{body}");
+                            this.WriteMessage("Success, ERP No: " + request[0].d.CheckToBilling.results[0].BillingNo);
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE [CustomerPayment] SET Synchronized = 1  WHERE CustomerPaymentID = '{str2}'");
+                            int num1 = (int)this.incubeQuery.ExecuteNonQuery();
+                            foreach (ResultDocument result2 in request[0].d.CheckToBilling.results)
                             {
-                                incubeQuery = new InCubeQuery(db_vms, "UPDATE [SAP_Reference] SET CollectionRef = '" + item.DocumentNumber + "' WHERE BillingRef = '" + item.BillingNo + "' and PGIRef='Cheque' and DeliveryRef = '" + CustomerPaymentID + "'");
-                                incubeQuery.ExecuteNonQuery();
-                                incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{CustomerPaymentID}', '{item.DocumentNumber}', 'SendChequeCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                                incubeQuery.ExecuteNonQuery();
+                                this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE [SAP_Reference] SET CollectionRef = '{result2.DocumentNumber}' WHERE BillingRef = '{result2.BillingNo}' and PGIRef='Cheque' and DeliveryRef = '{str2}'");
+                                int num2 = (int)this.incubeQuery.ExecuteNonQuery();
+                                this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{str2}', '{result2.DocumentNumber}', 'SendChequeCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                                int num3 = (int)this.incubeQuery.ExecuteNonQuery();
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendChequeCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                        incubeQuery.ExecuteNonQuery();
-                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                        result.Append(ex.Message);
-                        if (res == Result.UnKnown)
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{str2}','SendChequeCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                        int num = (int)this.incubeQuery.ExecuteNonQuery();
+                        Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                        stringBuilder.Append(ex.Message);
+                        if (result1 == InCubeLibrary.Result.UnKnown)
                         {
-                            res = Result.Failure;
-                            WriteMessage("Unhandled exception !!");
+                            result1 = InCubeLibrary.Result.Failure;
+                            this.WriteMessage("Unhandled exception !!");
                         }
                     }
                     finally
                     {
-                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+                        this.execManager.LogIntegrationEnding(ID, result1, "", stringBuilder.ToString());
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                WriteMessage("Fetching order failed !!");
+                Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                this.WriteMessage("Fetching order failed !!");
             }
             finally
             {
-                CloseSession();
+                this.CloseSession();
             }
         }
+//        private void SendBankCollection()
+//        {
+//            try
+//            {
+//                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
 
+//                string salespersonFilter = "", VoucherNumber = "", CustomerCode = "", DivisionCode = "", VoucherDate = "", CustomerPaymentID = "", PayType = "", EmployeeCode = "";
+//                int processID = 0;
+//                StringBuilder result = new StringBuilder();
+//                Result res = Result.UnKnown;
+//                string responseBody = "";
+//                string headerData = "";
+
+//                if (Filters.EmployeeID != -1)
+//                {
+//                    salespersonFilter = "AND EmployeeID = " + Filters.EmployeeID;
+//                }
+//                string headerQuery = string.Format(@"SELECT * FROM V_POST_BankCollection
+//where  convert(date,PaymentDate) >= '{0}' AND convert(date,PaymentDate) <= '{1}' {2}", Filters.FromDate.ToString("yyyy-MM-dd"), Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd"), salespersonFilter); incubeQuery = new InCubeQuery(db_vms, headerQuery);
+
+//                if (incubeQuery.Execute() != InCubeErrors.Success)
+//                {
+//                    res = Result.Failure;
+//                    throw (new Exception("Order header query failed !!"));
+//                }
+
+//                DataTable dtHeader = incubeQuery.GetDataTable();
+//                if (dtHeader.Rows.Count == 0)
+//                    WriteMessage("There is no Order to send ..");
+//                else
+//                    SetProgressMax(dtHeader.Rows.Count);
+
+//                for (int i = 0; i < dtHeader.Rows.Count; i++)
+//                {
+//                    try
+//                    {
+//                        res = Result.UnKnown;
+//                        processID = 0;
+//                        result = new StringBuilder();
+//                        CustomerPaymentID = dtHeader.Rows[i]["CustomerPaymentID"].ToString();
+//                        DivisionCode = dtHeader.Rows[i]["DivisionCode"].ToString();
+
+//                        ReportProgress("Sending Transaction: " + CustomerPaymentID);
+//                        WriteMessage("\r\n" + CustomerPaymentID + ": ");
+//                        Dictionary<int, string> filters = new Dictionary<int, string>();
+//                        filters.Add(11, CustomerPaymentID);
+//                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
+//                        CustomerCode = dtHeader.Rows[i]["CustomerCode"].ToString();
+//                        VoucherNumber = dtHeader.Rows[i]["VoucherNumber"].ToString();
+//                        VoucherDate = dtHeader.Rows[i]["VoucherDate"].ToString();
+//                        PayType = dtHeader.Rows[i]["PayType"].ToString();
+//                        EmployeeCode = dtHeader.Rows[i]["EmployeeCode"].ToString();
+
+//                        string detailsQuery = $@"select SR.BillingRef, CP.AppliedAmount, CP.AppliedPaymentID, FORMAT(ROW_NUMBER() OVER (ORDER BY CP.AppliedPaymentID), '000') LineNum from CustomerPayment CP
+//                                                INNER JOIN SAP_Reference SR ON SR.TransactionID = CP.TransactionID
+//                                                LEFT JOIN SAP_Reference S ON S.TransactionID = CP.AppliedPaymentID
+//                                                where CustomerPaymentID = '{CustomerPaymentID}' AND SR.BillingRef IS NOT NULL AND (S.TransactionID IS NULL OR S.CollectionRef IS NULL)";
+
+//                        incubeQuery = new InCubeQuery(db_vms, detailsQuery);
+//                        if (incubeQuery.Execute() != InCubeErrors.Success)
+//                        {
+//                            res = Result.Failure;
+//                            throw (new Exception("customer payment details query failed !!"));
+//                        }
+
+//                        DataTable dtDetails = incubeQuery.GetDataTable();
+//                        List<object> allDetailsList = new List<object>();
+//                        for (int j = 0; j < dtDetails.Rows.Count; j++)
+//                        {
+//                            string BillingRef = "", AppliedAmount = "", LineNo = "", AppliedPaymentID = "";
+
+//                            BillingRef = dtDetails.Rows[j]["BillingRef"].ToString();
+//                            AppliedAmount = decimal.Parse(dtDetails.Rows[j]["AppliedAmount"].ToString()).ToString("#0.000");
+//                            LineNo = dtDetails.Rows[j]["LineNum"].ToString();
+//                            AppliedPaymentID = dtDetails.Rows[j]["AppliedPaymentID"].ToString();
+
+//                            var details = new
+//                            {
+//                                Itemno = LineNo,
+//                                DocumentHdrTxt = PayType,
+//                                AmountLc = AppliedAmount,
+//                                Assignment = BillingRef
+//                            };
+
+//                            allDetailsList.Add(details);
+
+//                            incubeQuery = new InCubeQuery(db_vms, $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef,PGIRef,DeliveryRef) VALUES ('{AppliedPaymentID}','{BillingRef}','Bank','{CustomerPaymentID}')");
+//                            incubeQuery.ExecuteNonQuery();
+//                        }
+
+//                        var headerDataObject = new
+//                        {
+//                            CompanyCode = DivisionCode,
+//                            DocumentDate = VoucherDate,
+//                            Reference = VoucherNumber,
+//                            DocumentHdrTxt = PayType,
+//                            Customer = CustomerCode,
+//                            SalesmanCode = EmployeeCode,
+//                            Message = "",
+//                            DocumentNumber = "",
+//                            PostToItem = allDetailsList
+//                        };
+
+//                        headerData = JsonConvert.SerializeObject(headerDataObject);
+
+//                        MezzanSimpleResult[] bankResult = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_BANK_POSTING_SRV/PostingDataSet", headerData, "", out responseBody, webHeader, cookies);
+//                        if (bankResult[0].d.DocumentNumber == null || (bankResult[0].d.Message != null && bankResult[0].d.Message.Trim() != "Document posted successfully"))
+//                        {
+//                            res = Result.NoFileRetreived;
+//                            result.Append("ERP ERROR Message:" + (bankResult[0].d.Message != null ? bankResult[0].d.Message : "") + "\r\n json:" + headerData);
+//                            WriteMessage("Error .. \r\n" + CustomerPaymentID + " \r\n" + bankResult[0].d.DocumentNumber);
+
+//                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendBankCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+//                            incubeQuery.ExecuteNonQuery();
+//                        }
+//                        else
+//                        {
+//                            res = Result.Success;
+//                            result.Append("ERP No: " + bankResult[0].d.DocumentNumber + "\r\n Message:" + (bankResult[0].d.Message != null ? bankResult[0].d.Message : "") + "\r\n json:" + headerData);
+//                            WriteMessage("Success, ERP No: " + bankResult[0].d.DocumentNumber);
+//                            incubeQuery = new InCubeQuery(db_vms, "UPDATE [CustomerPayment] SET Synchronized = 1  WHERE CustomerPaymentID = '" + CustomerPaymentID + "'");
+//                            incubeQuery.ExecuteNonQuery();
+
+//                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{CustomerPaymentID}', '{bankResult[0].d.DocumentNumber}', 'SendBankCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+//                            incubeQuery.ExecuteNonQuery();
+//                            incubeQuery = new InCubeQuery(db_vms, "UPDATE [SAP_Reference] SET CollectionRef = '" + bankResult[0].d.DocumentNumber + "' WHERE PGIRef='Bank' and DeliveryRef = '" + CustomerPaymentID + "'");
+//                            incubeQuery.ExecuteNonQuery();
+//                        }
+//                    }
+//                    catch (Exception ex)
+//                    {
+//                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendBankCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+//                        incubeQuery.ExecuteNonQuery();
+//                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+//                        result.Append(ex.Message);
+//                        if (res == Result.UnKnown)
+//                        {
+//                            res = Result.Failure;
+//                            WriteMessage("Unhandled exception !!");
+//                        }
+//                    }
+//                    finally
+//                    {
+//                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+//                    }
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+//                WriteMessage("Fetching order failed !!");
+//            }
+//            finally
+//            {
+//                CloseSession();
+//            }
+//        }
+
+//        private void SendChequeCollection()
+//        {
+//            try
+//            {
+//                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
+
+//                string salespersonFilter = "", BankCode = "", VoucherNumber = "", EmployeeCode = "", VoucherDate = "", CustomerPaymentID = "";
+//                int processID = 0;
+//                StringBuilder result = new StringBuilder();
+//                Result res = Result.UnKnown;
+//                string responseBody = "";
+//                string headerData = "";
+
+//                if (Filters.EmployeeID != -1)
+//                {
+//                    salespersonFilter = "AND EmployeeID = " + Filters.EmployeeID;
+//                }
+//                string headerQuery = string.Format(@"SELECT * FROM V_POST_ChequeCollection
+//where  convert(date,PaymentDate) >= '{0}' AND convert(date,PaymentDate) <= '{1}' {2}", Filters.FromDate.ToString("yyyy-MM-dd"), Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd"), salespersonFilter); incubeQuery = new InCubeQuery(db_vms, headerQuery);
+
+//                if (incubeQuery.Execute() != InCubeErrors.Success)
+//                {
+//                    res = Result.Failure;
+//                    throw (new Exception("Order header query failed !!"));
+//                }
+
+//                DataTable dtHeader = incubeQuery.GetDataTable();
+//                if (dtHeader.Rows.Count == 0)
+//                    WriteMessage("There is no Order to send ..");
+//                else
+//                    SetProgressMax(dtHeader.Rows.Count);
+
+//                for (int i = 0; i < dtHeader.Rows.Count; i++)
+//                {
+//                    try
+//                    {
+//                        res = Result.UnKnown;
+//                        processID = 0;
+//                        result = new StringBuilder();
+//                        CustomerPaymentID = dtHeader.Rows[i]["CustomerPaymentID"].ToString();
+//                        ReportProgress("Sending Transaction: " + CustomerPaymentID);
+//                        WriteMessage("\r\n" + CustomerPaymentID + ": ");
+//                        Dictionary<int, string> filters = new Dictionary<int, string>();
+//                        filters.Add(11, CustomerPaymentID);
+//                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
+//                        BankCode = dtHeader.Rows[i]["Code"].ToString();
+//                        EmployeeCode = dtHeader.Rows[i]["EmployeeCode"].ToString();
+//                        VoucherNumber = dtHeader.Rows[i]["VoucherNumber"].ToString();
+//                        VoucherDate = dtHeader.Rows[i]["VoucherDate"].ToString();
+
+//                        string detailsQuery = $@"select SR.BillingRef, CP.AppliedAmount, CP.AppliedPaymentID from CustomerPayment CP
+//                                                INNER JOIN SAP_Reference SR ON SR.TransactionID = CP.TransactionID
+//                                                LEFT JOIN SAP_Reference S ON S.TransactionID = CP.AppliedPaymentID
+//                                                where CustomerPaymentID = '{CustomerPaymentID}' AND SR.BillingRef IS NOT NULL AND (S.TransactionID IS NULL OR S.CollectionRef IS NULL)";
+
+//                        incubeQuery = new InCubeQuery(db_vms, detailsQuery);
+//                        if (incubeQuery.Execute() != InCubeErrors.Success)
+//                        {
+//                            res = Result.Failure;
+//                            throw (new Exception("customer payment details query failed !!"));
+//                        }
+
+//                        DataTable dtDetails = incubeQuery.GetDataTable();
+//                        List<object> allDetailsList = new List<object>();
+//                        for (int j = 0; j < dtDetails.Rows.Count; j++)
+//                        {
+//                            string BillingRef = "", AppliedAmount = "", AppliedPaymentID = "";
+
+//                            BillingRef = dtDetails.Rows[j]["BillingRef"].ToString();
+//                            AppliedAmount = decimal.Parse(dtDetails.Rows[j]["AppliedAmount"].ToString()).ToString("#0.000");
+//                            AppliedPaymentID = dtDetails.Rows[j]["AppliedPaymentID"].ToString();
+
+//                            var details = new
+//                            {
+//                                CheckNo = "",
+//                                BillingNo = BillingRef,
+//                                Amount = AppliedAmount,
+//                                DocumentNumber = "",
+//                                Message = ""
+//                            };
+
+//                            allDetailsList.Add(details);
+
+
+//                            incubeQuery = new InCubeQuery(db_vms, $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef, PGIRef, DeliveryRef) VALUES ('{AppliedPaymentID}','{BillingRef}', 'Cheque', '{CustomerPaymentID}')");
+//                            incubeQuery.ExecuteNonQuery();
+//                        }
+
+//                        var headerDataObject = new
+//                        {
+//                            BankKey = BankCode,
+//                            CheckNo = VoucherNumber,
+//                            Date = VoucherDate,
+//                            Customer = EmployeeCode,
+//                            CheckToBilling = allDetailsList
+//                        };
+
+//                        headerData = JsonConvert.SerializeObject(headerDataObject);
+
+//                        MezzanComplexResult[] chequeResult = Tools.GetRequest<MezzanComplexResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_CHECK_COLLECTION_SRV/CheckDataSet", headerData, "", out responseBody, webHeader, cookies);
+//                        if (chequeResult[0].d.CheckToBilling.results[0].BillingNo == null || (chequeResult[0].d.CheckToBilling.results[0].DocumentNumber != null && chequeResult[0].d.CheckToBilling.results[0].DocumentNumber.Trim() == ""))
+//                        {
+//                            res = Result.NoFileRetreived;
+//                            result.Append("ERP ERROR Message:" + (chequeResult[0].d.CheckToBilling.results[0].Message != null ? chequeResult[0].d.CheckToBilling.results[0].Message : "") + "\r\n json:" + headerData);
+//                            WriteMessage("Error .. \r\n" + CustomerPaymentID + " \r\n" + chequeResult[0].d.CheckToBilling.results[0].BillingNo);
+
+//                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendChequeCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+//                            incubeQuery.ExecuteNonQuery();
+//                        }
+//                        else
+//                        {
+//                            res = Result.Success;
+//                            result.Append("ERP No: " + chequeResult[0].d.CheckToBilling.results[0].DocumentNumber + "\r\n Message:" + (chequeResult[0].d.CheckToBilling.results[0].Message != null ? chequeResult[0].d.CheckToBilling.results[0].Message : "") + "\r\n json:" + headerData);
+//                            WriteMessage("Success, ERP No: " + chequeResult[0].d.CheckToBilling.results[0].BillingNo);
+//                            incubeQuery = new InCubeQuery(db_vms, "UPDATE [CustomerPayment] SET Synchronized = 1  WHERE CustomerPaymentID = '" + CustomerPaymentID + "'");
+//                            incubeQuery.ExecuteNonQuery();
+
+//                            foreach (var item in chequeResult[0].d.CheckToBilling.results)
+//                            {
+//                                incubeQuery = new InCubeQuery(db_vms, "UPDATE [SAP_Reference] SET CollectionRef = '" + item.DocumentNumber + "' WHERE BillingRef = '" + item.BillingNo + "' and PGIRef='Cheque' and DeliveryRef = '" + CustomerPaymentID + "'");
+//                                incubeQuery.ExecuteNonQuery();
+//                                incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{CustomerPaymentID}', '{item.DocumentNumber}', 'SendChequeCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+//                                incubeQuery.ExecuteNonQuery();
+//                            }
+//                        }
+//                    }
+//                    catch (Exception ex)
+//                    {
+//                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendChequeCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+//                        incubeQuery.ExecuteNonQuery();
+//                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+//                        result.Append(ex.Message);
+//                        if (res == Result.UnKnown)
+//                        {
+//                            res = Result.Failure;
+//                            WriteMessage("Unhandled exception !!");
+//                        }
+//                    }
+//                    finally
+//                    {
+//                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+//                    }
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+//                WriteMessage("Fetching order failed !!");
+//            }
+//            finally
+//            {
+//                CloseSession();
+//            }
+//        }
+
+        //        private void SendCashCollection()
+        //        {
+        //            try
+        //            {
+        //                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
+
+        //                string salespersonFilter = "", BillingRef = "", EmployeeCode = "", AppliedAmount = "", PayYear = "", TransactionID = "", AppliedPaymentID ="", CustomerPaymentID= "";
+        //                int processID = 0;
+        //                StringBuilder result = new StringBuilder();
+        //                Result res = Result.UnKnown;
+        //                string responseBody = "";
+        //                string headerData = "";
+
+        //                if (Filters.EmployeeID != -1)
+        //                {
+        //                    salespersonFilter = "AND EmployeeID = " + Filters.EmployeeID;
+        //                }
+        //                string headerQuery = string.Format(@"SELECT * FROM V_POST_CashCollection
+        //where  convert(date,PaymentDate) >= '{0}' AND convert(date,PaymentDate) <= '{1}' {2}", Filters.FromDate.ToString("yyyy-MM-dd"), Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd"), salespersonFilter);
+        //                incubeQuery = new InCubeQuery(db_vms, headerQuery);
+
+        //                if (incubeQuery.Execute() != InCubeErrors.Success)
+        //                {
+        //                    res = Result.Failure;
+        //                    throw (new Exception("cash collection header query failed !!"));
+        //                }
+
+        //                DataTable dtHeader = incubeQuery.GetDataTable();
+        //                if (dtHeader.Rows.Count == 0)
+        //                    WriteMessage("There is no Order to send ..");
+        //                else
+        //                    SetProgressMax(dtHeader.Rows.Count);
+
+        //                for (int i = 0; i < dtHeader.Rows.Count; i++)
+        //                {
+        //                    try
+        //                    {
+        //                        res = Result.UnKnown;
+        //                        processID = 0;
+        //                        result = new StringBuilder();
+        //                        BillingRef = dtHeader.Rows[i]["BillingRef"].ToString();
+        //                        ReportProgress("Sending Delivery: " + BillingRef);
+        //                        WriteMessage("\r\n" + BillingRef + ": ");
+        //                        Dictionary<int, string> filters = new Dictionary<int, string>();
+        //                        filters.Add(11, BillingRef);
+        //                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
+        //                        EmployeeCode = dtHeader.Rows[i]["EmployeeCode"].ToString();
+        //                        AppliedAmount = decimal.Parse(dtHeader.Rows[i]["AppliedAmount"].ToString()).ToString("#0.000");
+        //                        PayYear = dtHeader.Rows[i]["PayYear"].ToString();
+        //                        TransactionID = dtHeader.Rows[i]["TransactionID"].ToString();
+        //                        AppliedPaymentID = dtHeader.Rows[i]["AppliedPaymentID"].ToString();
+        //                        CustomerPaymentID = dtHeader.Rows[i]["CustomerPaymentID"].ToString();
+
+        //                        var headerDataObject = new
+        //                        {
+        //                            BillingDoc = BillingRef,
+        //                            Customer = EmployeeCode,
+        //                            Amount = AppliedAmount,
+        //                            CompanyCode = "1930",
+        //                            Year = PayYear,
+        //                            DocumentNumber = ""
+        //                        };
+
+        //                        headerData = JsonConvert.SerializeObject(headerDataObject);
+
+        //                        MezzanSimpleResult[] cashResult = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_CREATE_PAYMENT_SRV/PaymentSet", headerData, "", out responseBody, webHeader, cookies);
+        //                        if (cashResult[0].d.DocumentNumber == null || (cashResult[0].d.DocumentNumber != null && cashResult[0].d.DocumentNumber.Trim() == ""))
+        //                        {
+        //                            res = Result.NoFileRetreived;
+        //                            result.Append("ERP ERROR Message:" + (cashResult[0].d.DocumentNumber != null ? cashResult[0].d.DocumentNumber : "") + "\r\n json:" + headerData);
+        //                            WriteMessage("Error .. \r\n" + TransactionID + " \r\n" + cashResult[0].d.DocumentNumber);
+
+        //                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendCashCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                        }
+        //                        else
+        //                        {
+        //                            res = Result.Success;
+        //                            result.Append("ERP No: " + cashResult[0].d.DocumentNumber + "\r\n Message:" + (cashResult[0].d.DocumentNumber != null ? cashResult[0].d.DocumentNumber : "") + "\r\n json:" + headerData);
+        //                            WriteMessage("Success, ERP No: " + cashResult[0].d.DocumentNumber);
+        //                            incubeQuery = new InCubeQuery(db_vms, "UPDATE CustomerPayment SET Synchronized = 1 WHERE TransactionID = '" + TransactionID + "' AND AppliedPaymentID = '" + AppliedPaymentID + "' AND CustomerPaymentID = '" + CustomerPaymentID + "'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                            incubeQuery = new InCubeQuery(db_vms, $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef,CollectionRef,PGIref,DeliveryRef) VALUES ('{AppliedPaymentID}','{BillingRef}','{cashResult[0].d.DocumentNumber}', 'Cash', '{CustomerPaymentID}')");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{CustomerPaymentID}', '{cashResult[0].d.DocumentNumber}', 'SendCashCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+        //                            incubeQuery.ExecuteNonQuery();
+        //                        }
+        //                    }
+        //                    catch (Exception ex)
+        //                    {
+        //                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendCashCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
+        //                        incubeQuery.ExecuteNonQuery();
+        //                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+        //                        result.Append(ex.Message);
+        //                        if (res == Result.UnKnown)
+        //                        {
+        //                            res = Result.Failure;
+        //                            WriteMessage("Unhandled exception !!");
+        //                        }
+        //                    }
+        //                    finally
+        //                    {
+        //                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+        //                WriteMessage("Fetching order failed !!");
+        //            }
+        //            finally
+        //            {
+        //                CloseSession();
+        //            }
+        //        }
+        //    }
         private void SendCashCollection()
         {
             try
             {
-                if (webHeader == null) throw (new Exception("Can't open session in API , please check the service!!"));
-
-                string salespersonFilter = "", BillingRef = "", EmployeeCode = "", AppliedAmount = "", PayYear = "", TransactionID = "", AppliedPaymentID ="", CustomerPaymentID= "";
-                int processID = 0;
-                StringBuilder result = new StringBuilder();
-                Result res = Result.UnKnown;
+                if (this.webHeader == null)
+                    throw new Exception("Can't open session in API , please check the service!!");
+                string str1 = "";
+                string str2 = "";
+                int ID = 0;
+                StringBuilder stringBuilder = new StringBuilder();
+                InCubeLibrary.Result result = InCubeLibrary.Result.UnKnown;
                 string responseBody = "";
-                string headerData = "";
-
-                if (Filters.EmployeeID != -1)
-                {
-                    salespersonFilter = "AND EmployeeID = " + Filters.EmployeeID;
-                }
-                string headerQuery = string.Format(@"SELECT * FROM V_POST_CashCollection
-where  convert(date,PaymentDate) >= '{0}' AND convert(date,PaymentDate) <= '{1}' {2}", Filters.FromDate.ToString("yyyy-MM-dd"), Filters.ToDate.AddDays(1).ToString("yyyy-MM-dd"), salespersonFilter);
-                incubeQuery = new InCubeQuery(db_vms, headerQuery);
-
-                if (incubeQuery.Execute() != InCubeErrors.Success)
-                {
-                    res = Result.Failure;
-                    throw (new Exception("cash collection header query failed !!"));
-                }
-
-                DataTable dtHeader = incubeQuery.GetDataTable();
-                if (dtHeader.Rows.Count == 0)
-                    WriteMessage("There is no Order to send ..");
+                string body = "";
+                if (this.Filters.EmployeeID != -1)
+                    str1 = "AND EmployeeID = " + this.Filters.EmployeeID.ToString();
+                this.incubeQuery = new InCubeQuery(this.db_vms, $"SELECT * FROM V_POST_CashCollection\r\nwhere  convert(date,PaymentDate) >= '{this.Filters.FromDate.ToString("yyyy-MM-dd")}' AND convert(date,PaymentDate) <= '{this.Filters.ToDate.AddDays(1.0).ToString("yyyy-MM-dd")}' {str1}");
+                DataTable dataTable = this.incubeQuery.Execute() == 0 ? this.incubeQuery.GetDataTable() : throw new Exception("cash collection header query failed !!");
+                if (dataTable.Rows.Count == 0)
+                    this.WriteMessage("There is no Order to send ..");
                 else
-                    SetProgressMax(dtHeader.Rows.Count);
-
-                for (int i = 0; i < dtHeader.Rows.Count; i++)
+                    this.SetProgressMax(dataTable.Rows.Count);
+                for (int index = 0; index < dataTable.Rows.Count; ++index)
                 {
                     try
                     {
-                        res = Result.UnKnown;
-                        processID = 0;
-                        result = new StringBuilder();
-                        BillingRef = dtHeader.Rows[i]["BillingRef"].ToString();
-                        ReportProgress("Sending Delivery: " + BillingRef);
-                        WriteMessage("\r\n" + BillingRef + ": ");
-                        Dictionary<int, string> filters = new Dictionary<int, string>();
-                        filters.Add(11, BillingRef);
-                        processID = execManager.LogIntegrationBegining(TriggerID, -1, filters);
-                        EmployeeCode = dtHeader.Rows[i]["EmployeeCode"].ToString();
-                        AppliedAmount = decimal.Parse(dtHeader.Rows[i]["AppliedAmount"].ToString()).ToString("#0.000");
-                        PayYear = dtHeader.Rows[i]["PayYear"].ToString();
-                        TransactionID = dtHeader.Rows[i]["TransactionID"].ToString();
-                        AppliedPaymentID = dtHeader.Rows[i]["AppliedPaymentID"].ToString();
-                        CustomerPaymentID = dtHeader.Rows[i]["CustomerPaymentID"].ToString();
-
-                        var headerDataObject = new
+                        result = InCubeLibrary.Result.UnKnown;
+                        ID = 0;
+                        stringBuilder = new StringBuilder();
+                        string str3 = dataTable.Rows[index]["BillingRef"].ToString();
+                        this.ReportProgress("Sending Delivery: " + str3);
+                        this.WriteMessage($"\r\n{str3}: ");
+                        ID = this.execManager.LogIntegrationBegining(this.TriggerID, -1, new Dictionary<int, string>()
+                {
+                    {
+                        11,
+                        str3
+                    }
+                });
+                        string str4 = dataTable.Rows[index]["EmployeeCode"].ToString();
+                        string str5 = Decimal.Parse(dataTable.Rows[index]["AppliedAmount"].ToString()).ToString("#0.000");
+                        string str6 = dataTable.Rows[index]["PayYear"].ToString();
+                        string str7 = dataTable.Rows[index]["TransactionID"].ToString();
+                        string str8 = dataTable.Rows[index]["AppliedPaymentID"].ToString();
+                        str2 = dataTable.Rows[index]["CustomerPaymentID"].ToString();
+                        var data = new
                         {
-                            BillingDoc = BillingRef,
-                            Customer = EmployeeCode,
-                            Amount = AppliedAmount,
+                            BillingDoc = str3,
+                            Customer = str4,
+                            Amount = str5,
                             CompanyCode = "1930",
-                            Year = PayYear,
+                            Year = str6,
                             DocumentNumber = ""
                         };
-
-                        headerData = JsonConvert.SerializeObject(headerDataObject);
-
-                        MezzanSimpleResult[] cashResult = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_CREATE_PAYMENT_SRV/PaymentSet", headerData, "", out responseBody, webHeader, cookies);
-                        if (cashResult[0].d.DocumentNumber == null || (cashResult[0].d.DocumentNumber != null && cashResult[0].d.DocumentNumber.Trim() == ""))
+                        body = JsonConvert.SerializeObject((object)data);
+                        MezzanSimpleResult[] request = Tools.GetRequest<MezzanSimpleResult>(CoreGeneral.Common.GeneralConfigurations.WS_URL + "ZHH_INC_CREATE_PAYMENT_SRV/PaymentSet", body, "", out responseBody, this.webHeader, this.cookies);
+                        if (request[0].d.DocumentNumber == null || request[0].d.DocumentNumber != null && request[0].d.DocumentNumber.Trim() == "")
                         {
-                            res = Result.NoFileRetreived;
-                            result.Append("ERP ERROR Message:" + (cashResult[0].d.DocumentNumber != null ? cashResult[0].d.DocumentNumber : "") + "\r\n json:" + headerData);
-                            WriteMessage("Error .. \r\n" + TransactionID + " \r\n" + cashResult[0].d.DocumentNumber);
-
-                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendCashCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                            incubeQuery.ExecuteNonQuery();
+                            result = InCubeLibrary.Result.NoFileRetreived;
+                            stringBuilder.Append($"ERP ERROR Message:{(request[0].d.DocumentNumber != null ? request[0].d.DocumentNumber : "")}\r\n json:{body}");
+                            this.WriteMessage($"Error .. \r\n{str7} \r\n{request[0].d.DocumentNumber}");
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{str2}','SendCashCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            int num = (int)this.incubeQuery.ExecuteNonQuery();
                         }
                         else
                         {
-                            res = Result.Success;
-                            result.Append("ERP No: " + cashResult[0].d.DocumentNumber + "\r\n Message:" + (cashResult[0].d.DocumentNumber != null ? cashResult[0].d.DocumentNumber : "") + "\r\n json:" + headerData);
-                            WriteMessage("Success, ERP No: " + cashResult[0].d.DocumentNumber);
-                            incubeQuery = new InCubeQuery(db_vms, "UPDATE CustomerPayment SET Synchronized = 1 WHERE TransactionID = '" + TransactionID + "' AND AppliedPaymentID = '" + AppliedPaymentID + "' AND CustomerPaymentID = '" + CustomerPaymentID + "'");
-                            incubeQuery.ExecuteNonQuery();
-                            incubeQuery = new InCubeQuery(db_vms, $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef,CollectionRef,PGIref,DeliveryRef) VALUES ('{AppliedPaymentID}','{BillingRef}','{cashResult[0].d.DocumentNumber}', 'Cash', '{CustomerPaymentID}')");
-                            incubeQuery.ExecuteNonQuery();
-                            incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertSAPPostingData '{CustomerPaymentID}', '{cashResult[0].d.DocumentNumber}', 'SendCashCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                            incubeQuery.ExecuteNonQuery();
+                            result = InCubeLibrary.Result.Success;
+                            stringBuilder.Append($"ERP No: {request[0].d.DocumentNumber}\r\n Message:{(request[0].d.DocumentNumber != null ? request[0].d.DocumentNumber : "")}\r\n json:{body}");
+                            this.WriteMessage("Success, ERP No: " + request[0].d.DocumentNumber);
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE CustomerPayment SET Synchronized = 1 WHERE TransactionID = '{str7}' AND AppliedPaymentID = '{str8}' AND CustomerPaymentID = '{str2}'");
+                            int num1 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO [SAP_Reference] (TransactionID,BillingRef,CollectionRef,PGIref,DeliveryRef) VALUES ('{str8}','{str3}','{request[0].d.DocumentNumber}', 'Cash', '{str2}')");
+                            int num2 = (int)this.incubeQuery.ExecuteNonQuery();
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{str2}', '{request[0].d.DocumentNumber}', 'SendCashCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                            int num3 = (int)this.incubeQuery.ExecuteNonQuery();
                         }
                     }
                     catch (Exception ex)
                     {
-                        incubeQuery = new InCubeQuery(db_vms, $"EXEC SP_InsertUpdateErrors '{CustomerPaymentID}','SendCashCollection()', '{headerData}', '{responseBody.Replace("'", "*")}'");
-                        incubeQuery.ExecuteNonQuery();
-                        Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                        result.Append(ex.Message);
-                        if (res == Result.UnKnown)
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertUpdateErrors '{str2}','SendCashCollection()', '{body}', '{responseBody.Replace("'", "*")}'");
+                        int num = (int)this.incubeQuery.ExecuteNonQuery();
+                        Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                        stringBuilder.Append(ex.Message);
+                        if (result == InCubeLibrary.Result.UnKnown)
                         {
-                            res = Result.Failure;
-                            WriteMessage("Unhandled exception !!");
+                            result = InCubeLibrary.Result.Failure;
+                            this.WriteMessage("Unhandled exception !!");
                         }
                     }
                     finally
                     {
-                        execManager.LogIntegrationEnding(processID, res, "", result.ToString());
+                        this.execManager.LogIntegrationEnding(ID, result, "", stringBuilder.ToString());
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.WriteLog(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name, System.Reflection.MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
-                WriteMessage("Fetching order failed !!");
+                Logger.WriteLog(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex.Message, LoggingType.Error, LoggingFiles.InCubeLog);
+                this.WriteMessage("Fetching order failed !!");
             }
             finally
             {
-                CloseSession();
+                this.CloseSession();
             }
         }
-    }
 
-    class MezzanItems
-    {
-        public string IPrCode { get; set; }
-        public string IPrBarcode { get; set; }
-        public string IPrEanCgy { get; set; }
-        public string IPrEnLngKey { get; set; }
-        public string IPrDescription { get; set; }
-        public string IPrArLngKey { get; set; }
-        public string IPrDescriptionAr { get; set; }
-        public string IPrPgCode { get; set; }
-        public string IPrBrCode { get; set; }
-        public string IPrCpCode { get; set; }
-        public string IPrDstrbChnl { get; set; }
-        public string Plant { get; set; }
-        public string IPrVat { get; set; }
-        public string IPrDeonmtr { get; set; }
-        public string IPrUom { get; set; }
-        public string IPrNumtr { get; set; }
-        public string IPrFactor { get; set; }
-        public string IPrType { get; set; }
-        public string IPrTypeLngKey { get; set; }
-        public string IPrTypeDescEn { get; set; }
-        public string IPrTypeDescAr { get; set; }
-        public string IPrSaleUnit { get; set; }
-        public string IPrDelFlgDstrb { get; set; }
-        public string IPrDstrbStatus { get; set; }
-        public string IPrPrcGp { get; set; }
-        public string IPrGp1 { get; set; }
-        public string IPrGp2 { get; set; }
-        public string IPrGp3 { get; set; }
-        public string IPrGp4 { get; set; }
-        public string IPrGp5 { get; set; }
-        public string IPrAttr1 { get; set; }
-        public string IPrAttr2 { get; set; }
-        public string IPrAttr3 { get; set; }
-        public string IPrAttr4 { get; set; }
-        public string IPrAttr5 { get; set; }
-        public string IPrAttr6 { get; set; }
-        public string IPrAttr7 { get; set; }
-        public string IPrAttr8 { get; set; }
-        public string IPrAttr9 { get; set; }
-        public string IPrAttr10 { get; set; }
-        public string DeliveryPlant { get; set; }
-        public string IPrDelFlgPlnt { get; set; }
-        public string IPrBatchMgmtInd { get; set; }
-        public string IPrPlntSpcStatus { get; set; }
-        public string IPrStatusBlk { get; set; }
-        public string IPrDstrbStatusBlk { get; set; }
-        public string IPrTaxMaterial { get; set; }
-        public string IPrTaxRate { get; set; }
-        public string IPrIndicator { get; set; }
-        public string IPrPgcodeDesc { get; set; }
-        public string IPrPgcodeDescAr { get; set; }
-    }
+        class MezzanItems
+        {
+            public string IPrCode { get; set; }
+            public string IPrBarcode { get; set; }
+            public string IPrEanCgy { get; set; }
+            public string IPrEnLngKey { get; set; }
+            public string IPrDescription { get; set; }
+            public string IPrArLngKey { get; set; }
+            public string IPrDescriptionAr { get; set; }
+            public string IPrPgCode { get; set; }
+            public string IPrBrCode { get; set; }
+            public string IPrCpCode { get; set; }
+            public string IPrDstrbChnl { get; set; }
+            public string Plant { get; set; }
+            public string IPrVat { get; set; }
+            public string IPrDeonmtr { get; set; }
+            public string IPrUom { get; set; }
+            public string IPrNumtr { get; set; }
+            public string IPrFactor { get; set; }
+            public string IPrType { get; set; }
+            public string IPrTypeLngKey { get; set; }
+            public string IPrTypeDescEn { get; set; }
+            public string IPrTypeDescAr { get; set; }
+            public string IPrSaleUnit { get; set; }
+            public string IPrDelFlgDstrb { get; set; }
+            public string IPrDstrbStatus { get; set; }
+            public string IPrPrcGp { get; set; }
+            public string IPrGp1 { get; set; }
+            public string IPrGp2 { get; set; }
+            public string IPrGp3 { get; set; }
+            public string IPrGp4 { get; set; }
+            public string IPrGp5 { get; set; }
+            public string IPrAttr1 { get; set; }
+            public string IPrAttr2 { get; set; }
+            public string IPrAttr3 { get; set; }
+            public string IPrAttr4 { get; set; }
+            public string IPrAttr5 { get; set; }
+            public string IPrAttr6 { get; set; }
+            public string IPrAttr7 { get; set; }
+            public string IPrAttr8 { get; set; }
+            public string IPrAttr9 { get; set; }
+            public string IPrAttr10 { get; set; }
+            public string DeliveryPlant { get; set; }
+            public string IPrDelFlgPlnt { get; set; }
+            public string IPrBatchMgmtInd { get; set; }
+            public string IPrPlntSpcStatus { get; set; }
+            public string IPrStatusBlk { get; set; }
+            public string IPrDstrbStatusBlk { get; set; }
+            public string IPrTaxMaterial { get; set; }
+            public string IPrTaxRate { get; set; }
+            public string IPrIndicator { get; set; }
+            public string IPrPgcodeDesc { get; set; }
+            public string IPrPgcodeDescAr { get; set; }
+        }
 
-    class MezzanCustomers
-    {
-        public string ICuCode { get; set; }
-        public string ICuCpCodeSorg { get; set; }
-        public string ICuDstrbChnl { get; set; }
-        public string ICuDiv { get; set; }
-        public string ICuType { get; set; }
-        public string ICuCgCode { get; set; }
-        public string ICuSalGpKey { get; set; }
-        public string ICuSalGpDesc { get; set; }
-        public string ICuSalGpCode { get; set; }
-        public string ICuBarcode { get; set; }
-        public string ICuNameAr { get; set; }
-        public string ICuName { get; set; }
-        public string ICuAddressAr { get; set; }
-        public string ICuAddress { get; set; }
-        public string ICuPhone { get; set; }
-        public string ICuMobile { get; set; }
-        public string ICuContactname { get; set; }
-        public string ICuRgCode { get; set; }
-        public string ICuCrCode { get; set; }
-        public string ICuRemark { get; set; }
-        public string ICuTaxNo { get; set; }
-        public string ICuCodeOrig { get; set; }
-        public string ICuBalance { get; set; }
-        public string ICuCreditLimit { get; set; }
-        public string ICuPaymentTerms { get; set; }
-        public string ICuPayTermsDesc { get; set; }
-        public string ICuCrn { get; set; }
-        public string ICuSmCode { get; set; }
-        public string ICuCpCode1 { get; set; }
-        public string ICuPstBlkCpCode { get; set; }
-        public string ICuDelFlgMrCp { get; set; }
-        public string ICuDelBlkMrCpCode { get; set; }
-        public string ICuFax { get; set; }
-        public string ICuCntPstBlk { get; set; }
-        public string ICuCntDelFlgMr { get; set; }
-        public string ICuCntDelBlkMr { get; set; }
-        public string ICuCntOrdBlk { get; set; }
-        public string ICuCntDlvBlk { get; set; }
-        public string ICuCntBilBlk { get; set; }
-        public string ICuCntSalBlk { get; set; }
-        public string ICuAttr1 { get; set; }
-        public string ICuAttr2 { get; set; }
-        public string ICuAttr3 { get; set; }
-        public string ICuAttr4 { get; set; }
-        public string ICuAttr5 { get; set; }
-        public string ICuAttr6 { get; set; }
-        public string ICuAttr7 { get; set; }
-        public string ICuAttr8 { get; set; }
-        public string ICuAttr9 { get; set; }
-        public string ICuAttr10 { get; set; }
-        public string ICuAddress2 { get; set; }
-        public string ICuVatRegNo { get; set; }
-        public string ICuBldgNo { get; set; }
-        public string ICuFlrNo { get; set; }
-        public string ICuAptNo { get; set; }
-        public string ICuAddress1 { get; set; }
-        public string ICuStreet { get; set; }
-        public string ICuDistrict { get; set; }
-        public string ICuCity { get; set; }
-        public string ICuPostalCode { get; set; }
-        public string ICuCity1 { get; set; }
-        public string ICuCntyKey { get; set; }
-        public string ICuAddressNo { get; set; }
-        public string ICuMail { get; set; }
-        public string ICuDelFlgSal { get; set; }
-        public string ICuSalBlkArea { get; set; }
-        public string ICuOrdBlkArea { get; set; }
-        public string ICuDlvBlkArea { get; set; }
-        public string ICuBilBlkSalDstrb { get; set; }
-        public string ICuSalDistrict { get; set; }
-        public string ICuDlvPlnt { get; set; }
-        public string ICuSalOffice { get; set; }
-        public string ICuGp1 { get; set; }
-        public string ICuGp2 { get; set; }
-        public string ICuGp3 { get; set; }
-        public string ICuGp4 { get; set; }
-        public string ICuGp5 { get; set; }
-        public string ICuCrdCntlArea { get; set; }
-        public string ICuLongitude { get; set; }
-        public string ICuLatitude { get; set; }
-        public string ICuPayrPatnrFnc { get; set; }
-        public string ICuCrdBlk { get; set; }
-        public string ICuCndtGp1 { get; set; }
-        public string ICuCndtGp2 { get; set; }
-        public string ICuCndtGp3 { get; set; }
-        public string ICuCndtGp4 { get; set; }
-        public string ICuCndtGp5 { get; set; }
-        public string ICuPlCode { get; set; }
-        public string ICuGp1Desc { get; set; }
-        public string ICuGp2Desc { get; set; }
-        public string ICuGp3Desc { get; set; }
-        public string ICuGp4Desc { get; set; }
-        public string ICuGp5Desc { get; set; }
-        public string ICuCndtGp1Desc { get; set; }
-        public string ICuCndtGp2Desc { get; set; }
-        public string ICuCndtGp3Desc { get; set; }
-        public string ICuCndtGp4Desc { get; set; }
-        public string ICuCndtGp5Desc { get; set; }
-        public string ICuAttr1Desc { get; set; }
-        public string ICuAttr2Desc { get; set; }
-        public string ICuAttr3Desc { get; set; }
-        public string ICuAttr4Desc { get; set; }
-        public string ICuAttr5Desc { get; set; }
-        public string ICuAttr6Desc { get; set; }
-        public string ICuAttr7Desc { get; set; }
-        public string ICuAttr8Desc { get; set; }
-        public string ICuAttr9Desc { get; set; }
-        public string ICuAttr10Desc { get; set; }
-        public string ICucomreg1 { get; set; }
-        public string ICucomreg2 { get; set; }
-        public string ICuaccgrp { get; set; }
-        public string ICukfh { get; set; }
-        public string ICuHouseNum { get; set; }
-    }
+        class MezzanCustomers
+        {
+            public string ICuCode { get; set; }
+            public string ICuCpCodeSorg { get; set; }
+            public string ICuDstrbChnl { get; set; }
+            public string ICuDiv { get; set; }
+            public string ICuType { get; set; }
+            public string ICuCgCode { get; set; }
+            public string ICuSalGpKey { get; set; }
+            public string ICuSalGpDesc { get; set; }
+            public string ICuSalGpCode { get; set; }
+            public string ICuBarcode { get; set; }
+            public string ICuNameAr { get; set; }
+            public string ICuName { get; set; }
+            public string ICuAddressAr { get; set; }
+            public string ICuAddress { get; set; }
+            public string ICuPhone { get; set; }
+            public string ICuMobile { get; set; }
+            public string ICuContactname { get; set; }
+            public string ICuRgCode { get; set; }
+            public string ICuCrCode { get; set; }
+            public string ICuRemark { get; set; }
+            public string ICuTaxNo { get; set; }
+            public string ICuCodeOrig { get; set; }
+            public string ICuBalance { get; set; }
+            public string ICuCreditLimit { get; set; }
+            public string ICuPaymentTerms { get; set; }
+            public string ICuPayTermsDesc { get; set; }
+            public string ICuCrn { get; set; }
+            public string ICuSmCode { get; set; }
+            public string ICuCpCode1 { get; set; }
+            public string ICuPstBlkCpCode { get; set; }
+            public string ICuDelFlgMrCp { get; set; }
+            public string ICuDelBlkMrCpCode { get; set; }
+            public string ICuFax { get; set; }
+            public string ICuCntPstBlk { get; set; }
+            public string ICuCntDelFlgMr { get; set; }
+            public string ICuCntDelBlkMr { get; set; }
+            public string ICuCntOrdBlk { get; set; }
+            public string ICuCntDlvBlk { get; set; }
+            public string ICuCntBilBlk { get; set; }
+            public string ICuCntSalBlk { get; set; }
+            public string ICuAttr1 { get; set; }
+            public string ICuAttr2 { get; set; }
+            public string ICuAttr3 { get; set; }
+            public string ICuAttr4 { get; set; }
+            public string ICuAttr5 { get; set; }
+            public string ICuAttr6 { get; set; }
+            public string ICuAttr7 { get; set; }
+            public string ICuAttr8 { get; set; }
+            public string ICuAttr9 { get; set; }
+            public string ICuAttr10 { get; set; }
+            public string ICuAddress2 { get; set; }
+            public string ICuVatRegNo { get; set; }
+            public string ICuBldgNo { get; set; }
+            public string ICuFlrNo { get; set; }
+            public string ICuAptNo { get; set; }
+            public string ICuAddress1 { get; set; }
+            public string ICuStreet { get; set; }
+            public string ICuDistrict { get; set; }
+            public string ICuCity { get; set; }
+            public string ICuPostalCode { get; set; }
+            public string ICuCity1 { get; set; }
+            public string ICuCntyKey { get; set; }
+            public string ICuAddressNo { get; set; }
+            public string ICuMail { get; set; }
+            public string ICuDelFlgSal { get; set; }
+            public string ICuSalBlkArea { get; set; }
+            public string ICuOrdBlkArea { get; set; }
+            public string ICuDlvBlkArea { get; set; }
+            public string ICuBilBlkSalDstrb { get; set; }
+            public string ICuSalDistrict { get; set; }
+            public string ICuDlvPlnt { get; set; }
+            public string ICuSalOffice { get; set; }
+            public string ICuGp1 { get; set; }
+            public string ICuGp2 { get; set; }
+            public string ICuGp3 { get; set; }
+            public string ICuGp4 { get; set; }
+            public string ICuGp5 { get; set; }
+            public string ICuCrdCntlArea { get; set; }
+            public string ICuLongitude { get; set; }
+            public string ICuLatitude { get; set; }
+            public string ICuPayrPatnrFnc { get; set; }
+            public string ICuCrdBlk { get; set; }
+            public string ICuCndtGp1 { get; set; }
+            public string ICuCndtGp2 { get; set; }
+            public string ICuCndtGp3 { get; set; }
+            public string ICuCndtGp4 { get; set; }
+            public string ICuCndtGp5 { get; set; }
+            public string ICuPlCode { get; set; }
+            public string ICuGp1Desc { get; set; }
+            public string ICuGp2Desc { get; set; }
+            public string ICuGp3Desc { get; set; }
+            public string ICuGp4Desc { get; set; }
+            public string ICuGp5Desc { get; set; }
+            public string ICuCndtGp1Desc { get; set; }
+            public string ICuCndtGp2Desc { get; set; }
+            public string ICuCndtGp3Desc { get; set; }
+            public string ICuCndtGp4Desc { get; set; }
+            public string ICuCndtGp5Desc { get; set; }
+            public string ICuAttr1Desc { get; set; }
+            public string ICuAttr2Desc { get; set; }
+            public string ICuAttr3Desc { get; set; }
+            public string ICuAttr4Desc { get; set; }
+            public string ICuAttr5Desc { get; set; }
+            public string ICuAttr6Desc { get; set; }
+            public string ICuAttr7Desc { get; set; }
+            public string ICuAttr8Desc { get; set; }
+            public string ICuAttr9Desc { get; set; }
+            public string ICuAttr10Desc { get; set; }
+            public string ICucomreg1 { get; set; }
+            public string ICucomreg2 { get; set; }
+            public string ICuaccgrp { get; set; }
+            public string ICukfh { get; set; }
+            public string ICuHouseNum { get; set; }
+        }
 
-    class MezzanSalesmanStock
-    {
-        public string IWpSmCode { get; set; }
-        public string IWpPrCode { get; set; }
-        public string IWpCpCode { get; set; }
-        public string IWpSmPlnt { get; set; }
-        public string IWpWarehouseCode { get; set; }
-        public string IWpQuantity { get; set; }
-        public string IWpLotnumber { get; set; }
-        public string IWpExpiryDate { get; set; }
-        public string IWpUom { get; set; }
-    }
-    class MezzanDueInvoice
-    {
-        public string IDiCuCode { get; set; }
-        public string Vkorg { get; set; }
-        public string Zcustype { get; set; }
-        public string IDiSmCode { get; set; }
-        public string IDiRgCode { get; set; }
-        public string IDiCrCode { get; set; }
-        public string IDiCpCode { get; set; }
-        public string IDiInvoiceNb { get; set; }
-        public string IDiBillNb { get; set; }
-        public string IDiDate { get; set; }
-        public string IDiDueDate { get; set; }
-        public string IDiTotalAmount { get; set; }
-        public string IDiRemainingAmount { get; set; }
-    }
+        class MezzanSalesmanStock
+        {
+            public string IWpSmCode { get; set; }
+            public string IWpPrCode { get; set; }
+            public string IWpCpCode { get; set; }
+            public string IWpSmPlnt { get; set; }
+            public string IWpWarehouseCode { get; set; }
+            public string IWpQuantity { get; set; }
+            public string IWpLotnumber { get; set; }
+            public string IWpExpiryDate { get; set; }
+            public string IWpUom { get; set; }
+        }
+        class MezzanDueInvoice
+        {
+            public string IDiCuCode { get; set; }
+            public string Vkorg { get; set; }
+            public string Zcustype { get; set; }
+            public string IDiSmCode { get; set; }
+            public string IDiRgCode { get; set; }
+            public string IDiCrCode { get; set; }
+            public string IDiCpCode { get; set; }
+            public string IDiInvoiceNb { get; set; }
+            public string IDiBillNb { get; set; }
+            public string IDiDate { get; set; }
+            public string IDiDueDate { get; set; }
+            public string IDiTotalAmount { get; set; }
+            public string IDiRemainingAmount { get; set; }
+        }
 
-    class MezzanB2BInvoice
-    {
-        public string Zcustype { get; set; }
-        public string IDiPayerNumber { get; set; }
-        public string IDiCpCode { get; set; }
-        public string IDiSmCode { get; set; }
-        public string IDiCuCode { get; set; }
-        public string IDiInvoiceNb { get; set; }
-        public string IDiDate { get; set; }
-        public string IDiTotalAmount { get; set; }
-        public string IDiRetAmount { get; set; }
-        public string IDiCashAmount { get; set; }
-        public string IDiChequeAmount { get; set; }
-        public string IDiCollectedAmount { get; set; }
-        public string IDiRemainingAmount { get; set; }
-        public string IDiCrCode { get; set; }
-        public string IDiBillingNo { get; set; }
-    }
+        class MezzanB2BInvoice
+        {
+            public string Zcustype { get; set; }
+            public string IDiPayerNumber { get; set; }
+            public string IDiCpCode { get; set; }
+            public string IDiSmCode { get; set; }
+            public string IDiCuCode { get; set; }
+            public string IDiInvoiceNb { get; set; }
+            public string IDiDate { get; set; }
+            public string IDiTotalAmount { get; set; }
+            public string IDiRetAmount { get; set; }
+            public string IDiCashAmount { get; set; }
+            public string IDiChequeAmount { get; set; }
+            public string IDiCollectedAmount { get; set; }
+            public string IDiRemainingAmount { get; set; }
+            public string IDiCrCode { get; set; }
+            public string IDiBillingNo { get; set; }
+        }
 
-    class MezzanPriceList
-    {
-        public string Idate { get; set; }
-        public string ICplConditionType { get; set; }
-        public string IPlCpCode { get; set; }
-        public string ICplPlant { get; set; }
-        public string ICplDistrChl { get; set; }
-        public string IPlPrCode { get; set; }
-        public string ICplFrom { get; set; }
-        public string ICplTo { get; set; }
-        public string ICplAConditionRecord { get; set; }
-        public string ICplKConditionRecord { get; set; }
-        public string ICplKConditionType { get; set; }
-        public string IPlPrice { get; set; }
-        public string IPlCrCode { get; set; }
-        public string ICplConditionUnit { get; set; }
-        public string IPlUom { get; set; }
-        public string ICplDeletionIndicator { get; set; }
-        public string IPlType { get; set; }
-        public string IPlPriority { get; set; }
-        public string IPlCommon { get; set; }
-        public string IPlPar { get; set; }
-    }
-    class MezzanLoadTransfer
-    {
-        public string Vkorg { get; set; }
-        public string Vtweg { get; set; }
-        public string Kunnr { get; set; }
-        public string Audat { get; set; }
-        public string ICldReqQty { get; set; }
-        public string ICldReqUom { get; set; }
-        public string ICldClCode { get; set; }
-        public string IClLrqNo { get; set; }
-        public string ICldCode { get; set; }
-        public string ICldPrCode { get; set; }
-        public string ICldQty { get; set; }
-        public string ICldLotno { get; set; }
-        public string ICldPlant { get; set; }
-        public string ICldExpiryDate { get; set; }
-        public string ICldUom { get; set; }
-        public string ICldQtyBase { get; set; }
-        public string ICldBaseUnit { get; set; }
-        public string ICldHHNumber { get; set; }
-        public string ICldCreationDate { get; set; }
-    }
-    class MezzanDeliveryInvoice
-    {
-        public string IDlvReqQty { get; set; }
-        public string IDlvReqUom { get; set; }
-        public string Vkorg { get; set; }
-        public string Vtweg { get; set; }
-        public string Kunnr { get; set; }
-        public string IDlvPrSeqMain { get; set; }
-        public string IDlvPrSeq { get; set; }
-        public string IDlvPrCode { get; set; }
-        public string IDlvDeliveredQty { get; set; }
-        public string IDlvLotno { get; set; }
-        public string IDlvUom { get; set; }
-        public string IDlvInvoiceno { get; set; }
-        public string IDlvBillingno { get; set; }
-        public string IItemCat { get; set; }
-        public string IItemCatDesc { get; set; }
-        public string IDlvBillingDate { get; set; }
-        public string IDlvSalesOrderno { get; set; }
-    }
-    class MezzanUnpaid
-    {
-        public string ICsCpCode { get; set; }
-        public string ICsGlAccount { get; set; }
-        public string ICsDocNumber { get; set; }
-        public string ICsTsNumber { get; set; }
-        public string ICsReference { get; set; }
-        public string ICsPayRef { get; set; }
-        public string ICsPostDate { get; set; }
-        public string ICsDocDate { get; set; }
-        public string ICsMonth { get; set; }
-        public string ICsYear { get; set; }
-        public string ICsSmNumber { get; set; }
-        public string ICsDocType { get; set; }
-        public string ICsAmount { get; set; }
-        public string ICsCurr { get; set; }
-        public string ICsInvRef { get; set; }
-        public string ICsRef1 { get; set; }
-        public string ICsRef2 { get; set; }
-    }
+        class MezzanPriceList
+        {
+            public string Idate { get; set; }
+            public string ICplConditionType { get; set; }
+            public string IPlCpCode { get; set; }
+            public string ICplPlant { get; set; }
+            public string ICplDistrChl { get; set; }
+            public string IPlPrCode { get; set; }
+            public string ICplFrom { get; set; }
+            public string ICplTo { get; set; }
+            public string ICplAConditionRecord { get; set; }
+            public string ICplKConditionRecord { get; set; }
+            public string ICplKConditionType { get; set; }
+            public string IPlPrice { get; set; }
+            public string IPlCrCode { get; set; }
+            public string ICplConditionUnit { get; set; }
+            public string IPlUom { get; set; }
+            public string ICplDeletionIndicator { get; set; }
+            public string IPlType { get; set; }
+            public string IPlPriority { get; set; }
+            public string IPlCommon { get; set; }
+            public string IPlPar { get; set; }
+        }
+        class MezzanLoadTransfer
+        {
+            public string Vkorg { get; set; }
+            public string Vtweg { get; set; }
+            public string Kunnr { get; set; }
+            public string Audat { get; set; }
+            public string ICldReqQty { get; set; }
+            public string ICldReqUom { get; set; }
+            public string ICldClCode { get; set; }
+            public string IClLrqNo { get; set; }
+            public string ICldCode { get; set; }
+            public string ICldPrCode { get; set; }
+            public string ICldQty { get; set; }
+            public string ICldLotno { get; set; }
+            public string ICldPlant { get; set; }
+            public string ICldExpiryDate { get; set; }
+            public string ICldUom { get; set; }
+            public string ICldQtyBase { get; set; }
+            public string ICldBaseUnit { get; set; }
+            public string ICldHHNumber { get; set; }
+            public string ICldCreationDate { get; set; }
+        }
+        class MezzanDeliveryInvoice
+        {
+            public string IDlvReqQty { get; set; }
+            public string IDlvReqUom { get; set; }
+            public string Vkorg { get; set; }
+            public string Vtweg { get; set; }
+            public string Kunnr { get; set; }
+            public string IDlvPrSeqMain { get; set; }
+            public string IDlvPrSeq { get; set; }
+            public string IDlvPrCode { get; set; }
+            public string IDlvDeliveredQty { get; set; }
+            public string IDlvLotno { get; set; }
+            public string IDlvUom { get; set; }
+            public string IDlvInvoiceno { get; set; }
+            public string IDlvBillingno { get; set; }
+            public string IItemCat { get; set; }
+            public string IItemCatDesc { get; set; }
+            public string IDlvBillingDate { get; set; }
+            public string IDlvSalesOrderno { get; set; }
+        }
+        class MezzanUnpaid
+        {
+            public string ICsCpCode { get; set; }
+            public string ICsGlAccount { get; set; }
+            public string ICsDocNumber { get; set; }
+            public string ICsTsNumber { get; set; }
+            public string ICsReference { get; set; }
+            public string ICsPayRef { get; set; }
+            public string ICsPostDate { get; set; }
+            public string ICsDocDate { get; set; }
+            public string ICsMonth { get; set; }
+            public string ICsYear { get; set; }
+            public string ICsSmNumber { get; set; }
+            public string ICsDocType { get; set; }
+            public string ICsAmount { get; set; }
+            public string ICsCurr { get; set; }
+            public string ICsInvRef { get; set; }
+            public string ICsRef1 { get; set; }
+            public string ICsRef2 { get; set; }
+        }
 
-    class MezzanDiscount
-    {
-        public string Idate { get; set; }
-        public string ICplConditionType { get; set; }
-        public string IPlCpCode { get; set; }
-        public string ICplPlant { get; set; }
-        public string ICplDistrChl { get; set; }
-        public string ICplDivision { get; set; }
-        public string ICplSalesGrp { get; set; }
-        public string ICplCuCode { get; set; }
-        public string IPlPrCode { get; set; }
-        public string ICplFrom { get; set; }
-        public string ICplTo { get; set; }
-        public string ICplAConditionRecord { get; set; }
-        public string ICplKConditionRecord { get; set; }
-        public string ICplKConditionType { get; set; }
-        public string IPlPrice { get; set; }
-        public string IPlCrCode { get; set; }
-        public string ICplConditionUnit { get; set; }
-        public string IPlUom { get; set; }
-        public string ICplDeletionIndicator { get; set; }
-        public string IPlType { get; set; }
-        public string IPlPriority { get; set; }
-        public string IPlCommon { get; set; }
-        public string IPlPar { get; set; }
-    }
+        class MezzanDiscount
+        {
+            public string Idate { get; set; }
+            public string ICplConditionType { get; set; }
+            public string IPlCpCode { get; set; }
+            public string ICplPlant { get; set; }
+            public string ICplDistrChl { get; set; }
+            public string ICplDivision { get; set; }
+            public string ICplSalesGrp { get; set; }
+            public string ICplCuCode { get; set; }
+            public string IPlPrCode { get; set; }
+            public string ICplFrom { get; set; }
+            public string ICplTo { get; set; }
+            public string ICplAConditionRecord { get; set; }
+            public string ICplKConditionRecord { get; set; }
+            public string ICplKConditionType { get; set; }
+            public string IPlPrice { get; set; }
+            public string IPlCrCode { get; set; }
+            public string ICplConditionUnit { get; set; }
+            public string IPlUom { get; set; }
+            public string ICplDeletionIndicator { get; set; }
+            public string IPlType { get; set; }
+            public string IPlPriority { get; set; }
+            public string IPlCommon { get; set; }
+            public string IPlPar { get; set; }
+        }
 
-    class MezzanTaxRate
-    {
-        public string IpCondType { get; set; }
-        public string IpCountry { get; set; }
-        public string IpCustomer { get; set; }
-        public string IpMaterial { get; set; }
-        public string IpValidfrom { get; set; }
-        public string IpValidto { get; set; }
-        public string IpCondRecord { get; set; }
-        public string IpAmount { get; set; }
-        public string IpTaxCode { get; set; }
-        public string IpDeletionInd { get; set; }
-    }
-    class MezzanCollectionReversal
-    {
-        public string CompanyCode { get; set; }
-        public string PostingDate { get; set; }
-        public string DocumentDate { get; set; }
-        public string PostingYear { get; set; }
-        public string PostingPeriod { get; set; }
-        public string LineItem { get; set; }
-        public string DocumentNum { get; set; }
-        public string BillingNum { get; set; }
-        public string DocumentType { get; set; }
-        public string Reference { get; set; }
-        public string DocumentHdrTxt { get; set; }
-        public string ReverseDocNum { get; set; }
-        public string ReverseFiscalYear { get; set; }
-        public string ReasonReversal { get; set; }
-        public string Customer { get; set; }
-        public string AccountType { get; set; }
-        public string ClearingDoc { get; set; }
-        public string ClearingDate { get; set; }
-        public string ClearingFisyear { get; set; }
-        public string PostingKey { get; set; }
-        public decimal LocalCurrency { get; set; }
-        public string DrCrIndicator { get; set; }
-        public string AmountCurrency { get; set; }
-        public string Text { get; set; }
-        public string BaselinePaymentDate { get; set; }
-        public string PaymentTerms { get; set; }
-        public string PaymentReference { get; set; }
-        public string Referencekey1 { get; set; }
-        public string Referencekey2 { get; set; }
-        public string Referencekey3 { get; set; }
-    }
+        class MezzanTaxRate
+        {
+            public string IpCondType { get; set; }
+            public string IpCountry { get; set; }
+            public string IpCustomer { get; set; }
+            public string IpMaterial { get; set; }
+            public string IpValidfrom { get; set; }
+            public string IpValidto { get; set; }
+            public string IpCondRecord { get; set; }
+            public string IpAmount { get; set; }
+            public string IpTaxCode { get; set; }
+            public string IpDeletionInd { get; set; }
+        }
+        class MezzanCollectionReversal
+        {
+            public string CompanyCode { get; set; }
+            public string PostingDate { get; set; }
+            public string DocumentDate { get; set; }
+            public string PostingYear { get; set; }
+            public string PostingPeriod { get; set; }
+            public string LineItem { get; set; }
+            public string DocumentNum { get; set; }
+            public string BillingNum { get; set; }
+            public string DocumentType { get; set; }
+            public string Reference { get; set; }
+            public string DocumentHdrTxt { get; set; }
+            public string ReverseDocNum { get; set; }
+            public string ReverseFiscalYear { get; set; }
+            public string ReasonReversal { get; set; }
+            public string Customer { get; set; }
+            public string AccountType { get; set; }
+            public string ClearingDoc { get; set; }
+            public string ClearingDate { get; set; }
+            public string ClearingFisyear { get; set; }
+            public string PostingKey { get; set; }
+            public decimal LocalCurrency { get; set; }
+            public string DrCrIndicator { get; set; }
+            public string AmountCurrency { get; set; }
+            public string Text { get; set; }
+            public string BaselinePaymentDate { get; set; }
+            public string PaymentTerms { get; set; }
+            public string PaymentReference { get; set; }
+            public string Referencekey1 { get; set; }
+            public string Referencekey2 { get; set; }
+            public string Referencekey3 { get; set; }
+        }
 
-    class MezzanAllocation
-    {
-        public string CompanyCode { get; set; }
-        public string PostingDate { get; set; }
-        public string DocumentDate { get; set; }
-        public string PostingYear { get; set; }
-        public string PostingPeriod { get; set; }
-        public string LineItem { get; set; }
-        public string DocumentNum { get; set; }
-        public string DocumentType { get; set; }
-        public string Reference { get; set; }
-        public string DocumentHdrTxt { get; set; }
-        public string ReverseDocNum { get; set; }
-        public string ReverseFiscalYear { get; set; }
-        public string ReasonReversal { get; set; }
-        public string Customer { get; set; }
-        public string AccountType { get; set; }
-        public string ClearingDoc { get; set; }
-        public string ClearingDate { get; set; }
-        public string ClearingFisyear { get; set; }
-        public string PostingKey { get; set; }
-        public string LocalCurrency { get; set; }
-        public string DrCrIndicator { get; set; }
-        public string AmountCurrency { get; set; }
-        public string Text { get; set; }
-        public string BaselinePaymentDate { get; set; }
-        public string PaymentTerms { get; set; }
-        public string PaymentReference { get; set; }
-        public string ReferenceKey1 { get; set; }
-        public string ReferenceKey2 { get; set; }
-        public string ReferenceKey3 { get; set; }
-    }
+        class MezzanAllocation
+        {
+            public string CompanyCode { get; set; }
+            public string PostingDate { get; set; }
+            public string DocumentDate { get; set; }
+            public string PostingYear { get; set; }
+            public string PostingPeriod { get; set; }
+            public string LineItem { get; set; }
+            public string DocumentNum { get; set; }
+            public string DocumentType { get; set; }
+            public string Reference { get; set; }
+            public string DocumentHdrTxt { get; set; }
+            public string ReverseDocNum { get; set; }
+            public string ReverseFiscalYear { get; set; }
+            public string ReasonReversal { get; set; }
+            public string Customer { get; set; }
+            public string AccountType { get; set; }
+            public string ClearingDoc { get; set; }
+            public string ClearingDate { get; set; }
+            public string ClearingFisyear { get; set; }
+            public string PostingKey { get; set; }
+            public string LocalCurrency { get; set; }
+            public string DrCrIndicator { get; set; }
+            public string AmountCurrency { get; set; }
+            public string Text { get; set; }
+            public string BaselinePaymentDate { get; set; }
+            public string PaymentTerms { get; set; }
+            public string PaymentReference { get; set; }
+            public string ReferenceKey1 { get; set; }
+            public string ReferenceKey2 { get; set; }
+            public string ReferenceKey3 { get; set; }
+        }
 
-    class MezzanSimpleResult
-    {
-        public ResultDocument d { get; set; }
-    }
+        class MezzanSimpleResult
+        {
+            public ResultDocument d { get; set; }
+        }
 
-    class MezzanComplexResult
-    {
-        public MezzanResultData d { get; set; }
-    }
+        class MezzanComplexResult
+        {
+            public MezzanResultData d { get; set; }
+        }
 
-    class MezzanResultData
-    {
-        public HeaderResults HeaderToItem { get; set; }
-        public HeaderResults CheckToBilling { get; set; }
-        public ResultDocument[] results { get; set; }
-    }
-    class HeaderResults
-    {
-        public ResultDocument[] results { get; set; }
-    }
-    class ResultDocument
-    {
-        public string SalesDocumentno { get; set; }
-        public string DeliveryNumber { get; set; }
-        public string BillingDocument { get; set; }
-        public string Message { get; set; }
-        public string DocumentNumber { get; set; }
-        public string BillingNo { get; set; }
+        class MezzanResultData
+        {
+            public HeaderResults HeaderToItem { get; set; }
+            public HeaderResults CheckToBilling { get; set; }
+            public ResultDocument[] results { get; set; }
+        }
+        class HeaderResults
+        {
+            public ResultDocument[] results { get; set; }
+        }
+        class ResultDocument
+        {
+            public string SalesDocumentno { get; set; }
+            public string DeliveryNumber { get; set; }
+            public string BillingDocument { get; set; }
+            public string Message { get; set; }
+            public string DocumentNumber { get; set; }
+            public string BillingNo { get; set; }
+        }
     }
 }
