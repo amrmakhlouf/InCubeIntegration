@@ -1219,11 +1219,11 @@ CREATE TABLE {0}({1}
 
             //SendDelivery("", "SRE", false);
             //ReSendInvoice();
-            ///////////////////////////
-            SendInvoice();
-            SendDelivery("", "SRE", false);
-            SendPGI("", "SRE", false);
-            SendBilling("");
+           ///////////////////////////
+    SendInvoice();
+       SendDelivery("", "SRE", false);
+     SendPGI("", "SRE", false);
+        SendBilling("");
             SendExchange();
 
             // AboodAPI("INV-11604-000021");
@@ -2524,7 +2524,87 @@ SELECT I.ItemCode, SUM(TD.Quantity) Quantity, PTL.Description, TD.Price*10 Price
                         string str10 = dataTable1.Rows[index1]["Reference"].ToString();
                         num1 = int.Parse(dataTable1.Rows[index1]["IsFOC"].ToString());
                         string str11 = dataTable1.Rows[index1]["CreditExceed"].ToString();
-                        this.incubeQuery = new InCubeQuery(this.db_vms, $"\r\nSELECT I.ItemCode,Division.DivisionCode, SUM(TD.Quantity) Quantity, PTL.Description, TD.Price*10 Price, IIF(TD.Price<>PD.Price,SUM(TD.Discount)*-10,SUM(TD.Discount)*-10) Discount, 0 DiscountPercentage,\r\n\t\t\t\t\t\t\t\t\t\t\t\tFOC.BillCancelType as MainItem\r\n\t\t\t\t\t\t\t\t\t\t\t\t, P.PackID,td.SalesTransactionTypeID\r\n                                                FROM TransactionDetail TD\r\n                                                INNER JOIN Pack P ON P.PackID = TD.PackID\r\n                                                INNER JOIN PackTypeLanguage PTL ON PTL.PackTypeID = P.PackTypeID AND PTL.LanguageID = 1\r\n                                                INNER JOIN Item I ON I.ItemID = P.ItemID\r\n\t\t\t\t\t\t\t\t\t\t\t\t                                                INNER JOIN ItemCategory Ic ON Ic.ItemCategoryid = i.ItemCategoryID\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinner join Division on Division.DivisionID =Ic.DivisionID\r\n                                                INNER JOIN [transaction] T ON T.TransactionID = TD.TransactionID\r\n                                                LEFT JOIN ConfigurationOrganization CO ON CO.OrganizationID = T.OrganizationID AND CO.KeyName = 'DefaultPriceListID'\r\n                                                LEFT JOIN PriceDefinition PD ON PD.PackID = TD.PackID AND PD.PriceListID = CO.KeyValue\r\n                                                INNER JOIN CustomerOutlet C ON C.CustomerID = T.CustomerID AND C.OutletID = T.OutletID\r\n                                                LEFT JOIN V_SAP_FOCWithExchange FOC ON FOC.CustomerTypeID = IIF(C.CustomerTypeID=3 AND C.BillsOpenNumber =1,1,T.SalesMode) AND  FOC.TransactionTypeID ='{str4}'\r\n                                                WHERE TD.TransactionID = '{TransactionID2}'\r\n                                                GROUP BY I.ItemCode,PTL.Description,TD.Price,DiscountPercentage, PD.Price, FOC.MainItem, P.PackID,BillCancelType,DivisionCode,td.SalesTransactionTypeID\r\nUnion all\r\nSELECT I.ItemCode, Division.DivisionCode, SUM(TD.Quantity) Quantity, PTL.Description, TD.Price*10 Price, IIF(TD.Price<>PD.Price,SUM(TD.Discount)*-10,SUM(TD.Discount)*-10) Discount, 0 DiscountPercentage,\r\n\t\t\t\t\t\t\t\t\t\t\t\tFOC.MainItem as MainItem\r\n\t\t\t\t\t\t\t\t\t\t\t\t, P.PackID,td.SalesTransactionTypeID\r\n                                                FROM TransactionDetail TD\r\n                                                INNER JOIN Pack P ON P.PackID = TD.PackID\r\n                                                INNER JOIN PackTypeLanguage PTL ON PTL.PackTypeID = P.PackTypeID AND PTL.LanguageID = 1\r\n                                                INNER JOIN Item I ON I.ItemID = P.ItemID\r\n\t\t\t\t\t\t\t\t\t\t\t\t INNER JOIN ItemCategory Ic ON Ic.ItemCategoryid = i.ItemCategoryID\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinner join Division on Division.DivisionID =Ic.DivisionID\r\n                                                INNER JOIN [transaction] T ON T.TransactionID = TD.TransactionID\r\n                                                LEFT JOIN ConfigurationOrganization CO ON CO.OrganizationID = T.OrganizationID AND CO.KeyName = 'DefaultPriceListID'\r\n                                                LEFT JOIN PriceDefinition PD ON PD.PackID = TD.PackID AND PD.PriceListID = CO.KeyValue\r\n                                                INNER JOIN CustomerOutlet C ON C.CustomerID = T.CustomerID AND C.OutletID = T.OutletID\r\n                                                LEFT JOIN V_SAP_FOCWithExchange FOC ON FOC.CustomerTypeID = IIF(C.CustomerTypeID=3 AND C.BillsOpenNumber =1,1,T.SalesMode) AND FOC.TransactionTypeID ='{str4}'\r\n                                                WHERE TD.TransactionID = '{TransactionID1}'\r\n                                                GROUP BY I.ItemCode,PTL.Description,TD.Price,DiscountPercentage, PD.Price, FOC.MainItem, P.PackID,Division.DivisionCode,td.SalesTransactionTypeID\r\n\t\t\t\t\t\t\t\t\t\t\t\torder by td.SalesTransactionTypeID desc ,DivisionCode, i.ItemCode\r\n                                                ");
+                        string orderDetailsQuery = $@"
+SELECT 
+    I.ItemCode,
+    Division.DivisionCode,
+    SUM(TD.Quantity) AS Quantity,
+    PTL.Description,
+    IIF(T.OrganizationID = 9, ROUND(TD.Price, 2), TD.Price * 10) AS Price,
+    IIF(T.OrganizationID = 9, (SUM(TD.Discount) * -1), SUM(TD.Discount) * -10) AS Discount,
+    0 AS DiscountPercentage,
+    FOC.BillCancelType AS MainItem,
+    P.PackID,
+    TD.SalesTransactionTypeID
+FROM TransactionDetail TD
+INNER JOIN Pack P ON P.PackID = TD.PackID
+INNER JOIN PackTypeLanguage PTL ON PTL.PackTypeID = P.PackTypeID AND PTL.LanguageID = 1
+INNER JOIN Item I ON I.ItemID = P.ItemID
+INNER JOIN ItemCategory IC ON IC.ItemCategoryID = I.ItemCategoryID
+INNER JOIN Division ON Division.DivisionID = IC.DivisionID
+INNER JOIN [Transaction] T ON T.TransactionID = TD.TransactionID
+LEFT JOIN ConfigurationOrganization CO 
+    ON CO.OrganizationID = T.OrganizationID AND CO.KeyName = 'DefaultPriceListID'
+LEFT JOIN PriceDefinition PD 
+    ON PD.PackID = TD.PackID AND PD.PriceListID = CO.KeyValue
+INNER JOIN CustomerOutlet C 
+    ON C.CustomerID = T.CustomerID AND C.OutletID = T.OutletID
+LEFT JOIN V_SAP_FOCWithExchange FOC 
+    ON FOC.CustomerTypeID = IIF(C.CustomerTypeID = 3 AND C.BillsOpenNumber = 1, 1, T.SalesMode)
+    AND FOC.TransactionTypeID = '{str4}'
+WHERE TD.TransactionID = '{TransactionID2}'
+GROUP BY 
+    I.ItemCode, PTL.Description, TD.Price, DiscountPercentage, 
+    T.OrganizationID, PD.Price, FOC.MainItem, P.PackID, 
+    BillCancelType, Division.DivisionCode, TD.SalesTransactionTypeID
+
+UNION ALL
+
+SELECT 
+      I.ItemCode,
+    Division.DivisionCode,
+    SUM(TD.Quantity) AS Quantity,
+    PTL.Description,
+    IIF(T.OrganizationID = 9, ROUND(TD.Price, 2), TD.Price * 10) AS Price,
+        IIF(T.OrganizationID = 9, (SUM(TD.Discount) * -1), SUM(TD.Discount) * -10)  AS Discount,
+		    0 AS DiscountPercentage,
+    FOC.MainItem AS MainItem,
+    P.PackID,
+    TD.SalesTransactionTypeID
+FROM TransactionDetail TD
+INNER JOIN Pack P ON P.PackID = TD.PackID
+INNER JOIN PackTypeLanguage PTL ON PTL.PackTypeID = P.PackTypeID AND PTL.LanguageID = 1
+INNER JOIN Item I ON I.ItemID = P.ItemID
+INNER JOIN ItemCategory IC ON IC.ItemCategoryID = I.ItemCategoryID
+INNER JOIN Division ON Division.DivisionID = IC.DivisionID
+INNER JOIN [Transaction] T ON T.TransactionID = TD.TransactionID
+LEFT JOIN ConfigurationOrganization CO 
+    ON CO.OrganizationID = T.OrganizationID AND CO.KeyName = 'DefaultPriceListID'
+LEFT JOIN PriceDefinition PD 
+    ON PD.PackID = TD.PackID AND PD.PriceListID = CO.KeyValue
+INNER JOIN CustomerOutlet C 
+    ON C.CustomerID = T.CustomerID AND C.OutletID = T.OutletID
+LEFT JOIN V_SAP_FOCWithExchange FOC 
+    ON FOC.CustomerTypeID = IIF(C.CustomerTypeID = 3 AND C.BillsOpenNumber = 1, 1, T.SalesMode)
+    AND FOC.TransactionTypeID = '{str4}'
+WHERE TD.TransactionID = '{TransactionID1}'
+GROUP BY 
+    I.ItemCode, PTL.Description, TD.Price, DiscountPercentage,
+    T.OrganizationID, PD.Price, FOC.MainItem, P.PackID,
+    Division.DivisionCode, TD.SalesTransactionTypeID
+
+ORDER BY 
+    TD.SalesTransactionTypeID DESC, 
+    Division.DivisionCode, 
+    I.ItemCode
+";
+
+                        // 2. Now you can debug: set breakpoint here and check "orderDetailsQuery" in debugger
+
+                        // 3. Pass the variable into InCubeQuery
+                        this.incubeQuery = new InCubeQuery(this.db_vms, orderDetailsQuery);
+
+                        // 4. Execute
                         if (this.incubeQuery.Execute() != 0)
                         {
                             result = InCubeLibrary.Result.Failure;
@@ -4454,7 +4534,7 @@ where SAP_Reference.Transactionid = '{TransactionID}'";
                 StringBuilder stringBuilder = new StringBuilder();
                 InCubeLibrary.Result result = InCubeLibrary.Result.UnKnown;
                 string responseBody = "";
-                string body = "";
+                string body = ""; 
 
                 if (this.Filters.EmployeeID != -1)
                     str1 = "AND EmployeeID = " + this.Filters.EmployeeID.ToString();
@@ -4462,7 +4542,7 @@ where SAP_Reference.Transactionid = '{TransactionID}'";
                 this.incubeQuery = new InCubeQuery(
                     this.db_vms,
                     $@"SELECT V_POST_Billing.DeliveryRef, V_POST_Billing.BillingType, 
-                      V_POST_Billing.BillingDate, V_POST_Billing.TransactionID 
+                      V_POST_Billing.BillingDate, V_POST_Billing.TransactionID ,IsExchange
                FROM V_POST_Billing
                INNER JOIN [Transaction] ON V_POST_Billing.TransactionID = [Transaction].TransactionID
                WHERE CONVERT(date, TransactionDate) >= '{this.Filters.FromDate:yyyy-MM-dd}' 
@@ -4500,10 +4580,12 @@ where SAP_Reference.Transactionid = '{TransactionID}'";
                     { 11, deliveryRef }
                 });
 
-                        string billingType = dataTable1.Rows[index]["BillingType"].ToString();
-                        string billingDate = dataTable1.Rows[index]["BillingDate"].ToString();
-                        TransactionID = dataTable1.Rows[index]["TransactionID"].ToString();
+                        string BillingType = dataTable1.Rows[index]["BillingType"].ToString();
+                        string BillingDate = dataTable1.Rows[index]["BillingDate"].ToString();
+                        string salesordernum = dataTable1.Rows[index]["DeliveryRef"].ToString();
 
+                        TransactionID = dataTable1.Rows[index]["TransactionID"].ToString();
+                        bool IsExchange = Convert.ToBoolean(dataTable1.Rows[index]["IsExchange"]);
                         InCubeQuery inCubeQuery = new InCubeQuery(this.db_vms,
                             $"SELECT DeliveryRef FROM SAP_Reference WHERE TransactionID = '{TransactionID}'");
 
@@ -4511,21 +4593,49 @@ where SAP_Reference.Transactionid = '{TransactionID}'";
                             ? inCubeQuery.GetDataTable()
                             : throw new Exception("Delivery query failed for TransactionID " + TransactionID);
 
-                        List<object> deliveryList = new List<object>();
-                        foreach (DataRow row in dataTable2.Rows)
+
+
+
+
+                        List<object> deliveryItems;
+
+                        if (IsExchange)
                         {
-                            string delRef = row["DeliveryRef"].ToString();
-                            deliveryList.Add(new { Delivery = delRef });
+                            deliveryItems = new List<object> { new { Delivery = salesordernum } };
+                        }
+                        else
+                        {
+                            deliveryItems = new List<object>();
+
+                            // Use dataTable2 instead of dtDeliveries
+                            foreach (DataRow row in dataTable2.Rows)
+                            {
+                                string deliveryRef2 = row["DeliveryRef"].ToString();
+                                deliveryItems.Add(new { Delivery = deliveryRef2 });
+                            }
                         }
 
-                        var data = new
+                        var headerDataObject = new
                         {
-                            BillingType = billingType,
-                            BillingDate = billingDate,
-                            ToBillingItems = deliveryList
+                            BillingType = BillingType,
+                            BillingDate = BillingDate,
+                            ToBillingItems = deliveryItems
                         };
+                        //List<object> deliveryList = new List<object>();
+                        //foreach (DataRow row in dataTable2.Rows)
+                        //{
+                        //    string delRef = row["DeliveryRef"].ToString();
+                        //    deliveryList.Add(new { Delivery = delRef });
+                        //}
 
-                        body = JsonConvert.SerializeObject(data);
+                        //var data = new
+                        //{
+                        //    BillingType = billingType,
+                        //    BillingDate = billingDate,
+                        //    ToBillingItems = deliveryList
+                        //};
+
+                        body = JsonConvert.SerializeObject(headerDataObject);
 
                         MezzanSimpleResult[] request = Tools.GetRequest<MezzanSimpleResult>(
                             CoreGeneral.Common.GeneralConfigurations.WS_URL +
@@ -5151,7 +5261,7 @@ INNER JOIN WarehouseTransaction
                         string str4 = dataTable1.Rows[index1]["EmployeeCode"].ToString();
                         string str5 = dataTable1.Rows[index1]["VoucherNumber"].ToString();
                         string str6 = dataTable1.Rows[index1]["VoucherDate"].ToString();
-                        this.incubeQuery = new InCubeQuery(this.db_vms, $"select SR.BillingRef, IIF(cp.organizationid<>9 ,(CP.AppliedAmount) *10,(CP.AppliedAmount)), CP.AppliedPaymentID from CustomerPayment CP\r\nINNER JOIN SAP_Reference SR ON SR.TransactionID = CP.TransactionID\r\nLEFT JOIN SAP_Reference S ON S.TransactionID = CP.AppliedPaymentID\r\nwhere CustomerPaymentID = '{str2}' AND SR.BillingRef IS NOT NULL AND (S.TransactionID IS NULL OR S.CollectionRef IS NULL)");
+                        this.incubeQuery = new InCubeQuery(this.db_vms, $"select SR.BillingRef, IIF(cp.organizationid<>9 ,(CP.AppliedAmount) *10,(CP.AppliedAmount)) as AppliedAmount, CP.AppliedPaymentID from CustomerPayment CP\r\nINNER JOIN SAP_Reference SR ON SR.TransactionID = CP.TransactionID\r\nLEFT JOIN SAP_Reference S ON S.TransactionID = CP.AppliedPaymentID\r\nwhere CustomerPaymentID = '{str2}' AND SR.BillingRef IS NOT NULL AND (S.TransactionID IS NULL OR S.CollectionRef IS NULL)");
                         if (this.incubeQuery.Execute() != 0)
                         {
                             result1 = InCubeLibrary.Result.Failure;
