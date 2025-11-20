@@ -1220,11 +1220,11 @@ CREATE TABLE {0}({1}
             //SendDelivery("", "SRE", false);
             //ReSendInvoice();
            ///////////////////////////
-    SendInvoice();
+    //SendInvoice();
        SendDelivery("", "SRE", false);
-     SendPGI("", "SRE", false);
-        SendBilling("");
-            SendExchange();
+   //  SendPGI("", "SRE", false);
+     //   SendBilling("");
+        //  SendExchange();
 
             // AboodAPI("INV-11604-000021");
 
