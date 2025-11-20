@@ -1220,11 +1220,11 @@ CREATE TABLE {0}({1}
             //SendDelivery("", "SRE", false);
             //ReSendInvoice();
            ///////////////////////////
-    //SendInvoice();
+  SendInvoice();
        SendDelivery("", "SRE", false);
-   //  SendPGI("", "SRE", false);
-     //   SendBilling("");
-        //  SendExchange();
+    SendPGI("", "SRE", false);
+     SendBilling("");
+     SendExchange();
 
             // AboodAPI("INV-11604-000021");
 
@@ -1560,7 +1560,7 @@ where convert(date, TransactionDate) >= '{0}' AND convert(date, TransactionDate)
                             this.WriteMessage("Success, ERP No: " + request[0].d.SalesDocumentno);
                             this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE [WarehouseTransaction] SET Synchronized = 1,LPONumber='1',TruckNumber='{request[0].d.SalesDocumentno}' WHERE TransactionID = '{TransactionID}'");
                             int num3 = (int)this.incubeQuery.ExecuteNonQuery();
-                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO SAP_Reference SELECT WarehouseTransaction.TransactionID, '{request[0].d.SalesDocumentno}', NULL, NULL, NULL, NULL, div.DivisionCode FROM WarehouseTransaction INNER JOIN ( SELECT DISTINCT DivisionCode, TransactionID FROM WhTransDetail INNER JOIN pack ON pack.PackID = WhTransDetail.PackID INNER JOIN item ON item.ItemID = pack.ItemID INNER JOIN ItemCategory ON ItemCategory.ItemCategoryID = item.ItemCategoryID INNER JOIN Division ON Division.DivisionID = ItemCategory.DivisionID ) div ON div.TransactionID = WarehouseTransaction.TransactionID WHERE WarehouseTransaction.TransactionID = '{TransactionID}'");
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO SAP_Reference SELECT WarehouseTransaction.TransactionID, '{request[0].d.SalesDocumentno}', NULL, NULL, NULL, NULL, div.DivisionCode,null FROM WarehouseTransaction INNER JOIN ( SELECT DISTINCT DivisionCode, TransactionID FROM WhTransDetail INNER JOIN pack ON pack.PackID = WhTransDetail.PackID INNER JOIN item ON item.ItemID = pack.ItemID INNER JOIN ItemCategory ON ItemCategory.ItemCategoryID = item.ItemCategoryID INNER JOIN Division ON Division.DivisionID = ItemCategory.DivisionID ) div ON div.TransactionID = WarehouseTransaction.TransactionID WHERE WarehouseTransaction.TransactionID = '{TransactionID}'");
                             int num4 = (int)this.incubeQuery.ExecuteNonQuery();
                             this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID}', '{request[0].d.SalesDocumentno}', 'SendOffload()', '{body}', '{responseBody.Replace("'", "*")}'");
                             int num5 = (int)this.incubeQuery.ExecuteNonQuery();
@@ -2684,9 +2684,9 @@ ORDER BY
                             this.WriteMessage("Success, ERP No: " + request[0].d.SalesDocumentno);
                             this.incubeQuery = new InCubeQuery(this.db_vms, $"UPDATE [Transaction] SET Synchronized = 1,LPONumber='1',Description='{request[0].d.SalesDocumentno}' WHERE TransactionID = '{TransactionID1}'");
                             int num5 = (int)this.incubeQuery.ExecuteNonQuery();
-                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO SAP_Reference SELECT t.TransactionID, '{request[0].d.SalesDocumentno}', null, null, null, null, DivisionCode FROM [Transaction] t INNER JOIN ( SELECT DISTINCT DivisionCode, TransactionID FROM TransactionDetail INNER JOIN pack ON pack.PackID = TransactionDetail.PackID INNER JOIN item ON item.ItemID = pack.ItemID INNER JOIN ItemCategory ON ItemCategory.ItemCategoryID = item.ItemCategoryID INNER JOIN Division ON Division.DivisionID = ItemCategory.DivisionID ) div ON div.TransactionID = t.TransactionID WHERE t.TransactionID = '{TransactionID1}'");
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO SAP_Reference SELECT t.TransactionID, '{request[0].d.SalesDocumentno}', null, null, null, null, DivisionCode,null FROM [Transaction] t INNER JOIN ( SELECT DISTINCT DivisionCode, TransactionID FROM TransactionDetail INNER JOIN pack ON pack.PackID = TransactionDetail.PackID INNER JOIN item ON item.ItemID = pack.ItemID INNER JOIN ItemCategory ON ItemCategory.ItemCategoryID = item.ItemCategoryID INNER JOIN Division ON Division.DivisionID = ItemCategory.DivisionID ) div ON div.TransactionID = t.TransactionID WHERE t.TransactionID = '{TransactionID1}'");
                             int num6 = (int)this.incubeQuery.ExecuteNonQuery();
-                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO SAP_Reference SELECT t.TransactionID, '{request[0].d.SalesDocumentno}', null, null, null, null, DivisionCode FROM [Transaction] t INNER JOIN ( SELECT DISTINCT DivisionCode, TransactionID FROM TransactionDetail INNER JOIN pack ON pack.PackID = TransactionDetail.PackID INNER JOIN item ON item.ItemID = pack.ItemID INNER JOIN ItemCategory ON ItemCategory.ItemCategoryID = item.ItemCategoryID INNER JOIN Division ON Division.DivisionID = ItemCategory.DivisionID ) div ON div.TransactionID = t.TransactionID WHERE t.TransactionID = '{TransactionID2}'");
+                            this.incubeQuery = new InCubeQuery(this.db_vms, $"INSERT INTO SAP_Reference SELECT t.TransactionID, '{request[0].d.SalesDocumentno}', null, null, null, null, DivisionCode,null FROM [Transaction] t INNER JOIN ( SELECT DISTINCT DivisionCode, TransactionID FROM TransactionDetail INNER JOIN pack ON pack.PackID = TransactionDetail.PackID INNER JOIN item ON item.ItemID = pack.ItemID INNER JOIN ItemCategory ON ItemCategory.ItemCategoryID = item.ItemCategoryID INNER JOIN Division ON Division.DivisionID = ItemCategory.DivisionID ) div ON div.TransactionID = t.TransactionID WHERE t.TransactionID = '{TransactionID2}'");
                             int num7 = (int)this.incubeQuery.ExecuteNonQuery();
                             this.incubeQuery = new InCubeQuery(this.db_vms, $"EXEC SP_InsertSAPPostingData '{TransactionID1}', '{request[0].d.SalesDocumentno}', 'SendInvoice()', '{body}', '{responseBody.Replace("'", "*")}'");
                             int num8 = (int)this.incubeQuery.ExecuteNonQuery();
@@ -3191,19 +3191,32 @@ ORDER BY TD.SalesTransactionTypeID, Division.DivisionCode, I.ItemCode, P.PackID
                                 $"UPDATE [Transaction] SET Synchronized = 1, LPONumber='1', Description='{sapDoc}' WHERE TransactionID = '{transactionID}'");
                             incubeQuery.ExecuteNonQuery();
 
-                            incubeQuery = new InCubeQuery(db_vms, $@"
-INSERT INTO SAP_Reference
-SELECT t.TransactionID, '{sapDoc}', null, null, null, null, DivisionCode
+                            incubeQuery = new InCubeQuery(db_vms, $@"INSERT INTO SAP_Reference (TransactionID, SalesOrderRef, DeliveryRef, PGIRef, BillingRef, CollectionRef, Divisioncode, DivisionSequence)
+SELECT 
+    t.TransactionID, 
+    '{sapDoc}', 
+    null, 
+    null, 
+    null, 
+    null, 
+    div.DivisionCode,
+    ROW_NUMBER() OVER (ORDER BY div.SalesTransactionTypeID, div.DivisionCode) AS DivisionSequence
 FROM [Transaction] t
 INNER JOIN (
-    SELECT DISTINCT DivisionCode, TransactionID
-    FROM TransactionDetail
-    INNER JOIN Pack ON Pack.PackID = TransactionDetail.PackID
+    SELECT DISTINCT 
+        td.TransactionID,
+        Division.DivisionCode,
+        MIN(td.SalesTransactionTypeID) as SalesTransactionTypeID
+    FROM TransactionDetail td
+    INNER JOIN Pack ON Pack.PackID = td.PackID
     INNER JOIN Item ON Item.ItemID = Pack.ItemID
     INNER JOIN ItemCategory ON ItemCategory.ItemCategoryID = Item.ItemCategoryID
     INNER JOIN Division ON Division.DivisionID = ItemCategory.DivisionID
+    WHERE td.TransactionID = '{transactionID}'
+    GROUP BY td.TransactionID, Division.DivisionCode
 ) div ON div.TransactionID = t.TransactionID
-WHERE t.TransactionID = '{transactionID}'");
+WHERE t.TransactionID = '{transactionID}'
+ORDER BY div.SalesTransactionTypeID, div.DivisionCode;");
                             incubeQuery.ExecuteNonQuery();
 
                             incubeQuery = new InCubeQuery(db_vms,
@@ -3301,7 +3314,22 @@ WHERE t.TransactionID = '{transactionID}'");
                 }
                 else
                 {
-                    queryString1 = $"SELECT Divisioncode,  SalesOrderRef,V_POST_SalesDelivery.EmployeeCode,OrganizationCode,V_POST_SalesDelivery.TransactionID,V_POST_SalesDelivery.TransactionTypeID  FROM\tV_POST_SalesDelivery\r\ninner join [Transaction] on V_POST_SalesDelivery.TransactionID= [Transaction].TransactionID  where [Transaction].Transactionid='{TransactionID}' order by V_POST_SalesDelivery.TransactionID, Divisioncode  ";
+                    queryString1 = $@"	SELECT 
+    V_POST_SalesDelivery.Divisioncode,  
+    V_POST_SalesDelivery.SalesOrderRef,
+    V_POST_SalesDelivery.EmployeeCode,
+    OrganizationCode,
+    V_POST_SalesDelivery.TransactionID,
+    V_POST_SalesDelivery.TransactionTypeID  
+FROM V_POST_SalesDelivery
+INNER JOIN [Transaction] ON V_POST_SalesDelivery.TransactionID = [Transaction].TransactionID  
+LEFT JOIN SAP_Reference SR ON SR.TransactionID = [Transaction].TransactionID 
+    AND SR.Divisioncode = V_POST_SalesDelivery.Divisioncode
+
+ORDER BY 
+    V_POST_SalesDelivery.TransactionID,
+    SR.DivisionSequence,
+    V_POST_SalesDelivery.Divisioncode";
                 }
 
                 this.incubeQuery = new InCubeQuery(this.db_vms, queryString1);
